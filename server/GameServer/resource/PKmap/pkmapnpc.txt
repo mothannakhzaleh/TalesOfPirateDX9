@@ -1,0 +1,3 @@
+//Serial	NPC Name	NPC Type	Chrindex ID	Show Mini-map	Coordinates starting point	Coordination Goal	NPC placement	Region	Region ID	NPC Script	info manage	Test Status
+1	Island Teleport - Niecy	1	11	7	6728,4223	6728,4223	219	PK Island	70	0	TeleportIsland	0
+2	Nurse - Nala	1	419	3	6111,4456	6111,4456	-289	PK Island	20	0	r_talk04	0

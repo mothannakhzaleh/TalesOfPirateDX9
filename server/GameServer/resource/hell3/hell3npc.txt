@@ -1,0 +1,11 @@
+//No.	NPCName	NPCType	ChrIndexID	Small map display	Coordinate point	Coordinates of the end	NPCFace	Area	Area code	NPCScript	Detection state message processing
+1	Abaddon Merchant	1	827	12	19100,17400	19100,17400	180	Abaddon Heaven	86	0	dysr_talk	0
+//2	Xi Erta	1	403	0	31400, 30300	31400, 30300	174	Abaddon 15	123	0	el_talk12	0
+3	Aeolia	1	473	0	8000,19000	8000,19000	260	Abaddon 10	118	0	dina_talk16	0
+4	Shaka	1	473	0	7900,7800	7900,7800	260	Abaddon 11	119	0	dina_talk17	0
+5	Dokho	1	473	0	21000,8000	21000,8000	260	Abaddon 12	120	0	dina_talk18	0
+6	Milo	1	473	0	32600,7600	32600,7600	260	Abaddon 13	121	0	dina_talk19	0
+7	Aiolos	1	473	0	32000,19500	32000,19500	260	Abaddon 14	122	0	dina_talk20	0
+8	Shura	1	473	0	31800,31700	31800,31700	260	Abaddon 15	123	0	dina_talk21	0
+9	Camus	1	473	0	19800,31000	19800,31000	260	Abaddon 16	124	0	dina_talk22	0
+10	Aphrodite	1	473	0	8000,31500	8000,31500	260	Abaddon 17	125	0	dina_talk23	0

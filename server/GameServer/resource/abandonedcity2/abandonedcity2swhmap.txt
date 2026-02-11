@@ -1,0 +1,6 @@
+//Forsaken City 2 portal list								
+//ID	binded entity ID	incident type	entity placement location	entity placement direction	Target map name	Target map location	Activate Determinant Requirement	Name
+1	193	1	2433,2229	-1	abandonedcity	8067,24320	1	2 to 1
+2	193	1	23597,1978	-1	abandonedcity	8067,24320	1	2 to 1
+3	193	1	46025,47088	-1	abandonedcity	8067,24320	1	2 to 1
+4	193	1	2472,47134	-1	abandonedcity	8067,24320	1	2 to 1

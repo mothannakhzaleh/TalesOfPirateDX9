@@ -1,0 +1,12 @@
+//ID	binded entity ID	incident type	entity placement location	entity placement direction	Target map name	Target map location	Activate Determinant Requirement	Name
+1	193	1	35225,37862	-1	garner	27126,177569	1	¼ÅÄ¯Ö®Ëþ1£­ÍâÃæ
+2	193	1	26775,25725	-1	lonetower	3625,2426	1	¼ÅÄ¯Ö®Ëþ1£­2
+3	193	1	3575,1875	-1	lonetower	26476,26585	1	¼ÅÄ¯Ö®Ëþ2£­1
+4	193	1	13975,12871	-1	lonetower	11975,40319	1	¼ÅÄ¯Ö®Ëþ2£­3
+5	193	1	12025,41013	-1	lonetower	14774,12720	1	¼ÅÄ¯Ö®Ëþ3£­2
+6	193	1	5625,30575	-1	lonetower	31975,17067	1	¼ÅÄ¯Ö®Ëþ3£­4
+7	193	1	32025,17887	-1	lonetower	5275,30175	1	¼ÅÄ¯Ö®Ëþ4£­3
+8	193	1	23879,7325	-1	lonetower	48675,12225	1	¼ÅÄ¯Ö®Ëþ4£­5
+9	193	1	47975,12175	-1	lonetower	24379,7375	1	¼ÅÄ¯Ö®Ëþ5£­4
+10	193	1	54775,3943	-1	lonetower	49486,29775	1	¼ÅÄ¯Ö®Ëþ5£­6
+11	193	1	48832,29775	-1	lonetower	54775,2776	1	¼ÅÄ¯Ö®Ëþ6£­5

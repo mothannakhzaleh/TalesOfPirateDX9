@@ -1,0 +1,1 @@
+start system\Game.exe pKcfT0PcaX clu_bin

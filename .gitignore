@@ -1,0 +1,151 @@
+/Celestial Test
+
+lib/
+bin/
+tmp/
+doc/
+etc/
+obj/
+Long_Struct_Release/
+Long_Struct_Debug/
+
+Release/
+Debug/
+
+*.ncb
+*.suo
+
+temp/
+objs/
+
+.vs/
+
+*.dat
+*.zip
+# User-specific files
+*.tlog
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.tlog
+*.lastbuildstate
+*,pch
+*.zip
+# User-specific files
+*.tlog
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.tlog
+*.lastbuildstate
+.vs/
+
+!Client/bin/
+Client/bin/*
+
+!Client/bin/texture/
+Client/bin/texture/*
+
+!Client/bin/texture/ui/
+Client/bin/texture/ui/*
+
+!Client/bin/texture/ui/new/
+
+!Client/bin/scripts/
+Client/bin/scripts/*
+
+!Client/bin/scripts/lua/
+Client/bin/scripts/lua/*
+
+!Client/bin/scripts/lua/forms/
+
+!Common/CaLua/Lua/lib
+!Common/DirectX8/lib/
+!Common/IGameSDK/lib
+!Common/Ipss/lib
+!Common/SDL-1.2.7/lib
+!Libraries/CaLua/Lua/lib/
+!Libraries/DirectX/DirectX8/lib/
+!Libraries/DirectX/DirectX9/lib/
+!Libraries/DirectX/lib/
+!Libraries/Discord/lib/
+!Libraries/IGameSDK/lib/
+!Libraries/icu/lib/
+
+!Libraries/Ipss/lib/
+!Libraries/SDL-1.2.7/lib/
+!Libraries/Ipss/bin/
+!Libraries/LuaJIT/lib/
+!Libraries/LuaJIT/luajit.exe
+!Libraries/MaxSDK/lib/
+*.copied
+
+Libraries/Server/sdk/build/Release Client/microsoft/STL/std.compat.ixx.ifc.dt.d.json
+Libraries/Server/sdk/build/Release Client/microsoft/STL/std.compat.ixx.ifc.dt.module.json
+*.obj
+Libraries/Server/sdk/build/Release Client/
+*.log
+ServerSide/GameServer/tmp.txt
+
+ServerSide/GameServer/PlayerData/Boss/*.txt
+ServerSide/GameServer/LOG/*.txt
+ServerSide/GameServer/LOG/GameServer00/*.txt
+ServerSide/GameServer/LOG/GameServer01/*.txt
+ServerSide/GameServer/LOG/GameServer02/*.txt
+ServerSide/GameServer/LOG/GameServer03/*.txt
+logfile/
+ServerSide/GameServer/LOG/
+*.recipe
+*.pch
+Client/build/ReleaseDX9/
+*.ilk
+ServerSide/GameServer/resource/**/*.bin
+ServerSide/GameServer/resource/*.bin
+ServerSide/GameServer/LOG/**/*.txt
+
+
+
+
+
+
+!Phoenix Online/bin/
+
+!Phoenix Online/texture/
+
+!Phoenix Online/texture/ui/
+
+!Phoenix Online/texture/ui/new/
+
+!Phoenix Online/scripts/
+
+!Phoenix Online/scripts/lua/
+!Phoenix Online/map/*.obj
+!Phoenix Online/map/*.rbo
+!Phoenix Online/scripts/lua/forms/
+Phoenix Online/_TempData
+Phoenix Online/calua_err.txt
+Phoenix Online/lua_err.txt
+Phoenix Online/ulog.txt
+Phoenix Online/ver
+Phoenix Online/ver.rec
+Phoenix Online/VerInfo.rec
+ServerSide/GameServer/PlayerData/*/*.txt
+*.pdb
+ServerSide/GameServer/*_D.exe
+Phoenix Online/system/x64/MindPower3D_D8D64.dll
+ServerSide/GameServer/GameServer_D64.exe
+ServerSide/GateServer/GateServer_D64.exe
+ServerSide/GroupServer/GroupServer_D64.exe
+ServerSide/AccountServer/AccountServer_D64.exe
+Phoenix Online/system/x64/Game_D64.exe
+Phoenix Online/system/*/Game*.exe
+Phoenix Online/system/*/MindPower3D_D8R*.dll
+ServerSide/GameServer/GameServer*.exe
+ServerSide/GateServer/GateServer*.exe
+ServerSide/AccountServer/AccountServer*.exe
+ServerSide/GroupServer/GroupServer*.exe
+Phoenix Online/log*/
+DatabasePath/GameDtopnet64.mdf
+DatabasePath/GameDtopnet64_log.ldf

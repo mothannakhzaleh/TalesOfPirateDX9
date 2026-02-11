@@ -1,0 +1,1 @@
+1	Seaport Commander	1	453	9	30425,34537	30425,34537	177	Dark Swamp	87	0	r_talk261	0

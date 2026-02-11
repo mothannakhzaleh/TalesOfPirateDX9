@@ -1,0 +1,6 @@
+//No.	NPCName	NPCType	ChrIndexID	Small map display	Coordinate point	Coordinates of the end	NPCFace	Area	Area code	NPCScript	Detection state message processing
+1	Larry	1	441	0	19000, 18100	19000, 18100	264	Abaddon 7	115	0	el_talk11	0
+2	Mu	1	473	0	5900,5100	5900,5100	230	Abaddon 5	175	0	dina_talk12	0
+3	Aldebaran	1	473	0	17800,7700	17800,7700	40	Abaddon 6	215	0	dina_talk13	0
+4	Saga	1	473	0	20500,17000	20500,17000	310	Abaddon 7	260	0	dina_talk14	0
+5	Death Mask	1	473	0	8500,19800	8500,19800	130	Abaddon 8	300	0	dina_talk15	0

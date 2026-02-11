@@ -1,0 +1,44 @@
+//Serial	NPC Name	NPC Type	Chrindex ID	Show Mini-map	Coordinates starting point	Coordination Goal	NPC placement	Region	Region ID	NPC Script	info manage	Test Status
+1	Resident - Auntie Susan	1	737	11	40400,63900	40400,63900	180	Dream City	157	0	dream_talk01	0
+2	Resident - May	1	758	12	43300,61900	43300,61900	270	Dream City	157	0	dream_talk02	0
+3	Private - Whitely	1	735	0	45400,59000	45400,59000	180	Dream City	157	0	dream_talk03	0
+4	Private - Goldy	1	735	0	45400,60200	45400,60200	0	Dream City	157	0	dream_talk04	0
+5	Private - Solomon	1	735	0	32700,59600	32700,59600	270	Dream City	157	0	dream_talk05	0
+6	Private - Maesomom	1	735	0	32700,60300	32700,60300	270	Dream City	157	0	dream_talk06	0
+7	Private - Hawong	1	410	0	34200,55800	34200,55800	180	Dream City	157	0	dream_talk07	0
+8	Private - Hachoi	1	409	0	34800,55900	34800,55900	180	Dream City	157	0	dream_talk08	0
+9	Dream City Captain - Haagen Dazs	1	1170	0	40700,53800	40700,53800	180	Dream City	157	0	dream_talk09	0
+10	Banker - Lovely	1	755	0	34600,58800	34600,58800	180	Dream City	157	0	dream_talk10	0
+11	Banker - Abbey	1	16	0	43700,60600	43700,60600	0	Dream City	157	0	dream_talk11	0
+12	Mysterious Loner - Xiaoxun	1	30	0	36700,50600	36700,50600	90	Dream City	157	0	dream_talk12	0
+13	Millionaire - Sheep	1	421	0	36600,56800	36600,56800	180	Dream City	157	0	dream_talk13	0
+14	Teleporter - Shiyazhi	1	1173	7	34300,64000	34300,64000	90	Dream City	157	0	dream_talk14	0
+15	Teleporter - Feifei	1	732	7	41200,65800	41200,65800	90	Dream City	157	0	dream_talk15	0
+16	Teleporter - Huihui	1	418	7	43500,54700	43500,54700	180	Dream City	157	0	dream_talk16	0
+17	Teleporter - Xiuxiu	1	423	7	36600,53400	36600,53400	180	Dream City	157	0	dream_talk17	0
+18	Event NPC - Jingle	1	260	0	37900,59900	37900,59900	270	Dream City	157	0	dream_talk18	0
+19	Physician - Strong	1	759	13	39200,55000	39200,55000	180	Dream City	157	0	dream_talk19	0
+20	Hotel Owner - Whiskey	1	421	0	43700,64700	43700,64700	270	Dream City	157	0	dream_talk20	0
+21	Hotel Owner - Dust	1	421	0	43700,65800	43700,65800	270	Dream City	157	0	dream_talk21	0
+22	Flower Fairy JJ - Linger	1	1174	0	30800,53700	30800,53700	270	Dream City	157	0	dream_talk22	0
+23	Flower Fairy MM - Snowy	1	1064	0	43200,50100	43200,50100	0	Dream City	157	0	dream_talk23	0
+24	Nurse - Blue	1	29	3	40400,54800	40400,54800	180	Dream City	157	0	dream_talk24	0
+25	Resident - Olda	1	14	0	36900,63100	36900,63100	180	Dream City	157	0	dream_talk25	0
+26	Resident - Uncle Jack	1	415	0	40800,65300	40800,65300	0	Dream City	157	0	dream_talk26	0
+27	Resident - Red-bearded Grandpa	1	452	0	39000,65200	39000,65200	0	Dream City	157	0	dream_talk27	0
+28	Resident - Depress	1	1142	0	44700,54500	44700,54500	180	Dream City	157	0	dream_talk28	0
+29	Tools - Honor	1	17	13	42600,56500	42600,56500	270	Dream City	157	0	dream_talk29	0
+30	Accessory - Twinkle	1	17	13	43800,56200	43800,56200	0	Dream City	157	0	dream_talk30	0
+31	Tailor - Feifan	1	17	13	45000,56300	45000,56300	0	Dream City	157	0	dream_talk31	0
+32	Grocery - Bazhe	1	756	13	43300,58500	43300,58500	180	Dream City	157	0	dream_talk32	0
+33	Fruit Merchant - Linger	1	17	13	40500,56500	40500,56500	270	Dream City	157	0	dream_talk33	0
+34	Armory Merchant - Perak	1	17	13	37100,65200	37100,65200	360	Dream City	157	0	dream_talk34	0
+35	Blacksmith - Uncle Jin	1	733	13	36200,65100	36400,65200	0	Dream City	157	0	dream_talk35	0
+36	City Leader - Alex	1	417	0	33600,54400	33600,54400	180	Dream City	157	0	dream_talk36	0
+37	Bar Waitress - Cuihua	1	407	0	43500,63400	33600,54400	270	Dream City	157	0	dream_talk37	0
+38	Beach Shop - Xiao Li	1	30	0	47100,62200	47100,62200	0	Dream City	157	0	dream_talk38	0
+39	Teleporter - Junior You	1	774	7	65200,28100	65200,28100	180	Forgotten Island	159	0	dream_talk39	0
+40	Bard - Er Hao	1	775	0	66900,11000	66900,11000	45	Forgotten Island	159	0	dream_talk40	0
+41	Teleporter - Rolan	1	424	7	25000,15400	25000,15400	260	Region of the Demons	158	0	dream_talk41	0
+42	Traveler - Nawei	1	415	11	15700,25300	15700,25300	160	Region of the Demons	158	0	dream_talk42	0
+//43	Demon Deacon - Sebastien	1	1311	0	38000,60800	38000,60800	260	Dream City	157	0	dream_talk43	0

@@ -1,0 +1,5 @@
+//ID	binded entity ID	incident type	entity placement location	entity placement direction	Target map name	Target map location	Activate Determinant Requirement	Name
+1	193	1	178614,264696	-1	eastgoaf	22967,2878	1	Silver Mine 1 to Silver Mine 2
+2	193	1	174138,266753	-1	eastgoaf	11623,3330	1	Abandoned Mine 1 - Abandoned Mine 2
+3	193	1	26875,178275	-1	lonetower	35178,37078	1	Sacred Forest - Lone Tower 1
+//4	2492	4	230011,289511	-1	jialebi	50711,103711	1	Ascaron - Caribbean

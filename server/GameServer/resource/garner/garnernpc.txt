@@ -1,0 +1,156 @@
+//Serial	NPC Name	NPC Type	Chrindex ID	Show Mini-map	Coordinates starting point	Coordination Goal	NPC placement	Region	Region ID	NPC Script	info manage	Test Status
+0	Argent Teleporter - Jovial	1	11	7	218700,277600	218700,277600	180	Argent City	1	0	TeleportCity	0
+1	Argent Secretary - Salvier	1	14	0	221925,274925	221925,274925	180	Argent City	1	0	r_talk01	r_npcstate01
+2	Blacksmith - Goldie	1	20	1	219312,270612	219312,270612	114	Argent City	1	0	r_trade01	0
+3	Castle Guard - Peter	1	5	0	219220,276700	219220,276700	90	Argent City	1	0	r_talk86	0
+4	Citizen - Margaret	1	28	0	227930,274654	227930,274654	84	Argent City	1	0	r_talk08	0
+5	Granny Beldi	1	18	0	227725,276925	227725,276925	180	Argent City	1	0	r_talk02	r_npcstate02
+6	Little Daniel	1	425	0	219350,273050	219350,273050	90	Argent City	1	0	r_talk06	0
+7	Trader - Chiroro	1	17	4	233107,282194	233107,282194	234	Argent City	1	0	r_talk10	0
+8	Physican - Ditto	1	17	11	225075,277025	225075,277025	180	Argent City	1	0	r_talk03	r_npcstate03
+9	Banker - Monica	1	16	0	222050,270400	222050,270400	180	Argent City	1	0	r_talk13	0
+10	Innkeeper - Marriam	1	13	0	221150,278125	221150,278125	180	Argent City	1	0	r_talk09	0
+11	Forbei	1	421	0	222629,272668	222629,272668	219	Argent City	1	0	r_talk11	0
+12	Sailer - Coddy	1	410	0	221925,291131	221925,291131	179	Argent City	1	0	r_talk12	0
+13	General - William	1	416	0	227789,283199	227789,283199	84	Argent City	1	0	r_talk14	0
+14	Nurse - Gina	1	29	3	224487,277032	224487,277032	180	Argent City	1	0	r_talk04	r_npcstate04
+15	Shaitan Ambassador - Xiba	1	416	0	225648,270640	225648,270640	180	Argent City	1	0	r_talk15	0
+16	Argent Chairman - Ronnie	1	415	0	224156,274843	224156,274843	264	Argent City	1	0	r_talk16	0
+17	Oldman - Blurry	1	420	0	227208,270036	227208,270036	180	Argent City	1	0	r_talk17	0
+18	Grocery - Jimberry	1	17	12	223200,272900	223200,272900	175	Argent City	1	0	r_talk07	0
+19	Tailor - Granny Nila	1	18	2	226781,270475	226781,270475	180	Argent City	1	0	BT_NpcSale001	0
+20	Assistant - Rouri	1	16	0	224075,275275	224075,275275	270	Argent City	1	0	r_talk18	0
+21	Newbie Guide - Senna	1	11	15	222375,278525	222375,278525	180	Argent City	1	0	BT_NewUser001	BT_State002
+22	Barmaid - Donna	1	11	0	222499,288750	222499,288750	264	Argent City	1	0	r_talk05	0
+23	Tourist - Ja	1	402	0	221588,282819	221588,282819	219	Argent City	1	0	r_talk19	0
+24	Drunkyard - Anthony	1	10	0	222270,288954	222270,288954	54	Argent City	1	0	r_talk20	0
+25	Youth - Tommy	1	414	0	196225,269425	196225,269425	115	Belmont Plains	3	0	r_talk21	0
+26	Manufacturer - Desmond	1	429	0	173269,278261	173269,278261	189	Belmont Plains	3	0	r_talk22	0
+27	D EDITION - SMUGGLING BUNNY	1	10	0	229833,252025	229833,252025	89	Belmont Plains	3	0	r_talk23	0
+28	Navy Commander - Dessaro	1	417	0	71350,141619	71350,141619	174	Thundoria Castle	8	0	r_talk24	0
+29	Bar Waitress - Mona	1	413	0	99089,126306	99089,126306	84	Thundoria Harbor	10	0	r_talk25	0
+30	Sailor - Dio	1	410	0	108330,128563	108330,128563	54	Thundoria Harbor	10	0	r_talk26	0
+31	Trader - Sanjay	1	17	4	100321,130662	100321,130662	54	Thundoria Harbor	10	0	r_talk27	0
+32	Doctor - Masa	1	406	3	77300,154900	77300,154900	270	Thundoria Castle	8	0	r_talk28	0
+33	Banker - Macurdo	1	24	0	74300,153400	74300,153400	225	Thundoria Castle	8	0	r_talk29	0
+34	Blacksmith - Furlington	1	22	1	76662,144769	76662,144769	-94	Thundoria Castle	8	0	r_talk30	0
+35	Girl - Cindy	1	11	0	74026,145143	74026,145143	189	Thundoria Castle	8	0	r_talk31	0
+36	Shaitan Ambassador - Alix	1	416	0	71220,150827	71220,150827	174	Thundoria Castle	8	0	r_talk32	0
+37	Tools - Wesley	1	19	13	74100,156300	74100,156300	270	Thundoria Castle	8	0	r_talk33	0
+38	Innkeeper - Granny Maya	1	26	0	69761,154269	69761,154269	309	Thundoria Castle	8	0	r_talk34	0
+39	Tailor - Ditter	1	19	2	75450,151200	75450,151200	180	Thundoria Castle	8	0	r_talk35	0
+40	Argent Ambassador - Yata	1	416	0	74171,155325	74171,155325	270	Thundoria Castle	8	0	r_talk36	0
+41	Guard Captain - Mallack	1	5	0	70657,146515	70657,146515	85	Thundoria Castle	8	0	r_talk37	0
+42	Grocer - Kudu	1	19	12	72500,155100	72500,155100	135	Thundoria Castle	8	0	r_talk38	0
+43	Thundoria Teleporter - Sarah	1	418	7	74364,158606	74364,158606	264	Thundoria Castle	8	0	TeleportCity	0
+44	Girl - Rioli	1	413	0	102072,127825	102072,127825	-89	Thundoria Harbor	10	0	r_talk39	0
+45	Navy HQ - General Ken	1	417	0	80800,152100	80800,152100	180	Thundoria Castle	8	0	r_talk40	0
+46	Navy HQ - Colonel Maxi	1	417	0	65323,150512	65323,150512	174	Thundoria Castle	8	0	r_talk41	0
+47	Morpheus - Freya	1	11	0	65146,158595	65146,158595	174	Thundoria Castle	8	0	r_talk42	0
+48	Guard - Nisson	1	12	0	71187,141438	71187,141438	189	Thundoria Castle	8	0	r_talk43	0
+49	Guard - Sonny	1	12	0	71536,141462	71536,141462	189	Thundoria Castle	8	0	r_talk44	0
+50	Tourist - Bey	1	415	0	66976,155428	66976,155428	159	Thundoria Castle	8	0	r_talk45	0
+51	Tourist - Barbi	1	410	0	99475,123473	99475,123473	144	Sacred Snow Mountain	12	0	r_talk46	0
+52	Arena Administrator	1	11	8	221082,289340	221082,289340	264	Argent City	1	0	r_talk87	0
+53	Patrol - Marcusa	1	12	0	206504,273272	206504,273272	279	Belmont Plains	3	0	r_talk88	0
+54	Haven Teleporter - Mabel	1	423	7	62523,210440	62523,210440	84	Chaldea Haven	54	0	TeleportHaven	0
+55	Haven Teleporter - Wendy	1	418	7	101849,297598	101849,297598	264	Andes Forest Haven	53	0	TeleportHaven	0
+56	Doctor - Chivo	1	419	3	63024,209136	63024,209136	179	Chaldea Haven	54	0	r_talk92	0
+57	Doctor - Minoseva	1	407	3	100473,297362	100473,297362	-4	Andes Forest Haven	53	0	r_talk93	0
+58	Fukei	1	429	0	229090,249599	229090,249599	219	Belmont Plains	3	0	r_talk94	0
+59	Xitron	1	10	0	185822,258524	185822,258524	24	Belmont Plains	3	0	r_talk96	0
+60	Kentaro	1	421	0	189434,279865	189434,279865	84	Abandon Mine Haven	55	0	r_talk97	0
+61	Bubu	1	418	0	197396,245713	197396,245713	144	Belmont Plains	3	0	r_talk98	0
+62	Melissa	1	423	0	196356,249252	196356,249252	144	Belmont Plains	3	0	r_talk101	0
+63	Gador	1	408	0	150792,310556	150792,310556	114	Rockery Haven	58	0	r_talk102	0
+64	Little Cuwen	1	403	0	163571,260785	163571,260785	204	Belmont Plains	3	0	r_talk103	0
+65	Aunt Mary	1	13	0	214478,255237	214478,255237	204	Belmont Plains	3	0	r_talk104	0
+66	Waala	1	19	0	113652,277829	113652,277829	129	Valhalla Haven	61	0	r_talk105	0
+67	Alexandis	1	404	0	152621,308970	152621,308970	309	Rockery Haven	58	0	r_talk107	0
+68	Old Cuwen	1	420	0	52923,245873	52923,245873	301	Solace Haven	63	0	r_talk108	0
+69	Sailor 3001	1	410	0	228100,283000	228100,283000	264	Argent City	1	0	r_talk109	0
+70	Sailor 3002	1	410	0	228100,283100	228100,283100	264	Argent City	1	0	r_talk109	0
+71	Sailor 3003	1	410	0	228100,283200	228100,283200	264	Argent City	1	0	r_talk109	0
+72	Sailor 3004	1	410	0	228100,283300	228100,283300	264	Argent City	1	0	r_talk109	0
+73	Sailor 3005	1	410	0	228100,283400	228100,283400	264	Argent City	1	0	r_talk109	0
+74	Sailor 3006	1	409	0	228200,283000	228200,283000	264	Argent City	1	0	r_talk109	0
+75	Sailor 3007	1	409	0	228200,283100	228200,283100	264	Argent City	1	0	r_talk109	0
+76	Sailor 3008	1	409	0	228200,283200	228200,283200	264	Argent City	1	0	r_talk109	0
+77	Sailor 3009	1	409	0	228200,283300	228200,283300	264	Argent City	1	0	r_talk109	0
+78	Sailor 3010	1	409	0	228200,283400	228200,283400	264	Argent City	1	0	r_talk109	0
+79	223 Squadron 1	1	428	0	226965,282267	226965,282267	88	Argent City	1	0	k_talk001	0
+80	223 Squadron 2	1	428	0	226970,283372	226970,283372	88	Argent City	1	0	k_talk001	0
+81	223 Squadron 3	1	428	0	220257,282909	220257,282909	0	Argent City	1	0	k_talk001	0
+82	223 Squadron 4	1	428	0	219678,282934	219678,282934	0	Argent City	1	0	k_talk001	0
+83	The Coral	1	434	0	224215,283223	224215,283223	-79	Argent City	1	0	k_talk001	0
+84	The Whale	1	434	0	224249,283735	224249,283735	-94	Argent City	1	0	k_talk001	0
+85	Maritime Assistant - Alena	1	418	9	224774,285824	224774,285824	-45	Argent City	1	0	r_talk150	0
+86	Builder - Sinbad	1	10	5	225538,280188	225538,280188	174	Argent City	1	0	r_talk151	0
+87	Harbor Operator - Shirley	1	441	9	224367,282625	224367,282625	267	Argent City	1	0	r_talk152	0
+88	Durian	1	30	0	153500,307147	153500,307147	309	Rockery Haven	58	0	r_talk157	0
+89	Leyna	1	28	11	151046,308908	151046,308908	144	Rockery Haven	58	0	r_talk158	0
+90	Don Pitt	1	405	0	111335,277922	111335,277922	74	Valhalla Haven	61	0	r_talk129	0
+91	Professor Fenny	1	15	0	113171,277724	113171,277724	270	Valhalla Haven	61	0	r_talk146	0
+92	Guiderius	1	17	11	112316,276629	112316,276629	-119	Valhalla Haven	61	0	r_talk159	0
+93	Haven Teleporter - Felicia	1	11	7	151923,307654	151923,307654	144	Rockery Haven	58	0	TeleportHaven	0
+94	Haven Teleporter - Elizabeth	1	11	7	112139,278183	112139,278183	354	Valhalla Haven	61	0	TeleportHaven	0
+95	Haven Teleporter - Meiya	1	11	7	191216,280233	191216,280233	223	Abandon Mine Haven	55	0	TeleportHaven	0
+96	Haven Teleporter - Meila	1	11	7	54307,243775	54307,243775	-90	Solace Haven	63	0	TeleportHaven	0
+97	Security - Kal	1	12	0	190914,282038	190914,282038	249	Abandon Mine Haven	55	0	r_talk160	0
+98	Berry	1	414	0	189378,281278	189378,281278	219	Abandon Mine Haven	55	0	r_talk147	0
+99	Geliya	1	444	0	191452,280657	191452,280657	249	Abandon Mine Haven	55	0	r_talk122	0
+100	Greg	1	19	11	188351,280526	188351,280526	174	Abandon Mine Haven	55	0	r_talk162	0
+101	Linda	1	30	0	51543,243709	51543,243709	279	Solace Haven	63	0	r_talk163	0
+102	Dada	1	404	0	58800,238875	58800,238875	189	Solace Haven	63	0	r_talk164	0
+103	Gregg	1	442	11	52675,243215	52675,243215	54	Solace Haven	63	0	r_talk165	0
+104	Harbor Operator - Lufan	1	451	9	325374,330115	325374,330115	219	Zephyr Isle	32	0	r_talk178	0
+105	Harbor Operator - Noel	1	451	9	229932,112280	229932,112280	174	Glacier Isle	36	0	r_talk179	0
+106	Harbor Operator - Lucci	1	451	9	362035,74307	362035,74307	204	Outlaw Isle	35	0	r_talk180	0
+107	Harbor Operator - Whitney	1	451	9	309785,353060	309785,353060	25	Sara Haven	71	0	r_talk181	0
+108	Harbor Operator - Daruka	1	451	9	149778,170712	149778,170712	0	Albania Haven	72	0	r_talk182	0
+109	Harbor Operator - Whitcombe	1	451	9	204187,135503	204187,135503	0	Hafta Haven	73	0	r_talk183	0
+110	Harbor Operator - Fardell	1	451	9	315379,67498	315379,67498	25	Reagen Haven	74	0	r_talk184	0
+111	Trader - Burgess	1	449	4	325401,327828	325401,327828	160	Zephyr Isle	32	0	r_talk185	0
+112	Trader - Sacenis	1	449	4	227910,111264	227910,111264	144	Glacier Isle	36	0	r_talk186	0
+113	Trader - Dilady	1	449	4	359506,73919	359506,73919	144	Outlaw Isle	35	0	r_talk187	0
+114	Harbor Operator - Lt. Wayne	1	445	9	105677,132418	105663,131195	99	Thundoria Harbor	10	0	r_talk207	0
+115	Builder - Attan	1	445	5	106236,129149	106236,129149	264	Thundoria Harbor	10	0	r_talk210	0
+116	Pirate Informer - Gewas	1	429	6	222422,288373	222422,288373	290	Argent City	1	0	r_talk211	0
+117	Navy Informer - Dalongdan	1	12	6	220133,281810	220133,281810	170	Argent City	1	0	r_talk212	0
+118	Navy Recruitment - Rachel	1	443	6	219402,277468	219402,277468	159	Argent City	1	0	r_talk213	0
+119	Freight - Huradar	1	440	9	190742,279862	190742,279862	219	Abandon Mine Haven	55	0	r_talk214	0
+120	Freights - Fernando	1	459	9	103877,128848	103877,128848	294	Thundoria Harbor	10	0	r_talk215	0
+121	Freight - Moken	1	459	9	152228,309599	152228,309599	294	Rockery Haven	58	0	r_talk216	0
+122	Island Teleporter - Silvius	1	11	7	224868,285375	224868,285375	269	Argent City	1	0	TeleportIsland	0
+123	Island Teleporter - Andrea	1	11	7	326626,326695	326626,326695	174	Zephyr Isle	32	0	TeleportIsland	0
+124	Island Teleporter - Arsene	1	11	7	227257,111622	227257,111622	144	Glacier Isle	36	0	TeleportIsland	0
+125	Island Teleporter - Shayala	1	11	7	361161,72801	361161,72801	264	Outlaw Isle	35	0	TeleportIsland	0
+126	Coral Vendor - Lamon	1	450	4	219325,272125	219325,272125	90	Argent City	3	0	r_talk221	0
+127	Tailor - Bebe	1	30	4	226531,270475	226531,270475	180	Argent City	1	0	r_talk222	0
+128	Simon Gilter	1	19	0	64672,208875	64672,208875	-95	Chaldea Haven	54	0	r_talk228	0
+129	Azur Breeze	1	452	0	62275,210610	62275,210610	0	Chaldea Haven	54	0	r_talk229	0
+130	Sa Mori	1	401	0	62830,209575	62830,209575	94	Chaldea Haven	54	0	r_talk230	0
+131	Carin Livingstone	1	440	0	62625,210025	62625,210025	99	Chaldea Haven	54	0	r_talk231	0
+132	Hairstylist - Cartel	1	19	13	221525,281325	221525,281325	10	Argent City	1	0	r_talk234	0
+133	Accessory - Pucan	1	19	13	188975,280475	188975,280475	240	Abandon Mine Haven	55	0	r_talk235	0
+134	Accessory - Rikka	1	19	13	99675,296937	99675,296937	36	Andes Forest Haven	53	0	r_talk236	0
+135	Accessory - Ferrari	1	19	13	111175,276129	111175,276129	129	Valhalla Haven	61	0	r_talk237	0
+136	Accessory - Wetigo	1	19	13	73108,156758	73108,156758	91	Thundoria Castle	8	0	r_talk238	0
+137	Accessory - Aii	1	19	13	63500,209100	63500,209100	180	Chaldea Haven	54	0	r_talk239	0
+138	Redemption - Bingo	1	11	0	223145,271519	223145,271519	264	Argent City	1	0	r_talk242	0
+139	Freight - Canari	1	459	9	91200,200000	91200,200000	250	Chaldea Tundra	7	0	r_talk243	0
+140	Freight - Soraris	1	459	9	187962,296528	187962,296528	205	Belmont Plains	3	0	r_talk244	0
+141	Cleaner	1	724	0	225221,277935	225221,277935	360	Argent City	1	0	r_talk252	0
+142	Event NPC - Pappa	1	260	0	222275,276827	222275,276827	180	Argent City	1	0	mmm_talk01	0
+143	Mysterious Granny	1	18	0	215800,279200	215800,279200	351	Argent City	1	1	el_talk03	1
+144	Matchstick	1	867	0	206400,273500	206400,273500	135	Belmont Plains	3	0	b_talk25	0
+145	Matchstick	1	867	0	76200,151800	76200,151800	135	Thundoria Castle	8	0	b_talk25	0
+146	Big Furnace	1	882	0	75900,147400	75900,147400	0	Thundoria Castle	8	0	b_talk26	0
+147	Wood Processing Merchant	1	459	4	226100,271700	226100,271700	0	Argent City	1	0	leo_talkaa	0
+148	Furnace Artificer - Mel	1	10	0	75600,147300	75600,147300	15	Thundoria Castle	8	0	max_talka3	0
+149	Matchstick Granny	1	25	0	206400,273700	206400,273700	330	Belmont Plains	3	0	max_talka2	0
+150	Matchstick Granny	1	25	0	76100,151500	76100,151500	150	Thundoria Castle	8	0	max_talka2	0
+151	Hatred Shrub	1	221	0	214138,270471	214138,270471	175	Belmont Plains	3	0	ync_talk	0
+152	Weird Hat Seller	1	449	0	224000,276932	224000,276932	180	Argent City	1	0	dina_talk08	0
+//153	CTF Waiting Room	1	760	8	221075,288175	221075,288175	270	Argent City	1	0	CTF_NPC	0
+//152	Jackpot Machine	1	838	0	221075,270525	221075,270525	480	Argent Bar	1	0	JackpotMachine	0

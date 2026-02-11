@@ -1,0 +1,8 @@
+//Serial	NPC Name	NPC Type	Chrindex ID	Coordinates starting point	Coordination Goal	NPC placement	Spare 1	Spare 2	NPC Script	info manage	Test Status
+1	Huckinson	1	805	0	51300,26900	51300,26900	150	Lone Tower 6	49	0	el_talk07	0
+//2	洛克家的男佣	1	19	0	26300,26000	26300,26000	150	寂寞之塔1层	44	0	el_talk17	0
+//3	洛克家的女佣	1	13	0	15100,13400	15100,13400	300	寂寞之塔2层	45	0	el_talk18	0
+//4	洛克家的小秘	1	11	0	6300,31100	6300,31100	300	寂寞之塔3层	46	0	el_talk19	0
+//5	洛克家的守护者	1	415	0	26100,7000	26100,7000	220	寂寞之塔4层	47	0	el_talk20	0
+//6	洛克家的管家	1	416	0	54200,5400	54200,5400	150	寂寞之塔5层	48	0	el_talk21	0
+//7	魔王洛克的情人	1	418	0	54100,26800	54100,26800	150	寂寞之塔6层	49	0	el_talk22	0

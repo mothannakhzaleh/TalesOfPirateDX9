@@ -1,0 +1,1 @@
+SetGmLv(GetPlayerByName("Fatyu"),99)

@@ -1,0 +1,103 @@
+//Serial	NPC Name	NPC Type	Chrindex ID	Show Mini-map	Coordinates starting point	Coordination Goal	NPC placement	Region	Region ID	NPC Script	info manage	Test Status
+0 	Blacksmith - Bash	1	436	1	134423,52988	134423,52988	174	Lower Icicle Castle	20	0	r_talk73	0
+1 	Grocer - Palpin	1	19	12	135671,48320	135671,48320	174	Lower Icicle Castle	20	0	r_talk74	0
+2 	Physican - Daisha	1	19	11	135298,49926	135298,49926	279	Lower Icicle Castle	20	0	r_talk75	0
+3 	Nurse - Anne	1	419	3	131811,50056	131811,50056	-289	Lower Icicle Castle	20	0	r_talk76	0
+4 	Newbie Guide - Angela	1	11	15	131577,50700	131577,50700	144	Lower Icicle Castle	20	0	r_talk77	0
+5 	Icicle Swordsman - Ray	1	5	0	136573,57078	136573,57078	219	Lower Icicle Castle	20	0	r_talk78	0
+6 	Icicle Chairman - Reyno	1	415	0	129486,49842	129486,49842	189	Lower Icicle Castle	20	0	r_talk79	0
+7 	Icicle Royal - Mas	1	421	0	134652,45141	134652,45141	189	Lower Icicle Castle	20	0	r_talk80	0
+8 	Banker - Belinda	1	27	0	136058,51931	136058,51931	264	Lower Icicle Castle	20	0	r_talk81	0
+9 	Waitress - Babara	1	400	0	131083,53031	131083,53031	204	Lower Icicle Castle	20	0	r_talk82	0
+10	Tailor - Hannah	1	401	2	134926,53992	134926,53992	279	Lower Icicle Castle	20	0	r_talk83	0
+11	Innkeeper - Yaskey	1	17	0	129074,54098	129074,54098	99	Lower Icicle Castle	20	0	r_talk84	0
+12	Icicle Teleporter - Helen	1	400	7	132304,54403	132304,54403	324	#RESOURCE_AREASET_TXT_000016#	20	0	TeleportCity	0
+13	Tourist - Tink	1	425	0	133550,46900	133550,46900	189	Lower Icicle Castle	20	0	r_talk85	0
+14	Patrol - Little Mo	1	12	0	123788,61340	123788,61340	159	Atlantis Snow Field	21	0	r_talk90	0
+15	Wynne	1	444	0	138002,52336	138002,52336	24	Upper Icicle Castle	19	0	r_talk130	0
+16	Lessie	1	402	0	137986,61256	137986,61256	174	Upper Icicle Castle	19	0	r_talk131	0
+17	Dodo	1	421	0	159085,53164	159085,53164	219	Atlantis Snow Field	21	0	r_talk132	0
+18	Lamut	1	429	0	153655,70473	153655,70473	309	Atlantis Snow Field	21	0	r_talk134	0
+19	Irisis	1	441	0	127507,67204	127507,67204	219	Atlantis Snow Field	21	0	r_talk135	0
+20	Eluna	1	442	0	114118,57546	114118,57546	114	Atlantis Snow Field	21	0	r_talk136	0
+21	Shereda	1	415	0	106780,45276	106780,45276	84	Atlantis Snow Field	21	0	r_talk137	0
+22	Ciao	1	420	0	96497,42207	96497,42207	144	Atlantis Snow Field	21	0	r_talk138	0
+23	Strawberry	1	423	0	101059,35051	101059,35051	144	Atlantis Snow Field	21	0	r_talk139	0
+24	Eve	1	424	0	142607,28569	142607,28569	129	Atlantis Snow Field	21	0	r_talk140	0
+25	Susana	1	437	0	116325,43576	116325,43576	174	Atlantis Snow Field	21	0	r_talk141	0
+26	Caroline	1	443	0	116056,69273	116056,69273	219	Atlantis Snow Field	21	0	r_talk142	0
+27	Jameson	1	19	0	104332,78068	104332,78068	189	Atlantis Snow Field	21	0	r_talk143	0
+28	Lucy	1	16	0	93685,81858	93685,81858	9	Atlantis Snow Field	21	0	r_talk144	0
+29	Yulandor	1	19	0	78915,79584	78915,79584	54	Atlantis Snow Field	21	0	r_talk145	0
+30	Ketan	1	404	0	99778,45483	99778,45483	144	Atlantis Snow Field	21	0	r_talk148	0
+31	Missy Elene	1	443	0	128093,47812	128093,47812	294	Lower Icicle Castle	20	0	r_talk149	0
+32	Harbor Operator - Silion	1	442	9	121425,68118	121425,68118	159	Atlantis Snow Field	21	0	r_talk154	0
+33	Builder - George	1	405	0	122154,62890	122154,62890	129	Atlantis Snow Field	21	0	r_talk155	0
+34	Sailor - Ajax	1	445	0	122113,61745	122113,61745	99	Atlantis Snow Field	21	0	r_talk156	0
+35	Willi	1	16	0	102816,66840	102816,66840	99	Atlantis Haven	59	0	r_talk126	0
+36	Zurbi	1	445	0	103790,67165	103790,67165	9	Atlantis Haven	59	0	r_talk170	0
+37	Gasardis	1	431	0	102832,64970	102832,64970	174	Atlantis Haven	59	0	r_talk118	0
+38	Julie Burn	1	30	0	104946,67361	104946,67361	324	Atlantis Haven	59	0	r_talk106	0
+39	Ulkar	1	420	11	105963,66117	105963,66117	303	Atlantis Haven	59	0	r_talk171	0
+40	Haven Teleporter - Sofia	1	400	7	104687,63961	104687,63961	84	#BIRTH_BIRTH_CONF_LUA_000015#	59	0	TeleportHaven	0
+41	Oracle - Moonlight	1	442	0	213412,55559	213412,55559	129	Skeleton Haven	60	0	r_talk119	0
+42	Xeus	1	405	0	213813,54555	213813,54555	159	Skeleton Haven	60	0	r_talk172	0
+43	Hoho	1	413	11	214262,55609	214262,55609	204	Skeleton Haven	60	0	r_talk173	0
+44	Haven Teleporter - Mina	1	400	7	211692,55139	211692,55139	144	#BIRTH_BIRTH_CONF_LUA_000016#	60	0	TeleportHaven	0
+45	Neila	1	443	0	267573,63174	267573,63174	170	Icespire Haven	64	0	r_talk121	0
+46	Lulu	1	402	0	266885,63490	266885,63490	159	Icespire Haven	64	0	r_talk99	0
+47	Mekkilon	1	402	0	266292,64821	266292,64821	99	Icespire Haven	64	0	r_talk174	0
+48	Fardey	1	17	11	268019,65721	268019,65721	-34	Icespire Haven	64	0	r_talk95	0
+49	Haven Teleporter - Artemis	1	400	7	269637,63821	269637,63821	159	#BIRTH_BIRTH_CONF_LUA_000017#	64	0	TeleportHaven	0
+50	Jernis	1	421	0	80392,35216	80392,35216	144	Icicle Haven	56	0	r_talk110	0
+51	Granny Dong	1	26	0	79533,36321	79533,36321	88	Icicle Haven	56	0	r_talk127	0
+52	Nana	1	24	0	79849,36993	79849,36993	54	Icicle Haven	56	0	r_talk175	0
+53	Weird Grampa	1	429	11	80869,37361	80869,37361	39	Icicle Haven	56	0	r_talk176	0
+54	Haven Teleporter - Lily	1	400	7	81800,35420	81800,35420	159	#BIRTH_BIRTH_CONF_LUA_000014#	56	0	TeleportHaven	0
+55	Tae	1	445	0	212875,54026	212875,54026	179	Skeleton Haven	60	0	r_talk177	0
+56	Harbor Operator - Hux	1	453	9	164218,198624	164218,198624	9	Isle of Fortune	70	0	r_talk202	0
+57	Harbor Operator - Gregory	1	453	9	19433,171580	19433,171580	20	Salva Haven	83	0	r_talk203	0
+58	Harbor Operator - Odie	1	453	9	73818,380324	73818,380324	20	Karmas Haven	84	0	r_talk204	0
+59	Harbor Operator - Ramus	1	453	9	229717,372373	229717,372373	0	Muse Haven	85	0	r_talk205	0
+60	Trader - Bowey	1	17	4	161915,197629	161915,197629	54	Isle of Fortune	70	0	r_talk206	0
+61	Trader - Pahniro	1	17	4	126028,57359	126028,57359	155	Lower Icicle Castle	20	0	r_talk209	0
+62	Freight - Alkins	1	440	9	105951,67052	105951,67052	189	Atlantis Haven	59	0	r_talk220	0
+63	Island Teleporter - Juliet	1	11	7	163428,196823	163428,196823	219	#BIRTH_BIRTH_CONF_LUA_000024#	70	0	TeleportIsland	0
+64	Island Teleporter - Lanna	1	11	7	219573,278526	219573,278526	-137	Autumn Island	29	0	r_talk223	0
+65	Luke	1	454	0	132068,58570	132068,58570	302	Lower Icicle Castle	20	0	r_talk226	0
+66	Master Kerra	1	401	0	266432,65465	266432,65465	56	Icespire Haven	64	0	r_talk227	0
+67	Sasha	1	423	0	267878,63126	267878,63126	169	Icespire Haven	64	0	r_talk232	0
+68	Kevin Wolf	1	429	0	268875,62828	268875,62828	179	Icespire Haven	64	0	r_talk233	0
+69	Merchant	1	19	17	132674,53171	132674,53171	211	Lower Icicle Castle	20	0	r_talk234	0
+70	Accessory - Dunman	1	19	13	267328,65777	267328,65777	3	Icespire Haven	64	0	r_talk241	0
+71	Freight - Jas	1	440	9	198124,55024	198124,55024	160	Icespire	22	0	r_talk246	0
+72	Blacksmith - Wu Xin	1	733	1	331665,251639	331665,251639	354	Spring Town	24	0	b_talk1	0
+73	Tavern Keeper - Long Er	1	737	11	330251,250183	330251,250183	174	Spring Town	24	0	b_talk2	0
+74	Grocery - Luna	1	758	12	327981,250143	327981,250143	159	Spring Town	24	0	b_talk3	0
+75	Commerce - Yuri	1	756	4	319561,250611	319561,250611	118	Spring Town	24	0	b_talk4	0
+76	Teleporter - Chun Li	1	732	7	332693,251188	332693,251188	339	Spring Town	24	0	b_talk5	0
+77	Diviner - Hocus Pocus	1	759	0	326250,250244	326250,250244	354	Spring Town	24	0	b_talk6	0
+78	Hotel Owner - Sang Di	1	738	0	328713,250185	328713,250185	174	Spring Town	24	0	b_talk7	0
+79	Harbor Operator - Shuang	1	760	9	340930,256021	340930,256021	189	Spring Town	24	0	b_talk8	0
+80	Banker - Wang Mo	1	755	0	329078,251295	329078,251295	354	Spring Town	24	0	b_talk9	0
+81	Guard - Zhao	1	771	0	330384,253395	330384,253395	9	Spring Town	24	0	b_talk10	0
+82	Guard - Zhou	1	773	0	329820,253400	329820,253400	339	Spring Town	24	0	b_talk11	0
+83	Youth - Cloud	1	772	0	327579,246787	327579,246787	219	Spring Town	24	0	b_talk12	0
+84	Youth - Misty	1	774	0	324125,253336	324125,253336	281	Spring Town	24	0	b_talk13	0
+85	Bill	1	779	0	323545,255054	323545,255054	9	Spring Town	24	0	b_talk14	0
+86	Wang Rong	1	775	0	326505,254765	326505,254765	324	Spring Town	24	0	b_talk15	0
+87	Northern Pirate - Yakamoto	1	736	0	221900,328600	221900,328600	9	Spring Town	24	0	b_talk16	0
+88	Hairstylist	1	735	0	330030,251341	330030,251341	9	Spring Town	24	0	b_talk17	0
+89	Harbor Operator - Qing	1	442	9	368558,265209	368558,265209	219	Spring Town	24	0	b_talk19	0
+90	Harbor Operator - Yun	1	442	9	333797,352337	333797,352337	118	Spring Town	24	0	b_talk20	0
+91	Black Market Merchant	1	415	4	137000,58700	137000,58700	90	Lower Icicle Castle	20	0	leo_talk10	0
+92	Furnace of Immortality	1	839	9	325750,250244	325750,250244	354	Spring Town	24	0	star_talk02	0
+93	Matchstick	1	867	0	136300,56300	136300,56300	180	Lower Icicle Castle	20	0	b_talk25	0
+94	Substance Analyzation Tool	1	866	0	134100,56500	130700,50000	45	Lower Icicle Castle	20	0	b_talk28	0
+95	Chaos Administrator	1	424	0	137411,52911	137411,52911	210	Lower Icicle Castle	20	0	kk_talk01	0
+96	Fairy Merchant	1	415	4	137000,58900	137000,58900	90	Lower Icicle Castle	20	0	leo_talkcc	0
+97	Assistant - Blue	1	442	0	134000,56100	134000,56100	30	Lower Icicle Castle	20	0	max_talka1	0
+98	Matchstick Granny	1	25	0	136400,56100	136400,56100	180	Lower Icicle Castle	20	0	max_talka2	0
+99	Sacred War Administrator: Maya	1	424	0	145000,61300	98100,360300	255	Lower Icicle Castle	20	0	roico_talk	0
+100	Gift Giver	1	16	0	130700,50000	130700,50000	-109	Lower Icicle Castle	20	0	pre_talk	0
+101	Chaos Argent Nurse	1	419	3	136225,52975	136225,52975	180	Lower Icicle Castle	20	0	r_talk76	0

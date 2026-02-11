@@ -1,0 +1,2 @@
+//Serial	NPC Name	NPC Type	Chrindex ID	Show Mini-map	Coordinates starting point	Coordination Goal	NPC placement	Region	Region ID	NPC Script	info manage	Test Status
+//1	°®µÂ»ª	1	425	0	26600,23000	26600,23000	230	Demonic World 1	94	0	el_talk13	0

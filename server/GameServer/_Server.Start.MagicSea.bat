@@ -1,0 +1,1 @@
+start GameServer.exe GameServer01.cfg

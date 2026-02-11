@@ -1,0 +1,3 @@
+//Forsaken City 1 portal list								
+//ID	binded entity ID	incident type	entity placement location	entity placement direction	Target map name	Target map location	Activate Determinant Requirement	Name
+1	2492	4	7200,4000	-1	magicsea	150800,366500	1	1 To Magical Ocean			

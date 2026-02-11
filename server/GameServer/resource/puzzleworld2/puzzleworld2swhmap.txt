@@ -1,0 +1,13 @@
+1	193	1	5998,29482	-1	puzzleworld2	11861,27071	1	Left Side
+2	193	1	47822,29369	-1	puzzleworld2	41689,26915	1	Left Side
+3	193	1	24956,5138	-1	puzzleworld2	27319,10735	1	Left Side
+4	193	1	28795,50012	-1	puzzleworld2	27425,45332	1	Left Side
+5	193	1	6806,6601	-1	puzzleworld2	18604,18581	1	Left Side
+6	193	1	46967,6499	-1	puzzleworld2	34888,18879	1	Left Side
+7	193	1	46961,48334	-1	puzzleworld2	34587,35821	1	Bottom left
+8	193	1	6701,48326	-1	puzzleworld2	18989,36136	1	Bottom left
+9	193	1	2317,1967	-1	puzzleworld	2625,2370	1	Bottom left
+10	193	1	2274,52465	-1	puzzleworld	3600,52700	1	Bottom left
+11	193	1	52074,52524	-1	puzzleworld	51000,52700	1	Bottom left
+12	193	1	52025,2225	-1	puzzleworld	52200,3200	1	Bottom left
+13	193	1	32622,21016	-1	garner	91000,106900	1	Bottom left

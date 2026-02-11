@@ -1,0 +1,33 @@
+//Serial	NPC Name	NPC Type	Chrindex ID	Show Mini-map	Coordinates starting point	Coordination Goal	NPC placement	Region	Region ID	NPC Script	info manage	Test Status
+1	Elizabeth	1	804	0	61653,96548	61653,96548	43	Treasure Gulf	103	0	l_talk04	0
+2	Wellington	1	798	0	104250,13477	104250,13477	114	Naval Base	102	0	l_talk03	0
+3	Jack Arrow	1	802	0	23088,57990	23088,57990	355	Skeletar Isle	101	0	l_talk02	0
+4	Mark Turner	1	803	0	51611,40767	51611,40767	301	Skeletar Isle	101	0	l_talk01	0
+5	Harbor Operator - Catchy	1	803	9	63133,92771	63133,92771	180	Treasure Gulf	103	0	mmm_talk05	0
+6	Harbor Operator - Penny	1	452	9	65815,99328	65815,99328	180	Treasure Gulf	103	0	mmm_talk06	0
+7	Seaport Commander	1	452	9	61212,62222	61212,62222	128	Skeletar Isle	101	0	mmm_talk07	0
+8	Mysterious Sailor	1	452	9	37011,16511	37011,16511	250	Skeletar Isle	101	0	mmm_talk08	0
+9	Seaport Commander	1	453	9	108211,21111	108211,21111	250	Naval Base	102	0	mmm_talk09	0
+10	Freights - Zabu	1	459	9	61267,94517	61267,94517	145	Treasure Gulf	103	0	mmm_talk10	0
+11	Abaddon Teleporter	1	190	7	69076,104321	69076,104321	30	Treasure Gulf	103	0	mmm_talk11	0
+12	Heaven Teleporter	1	429	7	47411,105411	47411,105411	236	Treasure Gulf	103	0	mmm_talk12	0
+13	Bewildered Researcher A	1	425	0	100010,27166	100010,27166	30	Naval Base	103	0	mmm_talk13	0
+14	Bewildered Researcher B	1	421	0	99622,26577	99622,26577	-163	Naval Base	103	0	mmm_talk14	0
+15	Bewildered Researcher C	1	19	0	98934,26958	98934,26958	30	Naval Base	103	0	mmm_talk15	0
+16	Land Teleporter	1	401	7	107632,13732	107632,13732	166	Research Shelter	103	0	mmm_talk16	0
+17	Research Custodian A	1	423	7	97429,83023	97429,83023	88	Research Shelter	105	0	mmm_talk17	0
+18	Research Custodian B	1	429	7	97429,90675	97429,90675	88	Research Shelter	105	0	mmm_talk18	0
+19	Research Custodian C	1	423	7	97429,99375	97429,99375	88	Research Shelter	105	0	mmm_talk19	0
+20	Dock Steward	1	423	7	125285,100575	125285,100575	95	Underground Dock	104	0	mmm_talk20	0
+22	Abaddon 1 Warden	1	423	7	19927,82473	19927,82473	90	Abaddon 1	107	0	mmm_talk22	0
+23	Abaddon 2 Warden	1	424	7	9073,81628	9073,81628	200	Abaddon 2	107	0	mmm_talk23	0
+24	Abaddon 3 Warden	1	425	7	7076,95272	7076,95272	42	Abaddon 3	107	0	mmm_talk24	0
+25	Abaddon 4 Warden	1	425	7	20913,95571	20913,95571	42	Abaddon 4	107	0	mmm_talk25	0
+26	Bewildered Researcher D	1	425	0	113811,26111	113811,26111	30	Naval Base	103	0	mmm_talk26	0
+27	Bewildered Researcher E	1	421	0	112811,26811	112811,26811	-163	Naval Base	103	0	mmm_talk27	0
+28	Bewildered Researcher F	1	19	0	113311,26711	113311,26711	30	Naval Base	103	0	mmm_talk28	0
+29	Goddess	1	262	7	175520,90875	175520,90875	269	Heaven	103	0	mmm_talk30	0
+30	Rebirth Angel 	1	284	7	175440,91479	175440,91479	310	Heaven	103	0	zsts_talk	0
+//31	织女	1	774	0	159920,90975	159920,90975	269	Heaven	103	0	amon_talk3	0
+//32	洛克家的旺财	1	829	0	15400,91200	15400,91200	150	Abaddon 4	107	0	el_talk23	0
+//33	百慕大守护者	1	772	0	66900,106400	66900,106400	43	Treasure Gulf	103	0	k_talk002	0

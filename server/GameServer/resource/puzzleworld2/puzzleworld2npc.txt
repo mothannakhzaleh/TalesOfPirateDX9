@@ -1,0 +1,3 @@
+//Serial	NPC Name	NPC Type	Chrindex ID	Show Mini-map	Coordinates starting point	Coordination Goal	NPC placement	Region	Region ID	NPC Script	info manage	Test Status
+1	Tomas Tutu	1	415	0	32900,20700	32900,20700	230	Demonic World 2	94	0	el_talk08	0
+//2	µÂÂ³¿Ë	1	735	0	26600,23000	26600,23000	230	Demonic World 2	94	0	el_talk14	0

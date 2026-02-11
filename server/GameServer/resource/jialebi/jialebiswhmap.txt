@@ -1,0 +1,19 @@
+//Caribbean portal list								
+//ID	binded entity ID	incident type	entity placement location	entity placement direction	Target map name	Target map location	Activate Determinant Requirement	Name
+1	2492	4	76123,89623	-1	jialebi	9216,64032	1	Treasure Gulf to Skeletar Isle
+2	2492	4	42277,87421	-1	jialebi	89726,61473	1	Skeletar Isle to Naval Base
+3	2492	4	41275,63538	-1	jialebi	18735,8420	1	Skeletar Ocean Maze
+4	2492	4	7869,31585	-1	jialebi	62788,35774	1	Skeletar Ocean Maze
+5	2492	4	63481,54773	-1	jialebi	16478,64027	1	Skeletar Ocean Maze
+6	2492	4	45932,8825	-1	jialebi	63378,62862	1	Skeletar Ocean Maze
+7	193	1	144711,100611	-1	jialebi	158223,110873	1	Underground Dock to Armory
+8	193	1	158223,110873	-1	jialebi	144711,100611	1	Armory to Underground Dock
+9	193	1	92811,81811	-1	jialebi	136111,98411	1	Research Room A to Underground Dock
+10	193	1	92711,92911	-1	jialebi	136111,98411	1	Research Room B to Underground Dock
+11	193	1	92111,98011	-1	jialebi	136111,98411	1	Research Room C to Underground Dock
+12	2492	4	61011,64211	-1	jialebi	51411,104611	1	Skeletar Isle to Treasure Gulf
+13	2492	4	105311,22511	-1	jialebi	53211,102111	1	Naval Base to Treasure Gulf
+14	2492	4	60611,108311	-1	magicsea	220232,278111	1	Treasure Gulf to Magical Ocean
+15	2492	4	73411,103211	-1	magicsea	87711,375611	1	Treasure Gulf to Magical Ocean
+16	2492	4	69711,92011	-1	magicsea	101011,37400	1	Treasure Gulf to Magical Ocean
+//17	2492	4	50711,103711	-1	garner	230011,289511	1	Treasure Gulf to Argent	

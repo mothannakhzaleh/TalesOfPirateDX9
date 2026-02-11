@@ -1,0 +1,2 @@
+//No.	NPCName	NPCType	ChrIndexID	Small map display	Coordinate point	Coordinates of the end	NPCFace	Area	Area code	NPCScript	Detection state message processing
+1	Drown wanderer	1	828	12	2491,8000	2491,8000	294	Abaddon 9	86	0	dydz_talk	0

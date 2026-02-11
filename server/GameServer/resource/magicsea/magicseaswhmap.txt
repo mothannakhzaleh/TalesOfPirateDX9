@@ -1,0 +1,8 @@
+//Magical Ocean portal list								
+//ID	binded entity ID	entity placement location	entity placement direction	Target map name	Target map location	Activate Determinant Requirement	Portal name as	Remark
+//1	102	820.5,515	-1	magicsea	817.4,515.5	1	Magical Ocean	Magical Ocean to Magical Ocean
+//2	102	813.5,515.5	-1	darkblue	225,480	1	Deep Blue	Magical Ocean - Deep Blue Island
+//3	102	817.4,519	-1	garner	2231,2785	1	Argent Square	Magical Ocean - Argent City
+4	2492	4	220232,278111	-1	jialebi	60611,108311	1	Magical Ocean - Caribbean
+5	2492	4	87711,375611	-1	jialebi	73411,103211	1	Magical Ocean - Caribbean
+6	2492	4	101011,37400	-1	jialebi	69711,92011	1	Magical Ocean - Caribbean

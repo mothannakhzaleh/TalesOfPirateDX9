@@ -1,0 +1,4 @@
+//Forsaken City 3 portal list								
+//ID	binded entity ID	incident type	entity placement location	entity placement direction	Target map name	Target map location	Activate Determinant Requirement	Name
+1	193	1	25676,22575	-1	abandonedcity2	23525,22323	1	level 3 to level 2
+2	193	1	2427,2282	-1	magicsea	82000,365300	1	level 3 to Shaitan

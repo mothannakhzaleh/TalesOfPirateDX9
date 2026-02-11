@@ -1,0 +1,7 @@
+1	Miner Drunky	1	440	0	29645,5725	29645,5725	264	Silver Mine 2	42	0	r_talk161	0
+2	Zombie - Hami	1	765	0	4913,24214	4913,24214	167	Spring Town	100	16	b_talk18	0
+3	Guardian Statue	1	790	0	84750,24752	84750,24753	174	Black Dragon Lair 1	97	0	b_talk21	0
+4	Guardian Statue	1	790	0	76736,60246	76736,60247	174	Black Dragon Lair 2	98	0	b_talk22	0
+5	Guardian Statue	1	790	0	76926,66958	76926,66959	354	Black Dragon Lair 2	98	0	b_talk23	0
+6	Black Dragon Chest	1	710	0	77252,72576	77252,72576	159	Black Dragon Lair 3	99	0	b_talk24	0
+7	Wounded Soldier	1	5	0	74600,64000	74600,64000	85	Black Dragon Lair 2	98	0	Zs_Soldier	0

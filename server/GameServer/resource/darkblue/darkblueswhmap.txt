@@ -1,0 +1,9 @@
+//ID	binded entity ID	incident type	entity placement location	entity placement direction	Target map name	Target map location	Activate Determinant Requirement	Name
+//1	102	1	224,474	-1	magicsea	817.4,515.5	1	Magical Ocean	Deep Blue - Magical Ocean
+//2	102	1	220,479	-1	darkblue	225,480	1	Deep Blue	Deep Blue - Deep Blue
+//3	102	1	225,485	-1	garner	2231,2785	1	Argent Square	Deep Blue - Argent City
+1	193	1	322775,244017	-1	eastgoaf	19932,24532	1	Underwater Tunnel	Spring Island - Underwater Tunnel
+2	193	1	315725,253770	-1	eastgoaf	4884,42919	1	Underwater Tunnel	Spring Island - Underwater City
+3	193	1	342381,298865	-1	eastgoaf	49288,41173	1	Seabed Tunnel	Summer Island - Seabed Tunnel
+4	193	1	287069,278270	-1	eastgoaf	46420,57325	1	Seabed Tunnel	Autumn Island - Underwater Tunnel
+5	193	1	343081,329664	-1	heilong	79570,54223	1	Black Dragon Lair 1	Summer Island - Black Dragon Lair 1

@@ -1,0 +1,15 @@
+//ID	binded entity ID	incident type	entity placement location	entity placement direction	Target map name	Target map location	Activate Determinant Requirement	Name
+1	193	1	11580,2532	-1	garner	173675,267475	1	Abandoned Mine 2 - Abandoned Mine 1
+2	193	1	23864,2775	-1	garner	179525,264575	1	Silver Mine 2 - Silver Mine 1
+3	193	1	20123,14196	-1	eastgoaf	38675,12625	1	Silver Mine 2 - Silver Mine 3
+4	193	1	37934,12443	-1	eastgoaf	20836,13475	1	Silver Mine 3 - Silver Mine 2
+5	193	1	48389,3127	-1	eastgoaf	2875,12725	1	Silver Mine 3 to Abandoned Mine 2
+6	193	1	2425,13675	-1	eastgoaf	47425,3125	1	Abandoned Mine 2 - Silver Mine 3
+7	193	1	19932,24532	-1	darkblue	322775,244017	1	Underwater Tunnel - Spring Island
+8	193	1	4884,42919	-1	darkblue	315725,253770	1	Underwater Tunnel - Spring Island
+9	193	1	16025,42520	-1	eastgoaf	40738,28625	1	Underwater Tunnel - Seabed Tunnel
+10	193	1	40738,28625	-1	eastgoaf	16025,42520	1	Seabed Tunnel - Underwater Tunnel
+11	193	1	49288,41173	-1	darkblue	342381,298865	1	Underwater Tunnel - Summer Island
+12	193	1	46420,57325	-1	darkblue	287069,278270	1	Underwater Tunnel - Autumn Island
+13	193	1	79570,54223	-1	darkblue	343081,329664	1	Black Dragon Lair 1 - Summer Island
+14	193	1	76165,72375	-1	darkblue	343081,329664	1	Black Dragon Lair 3 - Summer Island

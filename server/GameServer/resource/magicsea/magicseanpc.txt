@@ -1,0 +1,94 @@
+//Serial	NPC Name	NPC Type	Chrindex ID	Show Mini-map	Coordinates starting point	Coordination Goal	NPC placement	Region	Region ID	NPC Script	info manage	Test Status
+0 	Shaitan Teleporter - May	1	424	7	91816,356229	91816,356229	204	Shaitan City	13	0	TeleportCity	0
+1 	High Priest - Gannon	1	23	0	86299,350092	86299,350092	264	Shaitan City	13	0	r_talk47	0
+2 	Clan Chief - Albuda	1	420	0	89804,364010	89804,364010	174	Shaitan City	13	0	r_talk48	0
+3 	Tools - Ouya	1	19	13	86214,359121	86214,359121	204	Shaitan City	13	0	r_talk49	0
+4 	Tailor - Moya	1	17	2	89463,360213	89463,360213	174	Shaitan City	13	0	r_talk50	0
+5 	Banker - Judis	1	412	0	90637,353900	90637,353900	174	Shaitan City	13	0	r_talk51	0
+6 	Coaster Guard - Franco	1	12	0	86734,366071	86734,366071	219	Shaitan City	13	0	r_talk52	0
+7 	Blacksmith - Smithy	1	21	1	90260,349526	90260,349526	219	Shaitan City	13	0	r_talk53	0
+8 	Girl - Lena	1	30	0	88307,352019	88307,352019	204	Shaitan City	13	0	r_talk54	0
+9 	Grocery - Amos	1	408	12	84040,358567	84040,358567	189	Shaitan City	13	0	r_talk55	0
+10	Innkeeper - Harken	1	411	0	81035,349813	81035,349813	144	Shaitan City	13	0	r_talk56	0
+11	Nurse - Landy	1	407	3	89025,356925	89025,356925	182	Shaitan City	13	0	r_talk57	0
+12	Pirate Decky	1	17	0	79222,367002	79222,367002	54	Shaitan City	13	0	r_talk58	0
+13	Newbie Guide - Resline	1	11	15	87614,357250	87614,357250	174	Shaitan City	13	0	r_talk59	0
+14	Builder - Franklin	1	404	0	90111,366888	90111,366888	-94	Shaitan City	13	0	r_talk60	0
+15	Navy HQ - Admiral Nic	1	443	0	86507,364804	86507,364804	174	Shaitan City	13	0	r_talk61	0
+16	Shaitan Chairman - Guile	1	415	0	87362,354566	87362,354566	174	Shaitan City	13	0	r_talk62	0
+17	Tourist - Wowo	1	19	0	84634,349945	84634,349945	174	Shaitan City	13	0	r_talk63	0
+18	Lamb - Welly	1	435	0	89875,368331	89875,368331	183	Shaitan City	13	0	r_talk64	0
+19	Assistant - Tintin	1	17	0	87171,354774	87171,354774	159	Shaitan City	13	0	r_talk65	0
+20	Tourist - Yay	1	403	0	79792,355469	79792,355469	324	Shaitan City	13	0	r_talk66	0
+21	Sand Bandit - Supermun	1	425	0	108068,308688	108068,308688	114	Southern Desert	15	0	r_talk67	0
+22	Merman Prince - Hassan	1	422	0	125471,349171	125471,349171	319	Prairie Desert	16	0	r_talk68	0
+23	Musician - Shamel	1	424	0	66465,309367	66465,309367	204	Prairie Desert	16	0	r_talk69	0
+24	Holy Priestess - Ada	1	430	0	86248,330381	86248,330381	159	Old Shaitan City	14	0	r_talk70	0
+25	Tourist - Fairu	1	403	0	93176,352977	93176,352977	150	Shaitan City	13	0	r_talk71	0
+26	Guildmaster - Forlan	1	14	6	83171,354853	83171,354853	234	Shaitan City	13	0	r_talk72	0
+27	Guard - Michael	1	12	0	95860,354925	95860,354925	174	Prairie Desert	16	0	r_talk89	0
+28	Physician - Shala	1	424	11	90311,364658	90311,364658	264	Shaitan City	13	0	r_talk91	0
+29	Minelli	1	441	0	124468,318623	124468,318623	234	Babul Haven	62	0	r_talk111	0
+30	Augustan	1	437	0	119686,357020	119686,357020	204	Prairie Desert	16	0	r_talk112	0
+31	Jeynaa	1	17	0	117710,345654	117710,345654	219	Prairie Desert	16	0	r_talk113	0
+32	Ditaro	1	19	0	80464,309888	80464,309888	219	Oasis Haven	57	0	r_talk114	0
+33	Ruben Actus	1	10	0	113130,315353	113130,315353	189	Southern Desert	15	0	r_talk115	0
+34	Merrix	1	408	0	111861,361173	111861,361173	174	Southern Desert	15	0	r_talk116	0
+35	Gudas	1	404	0	92184,299184	92184,299184	159	Southern Desert	15	0	r_talk117	0
+36	Kavosky	1	405	0	77946,309841	77946,309841	9	Oasis Haven	57	0	r_talk120	0
+37	Beck	1	402	0	55628,293491	55628,293491	114	Prairie Desert	16	0	r_talk123	0
+38	Ham	1	403	0	82628,334708	82628,334708	189	Old Shaitan City	14	0	r_talk124	0
+39	Love Yuri	1	15	0	112743,341706	112743,341706	219	Prairie Desert	16	0	r_talk125	0
+40	Robin	1	429	0	113109,330562	113109,330562	159	Prairie Desert	16	0	r_talk128	0
+41	Harbor Operator - Mark	1	448	9	82312,369841	82312,369841	245	Shaitan City	13	0	r_talk153	0
+42	Solaru	1	425	0	120252,317960	120252,317960	294	Babul Haven	62	0	r_talk133	0
+43	Odessis	1	415	0	120106,320193	120106,320193	114	Babul Haven	62	0	r_talk100	0
+44	Momo	1	437	11	120982,319677	120982,319677	249	Babul Haven	62	0	r_talk166	0
+45	Teleporter - Berlin	1	424	7	122229,319650	122229,319650	189	Babul Haven	62	0	TeleportHaven	0
+46	Wenona	1	444	0	78141,312711	78141,312711	129	Oasis Haven	57	0	r_talk167	0
+47	Fey Fey	1	24	0	79742,312908	79742,312908	114	Oasis Haven	57	0	r_talk168	0
+48	Marcus	1	449	11	78919,311283	78919,311283	204	Oasis Haven	57	0	r_talk169	0
+49	Teleporter - Aina	1	424	7	80390,311472	80390,311472	249	Oasis Haven	57	0	TeleportHaven	0
+50	Harbor Operator - Paul	1	452	9	237202,73768	237202,73768	69	Isle of Chill	31	0	r_talk188	0
+51	Harbor Operator - Tomas	1	452	9	174453,377489	174453,377489	339	Canary Isle	38	0	r_talk189	0
+52	Harbor Operator - Xad	1	452	9	252852,239345	252852,239345	-124	Cupid Isle	37	0	r_talk190	0
+53	Harbor Operator - Luigi	1	452	9	46444,46825	46444,46825	10	Norite Harbor Haven	75	0	r_talk191	0
+54	Harbor Operator - Buni	1	452	9	204208,63550	204208,63550	20	Aerase Haven	76	0	r_talk192	0
+55	Harbor Operator - Domoru	1	452	9	349830,92343	349830,92343	180	Lahu Haven	77	0	r_talk193	0
+56	Harbor Operator - Teba	1	452	9	308137,213590	308137,213590	-20	Pyrex Haven	78	0	r_talk194	0
+57	Harbor Operator - Baros	1	453	9	202414,275254	202414,275254	-65	Woody Haven	79	0	r_talk195	0
+58	Harbor Operator - Didane	1	452	9	154435,371225	154435,371225	-45	Gelada Haven	80	0	r_talk196	0
+59	Harbor Operator - Dannis	1	452	9	13647,343240	13647,343240	-45	Hubble Haven	81	0	r_talk197	0
+60	Harbor Operator - Soc	1	452	9	319408,350755	319408,350755	20	Ethio Haven	82	0	r_talk198	0
+61	Trader - Sibun	1	450	4	238622,73481	238622,73481	264	Isle of Chill	31	0	r_talk199	0
+62	Trader - Mickey	1	450	4	173958,374885	173958,374885	144	Canary Isle	38	0	r_talk200	0
+63	Trader - Yuka	1	450	4	251974,239702	251974,239702	84	Cupid Isle	37	0	r_talk201	0
+64	Trader - Sidorf	1	450	4	79934,365919	79934,365919	59	Shaitan City	13	0	r_talk208	0
+65	Freight - Alexis	1	459	9	235697,72603	235697,72603	235	Isle of Chill	31	0	r_talk217	0
+66	Freight - Yevgeni	1	459	9	172646,378701	172646,378701	9	Canary Isle	38	0	r_talk218	0
+67	Freight - Amber	1	440	9	136903,303352	136903,303352	10	Shaitan City	13	0	r_talk219	0
+68	Island Teleporter - Julie	1	11	7	236614,72624	236614,72624	144	Isle of Chill	31	0	TeleportIsland	0
+69	Island Teleporter - Winnie	1	11	7	172286,375558	172286,375558	144	Canary Isle	38	0	TeleportIsland	0
+70	Island Teleporter - Wanda	1	11	7	252026,240257	252026,240257	84	Cupid Isle	37	0	TeleportIsland	0
+71	Pirate Jeremy	1	451	0	236200,65759	236200,65759	210	Isle of Chill	31	0	r_talk224	0
+72	Captain Jack	1	425	0	167220,377721	167220,377721	110	Canary Isle	38	0	r_talk225	0
+73	Merchant	1	19	17	84701,360677	84701,360677	270	Shaitan City	13	0	r_talk234	0
+74	Accessory - Allan	1	19	13	122671,318375	122671,318375	181	Babul Haven	62	0	r_talk240	0
+75	Freight - Ansto	1	440	9	153525,344928	153525,344928	175	Prairie Desert	16	0	r_talk245	0
+//76	Forsaken City Researcher	1	421	0	81075,360975	81075,360975	180	Shaitan City	13	0	Earth_Sealed	0
+76	World Researcher	1	421	0	81075,360975	81075,360975	180	Shaitan City	13	0	r_talk255	0
+77	Obscure Harbor Operator	1	452	9	82800,370500	82800,370500	180	Shaitan City	13	0	r_talk263	0
+78	Freight - Ali Q	1	459	9	83246,370701	83246,370701	245	Shaitan City	13	0	m_talk001	0
+79	Arms Dealer	1	450	4	87227,364657	87227,364657	175	Shaitan City	13	0	r_talk264	0
+80	Rare Material Supplier	1	450	4	89587,365745	89587,365745	40	Shaitan City	13	0	r_talk265	0
+81	Rare Metal Supplier	1	450	4	84801,364147	84801,364147	175	Shaitan City	13	0	r_talk266	0
+82	Blacksmith Disciple	1	402	1	90458,350138	90458,350138	219	Shaitan City	13	0	mmm_talk04	0
+83	Langa	1	840	0	85300,354900	85300,354900	120	Shaitan City	13	0	e_talk01	0
+84	Chaos Administrator	1	424	0	96711,355311	97811,357511	180	Shaitan City	13	0	kk_talk01	0
+85	Matchstick	1	867	0	90500,356300	90500,356300	180	Shaitan City	13	0	b_talk25	0
+86	Substance Generator	1	887	0	87700,364500	87700,364500	180	Shaitan City	13	0	b_talk27	0
+87	Ore Processsing Merchant	1	459	4	90800,352200	90800,352200	270	Shaitan City	13	0	leo_talkbb	0
+88	Little Graduate	1	403	0	88000,364500	88000,364500	180	Shaitan City	13	0	max_talka4	0
+89	Matchstick Granny	1	25	0	90700,356200	90700,356200	265	Shaitan City	13	0	max_talka2	0
+90	Help Support	0	430	0	308900,211900	308900,211900	265	Pyrex Haven	78	0	leo_talkzz	0
+91	Scared War Administrator - Naya	1	424	0	98100,360300	98100,360300	255	Shaitan City	13	0	roico_talk	0
