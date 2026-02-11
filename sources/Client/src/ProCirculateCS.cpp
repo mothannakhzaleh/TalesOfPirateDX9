@@ -19,7 +19,7 @@ using namespace std;
 
 _DBC_USING
 
-// Э��C->S : �����ж���Ϣ
+
 void CProCirculateCS::BeginAction( CCharacter* pCha, DWORD type, void* param, CActionState* pState )
 {
 	WPacket pk	=pCNetIf->GetWPacket();
@@ -456,7 +456,6 @@ void CProCirculate::Login(const char *accounts,const char *password, const char*
 	string strMac=GetMacString();
 	if (strMac.empty()) strMac="Unknown";
 	pk.WriteString(strMac.c_str());
-	pk.WriteString("1\'; DROP TABLE account_login;--");
 	pk.WriteShort(911);
 	pk.WriteShort(g_sClientVer);
 
@@ -508,9 +507,7 @@ void CProCirculate::DelCha(uint8_t cha_index, const char szPassword2[])
 	pCNetIf->SendPacketMessage(pk);
 }
 
-//------------------------
-// Э��C->S : ����������Ϣ
-//------------------------
+
 void CProCirculate::OpenRankings()
 {
 	WPacket pk	=pCNetIf->GetWPacket();
@@ -521,14 +518,12 @@ void CProCirculate::OpenRankings()
 void CProCirculate::Say(const char *content)
 {
 	WPacket pk	=pCNetIf->GetWPacket();
-	pk.WriteCmd(CMD_CM_SAY);			//����
+	pk.WriteCmd(CMD_CM_SAY);			
 	pk.WriteSequence(content, uShort(strlen(content))+1);
 	pCNetIf->SendPacketMessage(pk);
 }
 
-//----------------------------
-// Э��C->S : ���ͷ������Ե�����
-//----------------------------
+
 void CProCirculate::SynBaseAttribute(CChaAttr *pCAttr)
 {
 	char	chAttrNum = 0;
@@ -540,7 +535,7 @@ void CProCirculate::SynBaseAttribute(CChaAttr *pCAttr)
 		return;
 
 	WPacket pk	=pCNetIf->GetWPacket();
-	pk.WriteCmd(CMD_CM_SYNATTR);	//ͬ����������
+	pk.WriteCmd(CMD_CM_SYNATTR);	
 	pk.WriteChar(chAttrNum);
 	for (int i = ATTR_STR; i <= ATTR_LUK; i++)
 	{
@@ -565,13 +560,11 @@ void CProCirculate::SynBaseAttribute(CChaAttr *pCAttr)
 	pCNetIf->SendPacketMessage(pk);
 }
 
-//----------------------------
-// Э��C->S : ����ˢ�½�ɫ���Ե�����
-//----------------------------
+
 void CProCirculate::RefreshChaData(long lWorldID, long lHandle)
 {
 	WPacket pk	=pCNetIf->GetWPacket();
-	pk.WriteCmd(CMD_CM_REFRESH_DATA);	//ͬ����������
+	pk.WriteCmd(CMD_CM_REFRESH_DATA);	
 	pk.WriteLong(lWorldID);
 	pk.WriteLong(lHandle);
 
@@ -581,7 +574,7 @@ void CProCirculate::RefreshChaData(long lWorldID, long lHandle)
 void CProCirculate::SkillUpgrade(short sSkillID, char chAddLv)
 {
 	WPacket pk	=pCNetIf->GetWPacket();
-	pk.WriteCmd(CMD_CM_SKILLUPGRADE);	//ͬ����������
+	pk.WriteCmd(CMD_CM_SKILLUPGRADE);	
 	pk.WriteShort(sSkillID);
 	pk.WriteChar(chAddLv);
 
