@@ -78,4 +78,5 @@ While the core DX9 upgrade is functional, it originated from a separate developm
 -   Simplified file structure with intuitive variable and function names
     
 -   Modular design for easy code migration (copy/paste friendly)
-vs config file  **[Here]([https://satisfy.live/](https://drive.google.com/file/d/1GR8GdSNe-UocUNpkvChoHBaqZJaTcuuS/view))**
+vs config file 
+**[Here](https://drive.google.com/file/d/1GR8GdSNe-UocUNpkvChoHBaqZJaTcuuS/view)**
