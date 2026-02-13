@@ -1,0 +1,1 @@
+alter table gamedb.dbo.account add VIP int default(0) NOT NULL;
