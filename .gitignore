@@ -61,19 +61,17 @@ Client/bin/scripts/lua/*
 
 !Client/bin/scripts/lua/forms/
 
-!Common/CaLua/Lua/lib
-!Common/DirectX8/lib/
-!Common/IGameSDK/lib
-!Common/Ipss/lib
-!Common/SDL-1.2.7/lib
-!Libraries/CaLua/Lua/lib/
-!Libraries/DirectX/DirectX8/lib/
-!Libraries/DirectX/DirectX9/lib/
-!Libraries/DirectX/lib/
-!Libraries/Discord/lib/
-!Libraries/IGameSDK/lib/
-!Libraries/icu/lib/
-
+!sources/Common/CaLua/Lua/lib
+!sources/Common/IGameSDK/lib
+!sources/Common/Ipss/lib
+!sources/Common/SDL-1.2.7/lib
+!sources/Libraries/CaLua/Lua/lib/
+!sources/Libraries/DirectX/DX9/lib/
+!sources/Libraries/DirectX/lib/
+!sources/Libraries/Discord/lib/
+!sources/Libraries/IGameSDK/lib/
+!sources/Libraries//icu/lib/
+!sources/Libraries/Cryptopp/Win32/Output/Release
 !Libraries/Ipss/lib/
 !Libraries/SDL-1.2.7/lib/
 !Libraries/Ipss/bin/
@@ -110,42 +108,44 @@ ServerSide/GameServer/LOG/**/*.txt
 
 
 
-!Phoenix Online/bin/
+!Client/bin/
 
-!Phoenix Online/texture/
+!Client/texture/
 
-!Phoenix Online/texture/ui/
+!Client/texture/ui/
 
-!Phoenix Online/texture/ui/new/
+!Client/texture/ui/new/
 
-!Phoenix Online/scripts/
+!Client/scripts/
 
-!Phoenix Online/scripts/lua/
-!Phoenix Online/map/*.obj
-!Phoenix Online/map/*.rbo
-!Phoenix Online/scripts/lua/forms/
-Phoenix Online/_TempData
-Phoenix Online/calua_err.txt
-Phoenix Online/lua_err.txt
-Phoenix Online/ulog.txt
-Phoenix Online/ver
-Phoenix Online/ver.rec
-Phoenix Online/VerInfo.rec
+!Client/scripts/lua/
+!Client/map/*.obj
+!Client/map/*.rbo
+!Client/scripts/lua/forms/
+Client/_TempData
+Client/calua_err.txt
+Client/lua_err.txt
+Client/ulog.txt
+Client/ver
+Client/ver.rec
+Client/VerInfo.rec
 ServerSide/GameServer/PlayerData/*/*.txt
 *.pdb
 ServerSide/GameServer/*_D.exe
-Phoenix Online/system/x64/MindPower3D_D8D64.dll
+Client/system/x64/MindPower3D_D8D64.dll
 ServerSide/GameServer/GameServer_D64.exe
 ServerSide/GateServer/GateServer_D64.exe
 ServerSide/GroupServer/GroupServer_D64.exe
 ServerSide/AccountServer/AccountServer_D64.exe
-Phoenix Online/system/x64/Game_D64.exe
-Phoenix Online/system/*/Game*.exe
-Phoenix Online/system/*/MindPower3D_D8R*.dll
+Client/system/x64/Game_D64.exe
+Client/system/*/Game*.exe
+Client/system/*/MindPower3D_D8R*.dll
 ServerSide/GameServer/GameServer*.exe
 ServerSide/GateServer/GateServer*.exe
 ServerSide/AccountServer/AccountServer*.exe
 ServerSide/GroupServer/GroupServer*.exe
-Phoenix Online/log*/
+Client/log*/
 DatabasePath/GameDtopnet64.mdf
 DatabasePath/GameDtopnet64_log.ldf
+sources/Engine/lib/MindPower3D_D8R.exp
+sources/Engine/lib/MindPower3D_D8R.idb
