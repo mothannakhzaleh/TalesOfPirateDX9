@@ -5,14 +5,6 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Editor|Win32">
-      <Configuration>Editor</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Publish|Win32">
-      <Configuration>Publish</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
@@ -26,16 +18,6 @@
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Publish|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Editor|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v143</PlatformToolset>
@@ -49,12 +31,6 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Publish|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Editor|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -80,26 +56,13 @@
     <LinkIncremental>true</LinkIncremental>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Editor|Win32'">
-    <OutDir>$(ProjectDir)..\bin\system\</OutDir>
-    <IntDir>$(ProjectDir)..\build\$(Configuration)\</IntDir>
-    <LinkIncremental>false</LinkIncremental>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Publish|Win32'">
-    <OutDir>$(ProjectDir)..\bin\system\</OutDir>
-    <IntDir>$(ProjectDir)..\build\$(Configuration)\</IntDir>
-    <IgnoreImportLibrary>false</IgnoreImportLibrary>
-    <LinkIncremental>false</LinkIncremental>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <AdditionalOptions>/GR
 /EHa %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Engine\include;$(ProjectDir)..\..\Libraries\Status\Include;$(ProjectDir)..\..\Libraries\EncLib\include;$(ProjectDir)..\..\Libraries\Server\sdk\include;$(ProjectDir)..\..\Libraries\CaLua\include;$(ProjectDir)..\..\Libraries\Common\include;$(ProjectDir)..\..\Libraries\Util\include;$(ProjectDir)..\..\Libraries\AudioSDL\inc;$(ProjectDir)..\..\Libraries\SDL-1.2.7\INCLUDE;$(ProjectDir)..\..\Libraries\Discord\Include;$(ProjectDir)..\..\Libraries\DirectX\include;$(ProjectDir)..\..\Libraries\icu\include;$(ProjectDir)..\..\Libraries\ICUHelper\inc;$(ProjectDir)..\..\Libraries\Cryptopp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_LUA_GAME;MINDPOWER_USE_DLL;_WIN32_WINNT=0x0500;RSA_AES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Engine\include;$(ProjectDir)..\..\Libraries\Status\Include;$(ProjectDir)..\..\Libraries\EncLib\include;$(ProjectDir)..\..\Libraries\Server\sdk\include;$(ProjectDir)..\..\Libraries\CaLua\include;$(ProjectDir)..\..\Libraries\Common\include;$(ProjectDir)..\..\Libraries\Util\include;$(ProjectDir)..\..\Libraries\AudioSDL\inc;$(ProjectDir)..\..\Libraries\SDL-1.2.7\INCLUDE;$(ProjectDir)..\..\Libraries\DirectX\include;$(ProjectDir)..\..\Libraries\icu\include;$(ProjectDir)..\..\Libraries\ICUHelper\inc;$(ProjectDir)..\..\Libraries\Discord\Include;$(ProjectDir)..\..\Libraries\Cryptopp;$(ProjectDir)..\..\Libraries\DirectX\DX9\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_LUA_GAME;MINDPOWER_USE_DLL;_WIN32_WINNT=0x0500;USE_DX_VERSION;LW_USE_DX9;DIRECT3D_VERSION=0x0900;RSA_AES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Sync</ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -117,12 +80,12 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>AudioSDL_D.lib;MindPower3D_D8D.lib;d3dx8.lib;Ws2_32.lib;lua50.lib;lualib.lib;CaLua.lib;LIBDBC_D.lib;util_D.lib;Common_D.lib;dxguid.lib;ddraw.lib;atls.lib;PAI.lib;Status_D.lib;SDL.lib;SDL_mixer.lib;SDLmain.lib;ICUHelper_D.lib;icudt.lib;icuucd.lib;icuind.lib;Psapi.lib;discord-rpc.lib;legacy_stdio_definitions.lib;cryptlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>AudioSDL_D.lib;MindPower3D_D8D.lib;Ws2_32.lib;lua50.lib;lualib.lib;CaLua.lib;LIBDBC_D.lib;util_D.lib;Common_D.lib;dxguid.lib;ddraw.lib;atls.lib;PAI.lib;Status_D.lib;SDL.lib;SDL_mixer.lib;SDLmain.lib;ICUHelper_D.lib;icudt.lib;icuucd.lib;icuind.lib;Psapi.lib;discord-rpc.lib;legacy_stdio_definitions.lib;cryptlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>NotSet</ShowProgress>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\Engine\lib;$(ProjectDir)..\..\Libraries\Common\lib;$(ProjectDir)..\..\Libraries\Status\Lib;$(ProjectDir)..\..\Libraries\Util\lib;$(ProjectDir)..\..\Libraries\EncLib\lib;$(ProjectDir)..\..\Libraries\Server\sdk\lib;$(ProjectDir)..\..\Libraries\Ipss\lib;$(ProjectDir)..\..\Libraries\AudioSDL\lib;$(ProjectDir)..\..\Libraries\SDL-1.2.7\LIB;$(ProjectDir)..\..\Libraries\CaLua\lib;$(ProjectDir)..\..\Libraries\AudioDll\lib;$(ProjectDir)..\..\Libraries\DirectX\Lib;$(ProjectDir)..\..\Libraries\ICUHelper\Lib;$(ProjectDir)..\..\Libraries\icu\lib;$(ProjectDir)..\..\Libraries\Discord\lib;$(ProjectDir)..\..\Libraries\Cryptopp\Win32\Output\Debug\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\Engine\lib;$(ProjectDir)..\..\Libraries\Common\lib;$(ProjectDir)..\..\Libraries\Status\Lib;$(ProjectDir)..\..\Libraries\Util\lib;$(ProjectDir)..\..\Libraries\EncLib\lib;$(ProjectDir)..\..\Libraries\Server\sdk\lib;$(ProjectDir)..\..\Libraries\Ipss\lib;$(ProjectDir)..\..\Libraries\AudioSDL\lib;$(ProjectDir)..\..\Libraries\SDL-1.2.7\LIB;$(ProjectDir)..\..\Libraries\CaLua\lib;$(ProjectDir)..\..\Libraries\AudioDll\lib;$(ProjectDir)..\..\Libraries\DirectX\DX9\Lib;$(ProjectDir)..\..\Libraries\ICUHelper\Lib;$(ProjectDir)..\..\Libraries\icu\lib;$(ProjectDir)..\..\Libraries\Discord\lib;$(ProjectDir)..\..\Libraries\Cryptopp\Win32\Output\Release\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libci.lib;MSVCRT.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <DelayLoadDLLs>d3d8.dll;dinput8.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
+      <DelayLoadDLLs>%(DelayLoadDLLs)</DelayLoadDLLs>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
       <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
@@ -185,80 +148,6 @@
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Editor|Win32'">
-    <ClCompile>
-      <AdditionalOptions>/GR
-/EHa %(AdditionalOptions)</AdditionalOptions>
-      <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\Engine\sdk\include;$(ProjectDir)..\..\CommonLibs\Status\Include;$(ProjectDir)..\..\CommonLibs\EncLib\include;$(ProjectDir)..\..\CommonLibs\Server\sdk\include;$(ProjectDir)..\..\CommonLibs\CaLua\include;$(ProjectDir)..\..\CommonLibs\Common\include;$(ProjectDir)..\..\CommonLibs\Util\include;$(ProjectDir)..\..\CommonLibs\AudioSDL\inc;$(ProjectDir)..\..\CommonLibs\SDL-1.2.7\INCLUDE;$(ProjectDir)..\..\CommonLibs\DiscordC\src;$(ProjectDir)..\..\CommonLibs\DirectX\include;$(ProjectDir)..\..\CommonLibs\icu\include;$(ProjectDir)..\..\CommonLibs\ICUHelper\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_LUA_GAME;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>TurnOffAllWarnings</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ShowIncludes>false</ShowIncludes>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
-      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-    </ClCompile>
-    <Link>
-      <AdditionalDependencies>MindPower3D_D8R.lib;caLua.lib;d3dx8.lib;Ws2_32.lib;LIBDBC_CL.lib;util.lib;Common.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\CommonLibs\Common\lib;$(ProjectDir)..\Engine\sdk\lib;$(ProjectDir)..\..\CommonLibs\Status\Lib;$(ProjectDir)..\..\CommonLibs\Util\lib;$(ProjectDir)..\..\CommonLibs\EncLib\lib;$(ProjectDir)..\..\CommonLibs\Server\sdk\lib;$(ProjectDir)..\lib;$(ProjectDir)..\..\CommonLibs\Ipss\lib;$(ProjectDir)..\..\CommonLibs\AudioSDL\lib;$(ProjectDir)..\..\CommonLibs\SDL-1.2.7\LIB;$(ProjectDir)..\..\CommonLibs\CaLua\lib;$(ProjectDir)..\..\CommonLibs\AudioDll\lib;$(ProjectDir)..\..\CommonLibs\DirectX\Lib;$(ProjectDir)..\..\CommonLibs\ICUHelper\Lib;$(ProjectDir)..\..\CommonLibs\icu\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreSpecificDefaultLibraries>libci.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <DelayLoadDLLs>d3d8.dll;dinput8.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
-      <OptimizeReferences>true</OptimizeReferences>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <TargetMachine>MachineX86</TargetMachine>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Publish|Win32'">
-    <ClCompile>
-      <AdditionalOptions>/GR
-/EHa %(AdditionalOptions)</AdditionalOptions>
-      <Optimization>MaxSpeed</Optimization>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\Engine\sdk\include;$(ProjectDir)..\..\CommonLibs\Status\Include;$(ProjectDir)..\..\CommonLibs\EncLib\include;$(ProjectDir)..\..\CommonLibs\Server\sdk\include;$(ProjectDir)..\..\CommonLibs\CaLua\include;$(ProjectDir)..\..\CommonLibs\Common\include;$(ProjectDir)..\..\CommonLibs\Util\include;$(ProjectDir)..\..\CommonLibs\AudioSDL\inc;$(ProjectDir)..\..\CommonLibs\SDL-1.2.7\INCLUDE;$(ProjectDir)..\..\CommonLibs\DiscordC\src;$(ProjectDir)..\..\CommonLibs\DirectX\include;$(ProjectDir)..\..\CommonLibs\icu\include;$(ProjectDir)..\..\CommonLibs\ICUHelper\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_LUA_GAME;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
-      <MinimalRebuild>false</MinimalRebuild>
-      <ExceptionHandling />
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <BrowseInformation />
-      <WarningLevel>TurnOffAllWarnings</WarningLevel>
-      <DebugInformationFormat />
-      <ShowIncludes>false</ShowIncludes>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
-      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-    </ClCompile>
-    <Link>
-      <RegisterOutput>false</RegisterOutput>
-      <AdditionalDependencies>MindPower3D_D8R.lib;caLua.lib;d3dx8.lib;Ws2_32.lib;LIBDBC_CL.lib;util.lib;Common.lib;dxguid.lib;atls.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ShowProgress>NotSet</ShowProgress>
-      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\CommonLibs\Common\lib;$(ProjectDir)..\Engine\sdk\lib;$(ProjectDir)..\..\CommonLibs\Status\Lib;$(ProjectDir)..\..\CommonLibs\Util\lib;$(ProjectDir)..\..\CommonLibs\EncLib\lib;$(ProjectDir)..\..\CommonLibs\Server\sdk\lib;$(ProjectDir)..\lib;$(ProjectDir)..\..\CommonLibs\Ipss\lib;$(ProjectDir)..\..\CommonLibs\AudioSDL\lib;$(ProjectDir)..\..\CommonLibs\SDL-1.2.7\LIB;$(ProjectDir)..\..\CommonLibs\CaLua\lib;$(ProjectDir)..\..\CommonLibs\AudioDll\lib;$(ProjectDir)..\..\CommonLibs\DirectX\Lib;$(ProjectDir)..\..\CommonLibs\ICUHelper\Lib;$(ProjectDir)..\..\CommonLibs\icu\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <IgnoreSpecificDefaultLibraries>libc.lib;libcmt.lib;msvcrt.lib;libcd.lib;msvcrtd.lib;LIBCI.LIB;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <DelayLoadDLLs>d3d8.dll;dinput8.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AssemblyDebug />
-      <GenerateMapFile>false</GenerateMapFile>
-      <SubSystem>Windows</SubSystem>
-      <OptimizeReferences>true</OptimizeReferences>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <SetChecksum>true</SetChecksum>
-      <TargetMachine>MachineX86</TargetMachine>
-    </Link>
-  </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Actor.cpp" />
     <ClCompile Include="..\src\Algo.cpp" />
@@ -275,10 +164,6 @@
     <ClCompile Include="..\src\ChatRecord.cpp" />
     <ClCompile Include="..\src\Connection.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_From_Release|Win32'">
-      </PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Editor|Win32'">
-      </PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Publish|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
@@ -365,8 +250,6 @@
     <ClCompile Include="..\src\STAttack.cpp" />
     <ClCompile Include="..\src\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Publish|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Editor|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\src\SteadyFrame.cpp" />
