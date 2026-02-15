@@ -71,13 +71,14 @@ Client/bin/scripts/lua/*
 !sources/Libraries/Discord/lib/
 !sources/Libraries/IGameSDK/lib/
 !sources/Libraries//icu/lib/
+!sources/Libraries//ICUHelper/lib/
 !sources/Libraries/Cryptopp/Win32/Output/Release
-!Libraries/Ipss/lib/
-!Libraries/SDL-1.2.7/lib/
-!Libraries/Ipss/bin/
-!Libraries/LuaJIT/lib/
-!Libraries/LuaJIT/luajit.exe
-!Libraries/MaxSDK/lib/
+!sources/Libraries/Ipss/lib/
+!sources/Libraries/SDL-1.2.7/lib/
+!sources/Libraries/Ipss/bin/
+!sources/Libraries/LuaJIT/lib/
+!sources/Libraries/LuaJIT/luajit.exe
+!sources/Libraries/MaxSDK/lib/
 *.copied
 
 Libraries/Server/sdk/build/Release Client/microsoft/STL/std.compat.ixx.ifc.dt.d.json
