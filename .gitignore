@@ -70,8 +70,8 @@ Client/bin/scripts/lua/*
 !sources/Libraries/DirectX/lib/
 !sources/Libraries/Discord/lib/
 !sources/Libraries/IGameSDK/lib/
-!sources/Libraries//icu/lib/
-!sources/Libraries//ICUHelper/lib/
+!sources/Libraries/icu/lib/
+!sources/Libraries/ICUHelper/lib/
 !sources/Libraries/Cryptopp/Win32/Output/Release
 !sources/Libraries/Ipss/lib/
 !sources/Libraries/SDL-1.2.7/lib/
