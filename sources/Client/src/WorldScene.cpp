@@ -1284,7 +1284,7 @@ void CWorldScene::_KeyDownEvent( int key )
 		if( g_pGameApp->IsAltPress() && (key=='c' || key=='C') )	// ��ӡ�����
 			_IsShowCameraInfo = !_IsShowCameraInfo;			
 
-		if( g_pGameApp->IsAltPress() && (key=='k' || key=='K') )
+		if(  (key=='p' || key=='P') )//g_pGameApp->IsAltPress() &&
 			_IsShowPing = !_IsShowPing;			
 
 		if( g_pGameApp->IsAltPress() && (key=='m' || key=='M') )

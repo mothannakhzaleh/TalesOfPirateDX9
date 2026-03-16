@@ -76,15 +76,18 @@ void CWaitMoveState::SetPreMoveTime( long time )
 	LG( "ping", g_oLangRec.GetString(404), LastPingShow[0], LastPingShow[1], LastPingShow[2], MaxPing, fAveragePing, MinPing, nMaxFPS, fFPSAverage, nMinFPS );
 }
 
-void CWaitMoveState::RenderPing()
-{
-	// ÆÁ±Î CTRL + ALT + SHIFT + K ÏÔÊ¾µÄÄÚÈÝ
-
-	//static char szBuf[128] = { 0 };
-	//sprintf( szBuf, g_oLangRec.GetString(405), LastPingShow[0], LastPingShow[1], LastPingShow[2], MaxPing, fAveragePing, MinPing );
-	//g_pGameApp->GetFont()->DrawText( szBuf, 5, 55, D3DCOLOR_ARGB(255,255,255,255));
+void CWaitMoveState::RenderPing() {
+	const auto info = std::format(" FPS:{}", g_Render.GetFPS());
+	constexpr int nX = 20;		 // X-coordinate for text
+	constexpr int nY = 130;	 // Y-coordinate for text
+	// Calculate the width (w) and height (h) of the text in pixels
+	static int w, h;
+	CGuiFont::s_Font.GetSize(info.c_str(), w, h); // Get the size of the text
+	// Render the background frame using the calculated width and height
+	GetRender().FillFrame(nX, nY, nX + w + 7, nY + h);
+	// Render the text itself
+	CGuiFont::s_Font.Render(info.c_str(), nX, nY, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
-
 void CWaitMoveState::RenderCameraInfo()
 {
 #if 1
