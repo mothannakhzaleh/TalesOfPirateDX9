@@ -535,8 +535,8 @@ UI_SetIsDrag( frmRelive, TRUE )
 --UI_SetAlpha( frmRelive, 200 )
 --UI_FormSetHotKey( frmRelive, ALT_KEY, HOTKEY_X ) 
 
-labReCity = UI_CreateCompent( frmRelive, LABELEX_TYPE, "labReCity", 1, 1, 38, 40 )
-UI_SetCaption( labReCity, "Do you want to Revive in town" )
+labReCity = UI_CreateCompent( frmRelive, LABELEX_TYPE, "labReCity", 1, 1, 34, 34 )
+UI_SetCaption( labReCity, "Revive \nin town?" )
 UI_SetTextColor( labReCity, COLOR_BLACK)
 UI_SetLabelExFont( labReCity, DEFAULT_FONT, TRUE, COLOR_WHITE )
 
@@ -545,8 +545,22 @@ UI_SetCaption( labTitle, "Revive")
 UI_SetTextColor( labTitle, COLOR_BLACK )
 UI_SetLabelExFont( labTitle, DEFAULT_FONT, TRUE, COLOR_WHITE )
 
-btnReCity = UI_CreateCompent( frmRelive, BUTTON_TYPE, "btnReCity", 41, 19, 74, 78 )
+btnReCity = UI_CreateCompent( frmRelive, BUTTON_TYPE, "btnReCity", 41, 19, 34, 78 )
 UI_LoadButtonImage( btnReCity, "texture/ui/SystemBotton3.tga", 41, 19, 169, 39, FALSE )
+
+btnReSpot = UI_CreateCompent( frmRelive, BUTTON_TYPE, "btnReSpot", 76, 19, 94, 78 )
+UI_LoadButtonImage( btnReSpot, "texture/ui/Store8.tga", 76, 19, 0, 0, FALSE )
+
+labReSpot = UI_CreateCompent( frmRelive, LABELEX_TYPE, "labReSpot", 41, 19, 104, 81 )
+UI_SetCaption( labReSpot, "Resurrect")
+UI_SetTextColor( labReSpot, COLOR_BLACK )
+UI_SetLabelExFont( labReSpot, DEFAULT_FONT, TRUE, COLOR_WHITE )
+
+imgResurrectItem = UI_CreateCompent( frmRelive, IMAGE_TYPE, "imgResurrectItem", 36, 36, 112 , 30 )
+UI_LoadImage( imgResurrectItem, "texture/ui/Store6.tga", NORMAL, 36, 36, 157, 76 )
+
+cmdResurrectItem = UI_CreateCompent( frmRelive, COMMAND_ONE_TYPE, "cmdResurrectItem", 32, 32, 114, 32 )
+UI_SetIsShow( cmdResurrectItem, false )
 
 -----------------------------------------------------------------------
 -- revive ui

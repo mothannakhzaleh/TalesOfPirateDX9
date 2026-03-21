@@ -787,6 +787,7 @@ public:
 	{
 		Char	m_chSelRelive;	// ѡ�񸴻ʽ
 		Char	m_chReliveLv;	// ����ȼ����������0�����ʾ���ڷ���Ȼ����Ŀ���.
+		bool	m_bReliveByItem;
 	};
 
 	CActionCache		m_CActCache;

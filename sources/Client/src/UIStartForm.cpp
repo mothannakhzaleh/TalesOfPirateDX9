@@ -52,6 +52,15 @@
 using namespace std;
 using namespace GUI;
 
+// Item ID constants for resurrection at the place of death
+// These values must match the constants on the server in exp_and_level.lua
+#define ITEM_ID_RESURRECT_1    15400	// 1% HP
+#define ITEM_ID_RESURRECT_10   15401	// 10% HP
+#define ITEM_ID_RESURRECT_50   15402	// 50% HP
+#define ITEM_ID_RESURRECT_100  15403	// 100% HP
+// Countdown time for the on-site resurrection button (in seconds)
+#define RESURRECT_COUNTDOWN_SECONDS  20
+static DWORD g_dwResurrectCountdownStartTime = 0;
 
 static CForm* frmSelectOriginRelive	= NULL;
 
@@ -761,14 +770,32 @@ void CStartMgr::_evtOriginReliveFormMouseEvent(CCompent *pSender, int nMsgType, 
 
 void CStartMgr::_evtReliveFormMouseEvent(CCompent *pSender, int nMsgType, int x, int y, DWORD dwKey)
 {
-	//if( name=="btnReCity" )
+	std::string name = pSender->GetName();
+
+	if (name == "btnReCity")
 	{
 		CS_DieReturn(enumEPLAYER_RELIVE_CITY);
 		pSender->GetForm()->SetIsShow(false);
-		if( frmSelectOriginRelive )
+		if (frmSelectOriginRelive)
 		{
 			frmSelectOriginRelive->SetIsShow(false);
-			frmSelectOriginRelive = NULL;
+			frmSelectOriginRelive = nullptr;
+		}
+	}
+	else if (name == "btnReSpot")
+	{
+		CCharacter* pMainCha = CGameScene::GetMainCha();
+		if (pMainCha && pMainCha->IsBoat())
+		{
+			return;
+		}
+		// We send a request for resurrection at the place of death
+		CS_DieReturn(enumEPLAYER_RELIVE_ITEM_ORIGIN);
+		pSender->GetForm()->SetIsShow(false);
+		if (frmSelectOriginRelive)
+		{
+			frmSelectOriginRelive->SetIsShow(false);
+			frmSelectOriginRelive = nullptr;
 		}
 	}
 }
@@ -1048,7 +1075,7 @@ void CStartMgr::MainChaDied()
 			}
 			else
 			{
-				pInfo->SetCaption( g_oLangRec.GetString(762) );
+				pInfo->SetCaption( "Revive \nin town?" );
 
 				if( CGameScene* pScene = CGameApp::GetCurScene() )
 				{
@@ -1065,19 +1092,108 @@ void CStartMgr::MainChaDied()
 			}
 		}
 
-		// add by Philip.Wu  ��ɫ������ִ��һ���ƶ������ڹرմ���
 		CUIInterface::MainChaMove();
 
-		// add by Philip.Wu  2006-07-05  ��ɫ������رս��׽���
-		// BUG��ܣ�TEST-32  �ɽ��׺󴥷����������޹���bug
 		g_stUITrade.CloseAllForm();
-		// add by Philip.Wu  2006-07-12  ��ɫ������رճ�������
+
 		CWorldScene* pWorldScene = dynamic_cast<CWorldScene*>(g_pGameApp->GetCurScene());
 		if(pWorldScene && pWorldScene->GetShipMgr())
 		{
 			pWorldScene->GetShipMgr()->CloseForm();
 		}
 
+		// Checking for items to resurrect at the place of death
+		static CTextButton* pBtnReSpot = dynamic_cast<CTextButton*>(frmMainChaRelive->Find("btnReSpot"));
+		static COneCommand* cmdResurrectItem = dynamic_cast<COneCommand*>(frmMainChaRelive->Find("cmdResurrectItem"));
+
+		if (cmdResurrectItem)
+		{
+			cmdResurrectItem->SetIsDrag(false);
+		}
+		// Do not allow item resurrection on boats: hide button and icon completely.
+		const bool bCanShowResurrectOnSpot = (pCha && !pCha->IsBoat());
+		if (pBtnReSpot && cmdResurrectItem)
+		{
+			// Array of item IDs for resurrection (from smallest to largest)
+			const short sResurrectItemIDs[] = {
+				ITEM_ID_RESURRECT_1,   // 1% HP
+				ITEM_ID_RESURRECT_10,  // 10% HP
+				ITEM_ID_RESURRECT_50,  // 50% HP
+				ITEM_ID_RESURRECT_100  // 100% HP
+			};
+
+			short sFoundItemID = 0;
+			short sFoundItemCount = 0;
+
+			// Search for the item with the highest ID (the most powerful)
+			// Traverse the array in reverse order (from highest to lowest)
+			for (int i = 3; i >= 0; i--)
+			{
+				short sItemID = sResurrectItemIDs[i];
+				short sCount = g_stUIEquip.GetItemCount(sItemID);
+				if (sCount > 0)
+				{
+					sFoundItemID = sItemID;
+					sFoundItemCount = sCount;
+					break;
+				}
+			}
+
+			bool bHasItem = (sFoundItemID > 0);
+
+			// Initialize the countdown when the character dies
+			static CLabel* labReSpot = dynamic_cast<CLabel*>(frmMainChaRelive->Find("labReSpot"));
+			if (!bCanShowResurrectOnSpot)
+			{
+				pBtnReSpot->SetIsEnabled(false);
+				pBtnReSpot->SetCaption("");
+				g_dwResurrectCountdownStartTime = 0;
+			}
+			else if (bHasItem && pBtnReSpot)
+			{
+				g_dwResurrectCountdownStartTime = CGameApp::GetCurTick();
+				pBtnReSpot->SetIsEnabled(false);  // The button is inactive during the countdown
+				char szCaption[64];
+				sprintf(szCaption, "%d", RESURRECT_COUNTDOWN_SECONDS);
+				labReSpot->SetCaption(szCaption);
+			}
+			else if (pBtnReSpot)
+			{
+				pBtnReSpot->SetIsEnabled(false);
+				labReSpot->SetCaption("Resurrect");
+				g_dwResurrectCountdownStartTime = 0;  // Reset the timer if there is no item
+			}
+
+			// Clearing the previous item
+			if (cmdResurrectItem)
+			{
+				cmdResurrectItem->DelCommand();
+				cmdResurrectItem->SetIsShow(false);
+			}
+
+			if (bCanShowResurrectOnSpot && bHasItem && cmdResurrectItem)
+			{
+				CItemRecord* pItemRec = GetItemRecordInfo(sFoundItemID);
+				if (pItemRec)
+				{
+					CItemCommand* pItem = new CItemCommand(pItemRec);
+
+					if (pItem->GetData().sID == 0)
+					{
+						pItem->GetData().sID = (short)pItemRec->lID;
+					}
+
+					pItem->GetData().sNum = sFoundItemCount;
+
+					pItem->SetOwnDefText("");
+
+					pItem->SetCanDrag(false);
+
+					cmdResurrectItem->AddCommand(pItem);
+					cmdResurrectItem->SetIsShow(true);
+				}
+			}
+		}
 
 		if( IsShow ) frmMainChaRelive->Show();
 	}
@@ -1752,6 +1868,34 @@ void CStartMgr::ShowBigText( const char* str )
 
 void CStartMgr::FrameMove(DWORD dwTime)
 {
+	// Update the countdown for the resurrection button in place
+	if (frmMainChaRelive && frmMainChaRelive->GetIsShow() && g_dwResurrectCountdownStartTime > 0)
+	{
+		static CTextButton* pBtnReSpot = dynamic_cast<CTextButton*>(frmMainChaRelive->Find("btnReSpot"));
+		static CLabel* labReSpot = dynamic_cast<CLabel*>(frmMainChaRelive->Find("labReSpot"));
+
+		if (labReSpot)
+		{
+			DWORD dwElapsed = dwTime - g_dwResurrectCountdownStartTime;
+			int nSecondsRemaining = RESURRECT_COUNTDOWN_SECONDS - (int)(dwElapsed / 1000);
+
+			if (nSecondsRemaining > 0)
+			{
+				// Update the countdown button text
+				char szCaption[64];
+				sprintf(szCaption, "   %d", nSecondsRemaining);
+				labReSpot->SetCaption(szCaption);
+				pBtnReSpot->SetIsEnabled(false);
+			}
+			else
+			{
+				// Time has expired - we make the button active
+				labReSpot->SetCaption("Resurrect");
+				pBtnReSpot->SetIsEnabled(true);
+				g_dwResurrectCountdownStartTime = 0;
+			}
+		}
+	}
 	static CTimeWork time(100);
 	if( time.IsTimeOut( dwTime ) )
 	{

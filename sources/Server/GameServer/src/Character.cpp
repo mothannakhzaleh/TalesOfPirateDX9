@@ -110,6 +110,7 @@ void CCharacter::Initially()
 	m_pHate->ClearHarmRec();
 	m_chSelRelive = enumEPLAYER_RELIVE_NONE;
 	m_chReliveLv = 0;
+	m_bReliveByItem = false;
 	m_szMotto[0] = '\0';
 	m_usIcon = 0;
 	m_SLean.chState = 1;
@@ -1493,9 +1494,21 @@ void CCharacter::OnDie(DWORD dwCurTime)
 							//m_timerScripts.Reset();
 
 							m_chSelRelive = enumEPLAYER_RELIVE_NONE;
-							m_chReliveLv = 0;
+							
 
-							g_CParser.DoString("Relive_now", enumSCRIPT_RETURN_NONE, 0, enumSCRIPT_PARAM_LIGHTUSERDATA, 1, this, enumSCRIPT_PARAM_NUMBER, 1, m_chReliveLv, DOSTRING_PARAM_END);
+							if (m_bReliveByItem) // Check the new flag
+							{
+								g_CParser.DoString("Relive_now_item", enumSCRIPT_RETURN_NONE, 0,
+									enumSCRIPT_PARAM_LIGHTUSERDATA, 1, this,
+									enumSCRIPT_PARAM_NUMBER, 1, m_chReliveLv, DOSTRING_PARAM_END);
+							}
+							else
+							{
+								g_CParser.DoString("Relive_now", enumSCRIPT_RETURN_NONE, 0,
+									enumSCRIPT_PARAM_LIGHTUSERDATA, 1, this,
+									enumSCRIPT_PARAM_NUMBER, 1, m_chReliveLv, DOSTRING_PARAM_END);
+							}
+							m_bReliveByItem = false; // Reset flag after use
 							if (getAttr(ATTR_HP) <= 0)
 								//LG("重生计算错误", "角色 %s(%d)重生后算出的HP非法\n", GetLogName(), getAttr(ATTR_JOB));
 								LG("renascence compute error", "character %s(%d)after renascence compute HP is unlawful\n", GetLogName(), getAttr(ATTR_JOB));

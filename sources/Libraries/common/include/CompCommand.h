@@ -289,6 +289,7 @@ enum EPlayerReliveType
 	enumEPLAYER_RELIVE_NORIGIN,	// �ܾ�ԭ�㸴��
 	enumEPLAYER_RELIVE_MAP,		// ԭ��ͼ����
 	enumEPLAYER_RELIVE_NOMAP,	// �ܾ�ԭ��ͼ����
+	enumEPLAYER_RELIVE_ITEM_ORIGIN,
 };
 
 enum EUseSkill

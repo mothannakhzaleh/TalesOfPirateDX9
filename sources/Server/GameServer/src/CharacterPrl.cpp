@@ -315,13 +315,54 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			break;
 		}
 	case CMD_CM_DIE_RETURN:
+	{
+		Char chReliveType = READ_CHAR(pk);
+
+		if (chReliveType == enumEPLAYER_RELIVE_CITY)
 		{
-			m_chSelRelive = READ_CHAR(pk);
-			GetPlyMainCha()->ResetChaRelive();	// ¸´»î×´Ì¬»Ö¸´
-			if (m_chSelRelive == enumEPLAYER_RELIVE_NORIGIN)
-				SetRelive(enumEPLAYER_RELIVE_ORIGIN, 0);
-			break;
+			GetPlyMainCha()->ResetChaRelive();
+			m_chSelRelive = enumEPLAYER_RELIVE_CITY;
+			m_bReliveByItem = false;
 		}
+		else if (chReliveType == enumEPLAYER_RELIVE_ORIGIN)
+		{
+			GetPlyMainCha()->ResetChaRelive();
+			m_chSelRelive = enumEPLAYER_RELIVE_ORIGIN;
+			m_bReliveByItem = false;
+		}
+		else if (chReliveType == enumEPLAYER_RELIVE_ITEM_ORIGIN)
+		{
+			bool bSuccess = false;
+			short sItemID = 0;
+			short sHPPercent = 0;
+
+			g_CParser.DoString("CheckAndUseResurrectItem", enumSCRIPT_RETURN_NUMBER, 3,
+				enumSCRIPT_PARAM_LIGHTUSERDATA, 1, this, DOSTRING_PARAM_END);
+			sItemID = (short)g_CParser.GetReturnNumber(1);
+			sHPPercent = (short)g_CParser.GetReturnNumber(2);
+			bSuccess = ((g_CParser.GetReturnNumber(0) == 1) || (sItemID > 0 && sHPPercent > 0));
+
+			if (bSuccess && sHPPercent > 0)
+			{
+				m_chSelRelive = enumEPLAYER_RELIVE_ORIGIN;
+				m_chReliveLv = (Char)sHPPercent;
+				m_bReliveByItem = true;
+			}
+			else
+			{
+				GetPlyMainCha()->ResetChaRelive();
+				m_chSelRelive = enumEPLAYER_RELIVE_NONE;
+				m_bReliveByItem = false;
+			}
+		}
+		else if (chReliveType == enumEPLAYER_RELIVE_NORIGIN)
+		{
+			GetPlyMainCha()->ResetChaRelive();
+			SetRelive(enumEPLAYER_RELIVE_ORIGIN, 0);
+			m_bReliveByItem = false;
+		}
+		break;
+	}
 	case CMD_CM_SAY:
 		{
 			DWORD	dwNowTick = GetTickCount();

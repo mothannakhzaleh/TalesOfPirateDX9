@@ -689,3 +689,86 @@ function CheckLuckyFinish(Effect)
     local b = Percentage_Random(a)
     return b
 end
+
+-- Defining the ID of items for on-site resurrection (must be set in the configuration)
+-- These values must match the constants on the client in UIStartForm.cpp
+ITEM_ID_RESURRECT_1 = 15400   -- 1% HP
+ITEM_ID_RESURRECT_10 = 15401  -- 10% HP
+ITEM_ID_RESURRECT_50 = 15402  -- 50% HP
+ITEM_ID_RESURRECT_100 = 15403 -- 100% HP
+
+RESURRECT_ITEM_IDS = {
+	ITEM_ID_RESURRECT_1,
+	ITEM_ID_RESURRECT_10,
+	ITEM_ID_RESURRECT_50,
+	ITEM_ID_RESURRECT_100
+}
+
+RESURRECT_HP_PERCENTS = {
+	[1] = 1,
+	[2] = 10,
+	[3] = 50,
+	[4] = 100
+}
+
+-- List of maps where resurrection at the place of death is prohibited
+local FORBIDDEN_RESURRECT_MAPS = {
+	"guildwar",
+	-- Add other maps as needed.
+	-- "map_name_2",
+	-- "map_name_3",
+}
+
+-- Checking and using the item for resurrection on the spot
+-- Return: success (number 0/1), itemID (number), hpPercent (number)
+function CheckAndUseResurrectItem(role)
+	local cha_role = TurnToCha(role)
+	
+	local map_name = GetChaMapName(cha_role)
+	for i = 1, #FORBIDDEN_RESURRECT_MAPS do
+		if map_name == FORBIDDEN_RESURRECT_MAPS[i] then
+			SystemNotice(cha_role, "Resurrection at the place of death is not allowed on this map")
+			return 0, 0, 0
+		end
+	end
+	
+	local foundItemID = 0
+	local foundItemIndex = 0
+
+	for i = #RESURRECT_ITEM_IDS, 1, -1 do
+		local itemID = RESURRECT_ITEM_IDS[i]
+		local itemCount = CheckBagItem(cha_role, itemID)
+		if itemCount and itemCount > 0 then
+			foundItemID = itemID
+			foundItemIndex = i
+			break
+		end
+	end
+
+	if foundItemID == 0 then
+		SystemNotice(cha_role, "You need an item to resurrect at the place of death")
+		return 0, 0, 0
+	end
+
+	local ret = DelBagItem(cha_role, foundItemID, 1)
+	if ret ~= 1 then  -- 1 = успех
+		SystemNotice(cha_role, "Error when using the resurrection item")
+		return 0, 0, 0
+	end
+
+	local hpPercent = RESURRECT_HP_PERCENTS[foundItemIndex]
+	return 1, foundItemID, hpPercent
+end
+
+-- On-site resurrection using an item (percentage HP/SP restoration)
+function Relive_now_item(role, hpPercent)
+	local cha_role = TurnToCha(role)
+	local mxhp = Mxhp(cha_role)
+	local mxsp = Mxsp(cha_role)
+
+	local hp = math.max(1, math.floor((hpPercent / 100.0) * mxhp))
+	local sp = math.max(1, math.floor((hpPercent / 100.0) * mxsp))
+	
+	SetCharaAttr(hp, cha_role, ATTR_HP)
+	SetCharaAttr(sp, cha_role, ATTR_SP)
+end
