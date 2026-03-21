@@ -16,6 +16,6 @@ def blake2s_hash(password):
 
     return hexencoded
 
-password = "admin"
+password = "393647"
 hexencoded = blake2s_hash(password)
 print(hexencoded)

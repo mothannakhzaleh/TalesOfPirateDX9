@@ -50,7 +50,7 @@
     <TargetName>$(ProjectName)_D</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(ProjectDir)..\bin\system\</OutDir>
+    <OutDir>$(ProjectDir)..\..\..\client\system\</OutDir>
     <IntDir>$(ProjectDir)..\build\$(Configuration)\</IntDir>
     <IgnoreImportLibrary>false</IgnoreImportLibrary>
     <LinkIncremental>true</LinkIncremental>

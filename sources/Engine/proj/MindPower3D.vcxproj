@@ -49,7 +49,7 @@
     <TargetName>$(ProjectName)_D8D</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(ProjectDir)..\lib\</OutDir>
+    <OutDir>$(ProjectDir)..\..\..\client\system\</OutDir>
     <IntDir>$(ProjectDir)..\build\$(Configuration)\</IntDir>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <TargetName>$(ProjectName)_D8R</TargetName>

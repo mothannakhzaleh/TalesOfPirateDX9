@@ -41,7 +41,7 @@
     <_ProjectFileVersion>16.0.30427.251</_ProjectFileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(ProjectDir)..\Bin\</OutDir>
+    <OutDir>$(ProjectDir)..\..\..\..\server\$(ProjectName)\</OutDir>
     <IntDir>$(ProjectDir)..\build\$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
