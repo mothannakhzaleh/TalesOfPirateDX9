@@ -1,4 +1,0 @@
-﻿[21.03.2026 13:36:24]AccountServer has been started.
-[21.03.2026 13:36:28]GateServer has been started.
-[21.03.2026 13:36:36]GroupServer has been started.
-[21.03.2026 13:36:41]GameServer has been started.
