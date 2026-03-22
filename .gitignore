@@ -151,3 +151,10 @@ DatabasePath/GameDtopnet64_log.ldf
 sources/Engine/lib/MindPower3D_D8R.exp
 sources/Engine/lib/MindPower3D_D8R.idb
 /server/GameServer/resource/*/*.bin
+/server/GameServer/resource/*.bin
+/Client/system/Game.exe
+/Client/scripts/table/*.bin
+/server/FoxLog.txt
+/server/GameServer/GameServer.exe
+/server/GameServer/GameServer.idb
+/Client/scripts/lua/forms/*.bin
