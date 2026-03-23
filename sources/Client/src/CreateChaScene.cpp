@@ -1568,13 +1568,54 @@ void CCreateChaScene::ChangeCity(eDirectType enumDirect)
 //-----------------------------------------------------------------------
 void CCreateChaScene::RenderCha(int x,int y)
 {
-	g_Render.GetDevice()->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
-	g_Render.GetDevice()->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+    if (m_nSelChaIndex < 0 || m_nSelChaIndex > 3)
+        return;
+    if( !m_pChaForUI[m_nSelChaIndex] )
+        return;
 
-    if (m_nSelChaIndex < 0 || m_nSelChaIndex > 3) return;
+    DWORD oldZEnable = 0;
+    DWORD oldZWriteEnable = 0;
+    DWORD oldZFunc = 0;
+    DWORD oldFogEnable = 0;
+    DWORD oldAlphaBlendEnable = 0;
+    DWORD oldSrcBlend = 0;
+    DWORD oldDestBlend = 0;
+    DWORD oldAlphaTestEnable = 0;
+    DWORD oldColorVertex = 0;
+    DWORD oldCullMode = 0;
 
+    g_Render.GetRenderState(D3DRS_ZENABLE, &oldZEnable);
+    g_Render.GetRenderState(D3DRS_ZWRITEENABLE, &oldZWriteEnable);
+    g_Render.GetRenderState(D3DRS_ZFUNC, &oldZFunc);
+    g_Render.GetRenderState(D3DRS_FOGENABLE, &oldFogEnable);
+    g_Render.GetRenderState(D3DRS_ALPHABLENDENABLE, &oldAlphaBlendEnable);
+    g_Render.GetRenderState(D3DRS_SRCBLEND, &oldSrcBlend);
+    g_Render.GetRenderState(D3DRS_DESTBLEND, &oldDestBlend);
+    g_Render.GetRenderState(D3DRS_ALPHATESTENABLE, &oldAlphaTestEnable);
+    g_Render.GetRenderState(D3DRS_COLORVERTEX, &oldColorVertex);
+    g_Render.GetRenderState(D3DRS_CULLMODE, &oldCullMode);
 
-    if( !m_pChaForUI[m_nSelChaIndex] ) return;
+	g_Render.SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+	g_Render.SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+    g_Render.SetRenderState(D3DRS_ZFUNC, D3DCMP_ALWAYS);
+    g_Render.SetRenderState(D3DRS_FOGENABLE, FALSE);
+    g_Render.SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+    g_Render.SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
+    g_Render.SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ZERO);
+    g_Render.SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+    g_Render.SetRenderState(D3DRS_COLORVERTEX, FALSE);
+    g_Render.SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+    g_Render.SetRenderState(D3DRS_TEXTUREFACTOR, 0xffffffff);
+
+    // Reset stage 0 to a deterministic pipeline for DX9 UI 3D draw.
+    g_Render.SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+    g_Render.SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+    g_Render.SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+    g_Render.SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+    g_Render.SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+    g_Render.SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+    g_Render.SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_DISABLE);
+    g_Render.SetTextureStageState(1, D3DTSS_ALPHAOP, D3DTOP_DISABLE);
 
     g_Render.LookAt( D3DXVECTOR3( 11.0f, 36.0f, 10.0f ), D3DXVECTOR3( 8.70f, 12.0f, 8.0f ), MPRender::VIEW_3DUI );
     y +=100;
@@ -1586,6 +1627,17 @@ void CCreateChaScene::RenderCha(int x,int y)
     m_pChaForUI[m_nSelChaIndex]->SetMatrix(&old_mat);
 
     g_Render.SetTransformView(&g_Render.GetWorldViewMatrix());
+
+    g_Render.SetRenderState(D3DRS_ZENABLE, oldZEnable);
+    g_Render.SetRenderState(D3DRS_ZWRITEENABLE, oldZWriteEnable);
+    g_Render.SetRenderState(D3DRS_ZFUNC, oldZFunc);
+    g_Render.SetRenderState(D3DRS_FOGENABLE, oldFogEnable);
+    g_Render.SetRenderState(D3DRS_ALPHABLENDENABLE, oldAlphaBlendEnable);
+    g_Render.SetRenderState(D3DRS_SRCBLEND, oldSrcBlend);
+    g_Render.SetRenderState(D3DRS_DESTBLEND, oldDestBlend);
+    g_Render.SetRenderState(D3DRS_ALPHATESTENABLE, oldAlphaTestEnable);
+    g_Render.SetRenderState(D3DRS_COLORVERTEX, oldColorVertex);
+    g_Render.SetRenderState(D3DRS_CULLMODE, oldCullMode);
 
 }
 
