@@ -12,7 +12,7 @@ def blake2s_hash(password):
     digest = hasher.digest()
 
     # Convert the digest to a hexadecimal string
-    hexencoded = binascii.hexlify(digest).decode('utf-8')
+    hexencoded = binascii.hexlify(digest).decode('utf-8').upper()
 
     return hexencoded
 
