@@ -84,13 +84,13 @@ public:
     void Init(lwIResourceMgr* res_mgr) { _res_mgr = res_mgr; }
 
     void Destroy();
-    void Update();
-    void Render();
+    void Update() const;
+    void Render() const;
     int LoadModelLXO(const char* file);
     int LoadModelLMO(const char* file);
     int LoadArrowItem(const char* file, const lwVector3* offset_pos4);
-    void OnMouseMove(int flag, int x, int y);
-    int OnLButtonDown(int flag, int x, int y);
+    void OnMouseMove(int flag, int x, int y) const;
+    int OnLButtonDown(int flag, int x, int y) const;
 
 	bool	LoadArrowMark( const char* Filename, const lwVector3* Offsets );
 };
@@ -136,7 +136,7 @@ protected:
     bool                _InitUI();
 
     //渲染UI 3D模型
-    void                RenderCha(int x,int y);
+    void                RenderCha(int x,int y) const;
 
     //回掉函数
     static void     _ChaFoundFrmMouseEvent(CCompent *pSender, int nMsgType, 
@@ -176,17 +176,17 @@ protected:
     // 逻辑函数
     void            ChangeFace(eDirectType enumDirect = LEFT);
     void            ChangeHair(eDirectType enumDirect = LEFT);
-    void            ChangeCity(eDirectType enumDirect = LEFT);
+    void            ChangeCity(eDirectType enumDirect = LEFT) const;
     void            RotateChar(eDirectType enumDirect = LEFT);
     bool            IsValidCheckChaName(const char *name);
     void            DarkScene(bool isDark = true);
 
-    void            InitChaFoundFrm();
+    void            InitChaFoundFrm() const;
     void            InitChaCityFrm();
     void            InitChaData();
 
-    void            SendChaToServ();
-    void            GotoSelChaScene();
+    void            SendChaToServ() const;
+    void            GotoSelChaScene() const;
 
 	void			ShowChaFoundForm();
 
@@ -272,7 +272,7 @@ private:
 	bool m_bFirstShow;
 	bool m_bSameNameError;
 
-	void ShowAllRoleInfo(int nRoleInfo);
+	void ShowAllRoleInfo(int nRoleInfo) const;
 
 	static const int ROLE_ALL_INFO_COUNT = 24;
 

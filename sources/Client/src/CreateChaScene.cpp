@@ -159,7 +159,7 @@ int LoginScene_CreateCha::_InitChaObjSeq()
         if(LW_FAILED(_model_lxo->QueryTreeNode(&mnqi)))
             return 0;
 
-        _cha_obj[i] = (lwINodePrimitive*)mnqi.node->GetData();
+        _cha_obj[i] = static_cast<lwINodePrimitive*>(mnqi.node->GetData());
     }
 
     _cha_num = cha_num;
@@ -185,7 +185,7 @@ int LoginScene_CreateCha::_InitChaObjSeq()
 
     for(DWORD i = 0; i < _cha_num; i++)
     {
-        lwINodeBoneCtrl* bone_ctrl = (lwINodeBoneCtrl*)_cha_obj[i]->GetParent();
+        lwINodeBoneCtrl* bone_ctrl = static_cast<lwINodeBoneCtrl*>(_cha_obj[i]->GetParent());
         if(bone_ctrl == 0)
             return 0;
 
@@ -220,7 +220,7 @@ void LoginScene_CreateCha::Destroy()
     LW_SAFE_RELEASE(_model_lmo);
 }
 
-void LoginScene_CreateCha::Update()
+void LoginScene_CreateCha::Update() const
 {
     if(_model_lxo)
     {
@@ -250,7 +250,7 @@ void LoginScene_CreateCha::Update()
 	}
 }
 
-void LoginScene_CreateCha::Render()
+void LoginScene_CreateCha::Render() const
 {
 	if(_model_lxo)
 	{
@@ -306,7 +306,7 @@ int LoginScene_CreateCha::LoadModelLXO(const char* file)
     if(LW_SUCCEEDED(_model_lxo->QueryTreeNode(&mnqi)))
     {
         tn_bonectrl = mnqi.node;
-        node_bonectrl = (lwINodeBoneCtrl*)mnqi.node->GetData();
+        node_bonectrl = static_cast<lwINodeBoneCtrl*>(mnqi.node->GetData());
     }
 
     mnqi.type = NODE_DUMMY;
@@ -316,7 +316,7 @@ int LoginScene_CreateCha::LoadModelLXO(const char* file)
     if(LW_SUCCEEDED(_model_lxo->QueryTreeNode(&mnqi)))
     {
         tn_dummy = mnqi.node;
-        node_dummy = (lwINodeDummy*)mnqi.node->GetData();
+        node_dummy = static_cast<lwINodeDummy*>(mnqi.node->GetData());
     }
 
     if(node_bonectrl && node_dummy)
@@ -380,7 +380,7 @@ int LoginScene_CreateCha::LoadModelLXO(const char* file)
 
                 if(LW_SUCCEEDED(_model_lxo->QueryTreeNode(&mnqi)))
                 {
-                    lwINodeBoneCtrl* nb = (lwINodeBoneCtrl*)mnqi.node->GetData();
+                    lwINodeBoneCtrl* nb = static_cast<lwINodeBoneCtrl*>(mnqi.node->GetData());
 
                     lwIAnimCtrlObj* ctrl_obj = nb->GetAnimCtrlObj();
                     if(ctrl_obj == 0)
@@ -398,7 +398,7 @@ int LoginScene_CreateCha::LoadModelLXO(const char* file)
 
                 if(LW_SUCCEEDED(_model_lxo->QueryTreeNode(&mnqi)))
                 {
-                    np = (lwINodePrimitive*)mnqi.node->GetData();
+                    np = static_cast<lwINodePrimitive*>(mnqi.node->GetData());
 
                     lwIAnimCtrlAgent* anim_agent = np->GetAnimCtrlAgent();
                     if(anim_agent == 0)
@@ -516,7 +516,7 @@ int LoginScene_CreateCha::LoadArrowItem(const char* file, const lwVector3* offse
     return 1;
 }
 
-void LoginScene_CreateCha::OnMouseMove(int flag, int x, int y)
+void LoginScene_CreateCha::OnMouseMove(int flag, int x, int y) const
 {
     if(_model_type != 1)
         return;
@@ -576,18 +576,18 @@ void LoginScene_CreateCha::OnMouseMove(int flag, int x, int y)
             play_info.pose = 1;
         }
 
-        lwINodeBoneCtrl* bone_ctrl = (lwINodeBoneCtrl*)pri->GetParent();
+        lwINodeBoneCtrl* bone_ctrl = static_cast<lwINodeBoneCtrl*>(pri->GetParent());
         bone_ctrl->GetAnimCtrlObj()->PlayPose(&play_info);
 
         if(i == 2) // octopus
         {
-            lwINodeBoneCtrl* bone_ctrl = (lwINodeBoneCtrl*)_cha_obj[4]->GetParent();
+            lwINodeBoneCtrl* bone_ctrl = static_cast<lwINodeBoneCtrl*>(_cha_obj[4]->GetParent());
             bone_ctrl->GetAnimCtrlObj()->PlayPose(&play_info);
         }
     }
 
     { // dummy 99 obj
-        lwINodeDummy* node_dummy = (lwINodeDummy*)_cha_obj[_act_obj[3]]->GetParent()->GetParent();
+        lwINodeDummy* node_dummy = static_cast<lwINodeDummy*>(_cha_obj[_act_obj[3]]->GetParent()->GetParent());
         lwIAnimCtrlObjMat* ctrl_mat = (lwIAnimCtrlObjMat*)node_dummy->GetAnimCtrlObj();
 
         if(dummy_flag == 1)
@@ -605,7 +605,7 @@ void LoginScene_CreateCha::OnMouseMove(int flag, int x, int y)
         ctrl_mat->PlayPose(&play_info);
     }
 }
-int LoginScene_CreateCha::OnLButtonDown(int flag, int x, int y)
+int LoginScene_CreateCha::OnLButtonDown(int flag, int x, int y) const
 {
     if(_model_type != 1 )
         return -1;
@@ -850,7 +850,7 @@ bool CCreateChaScene::_Init()
 
     _InitUI(); 
 
-	srand( (unsigned)time( NULL ) );
+	srand( static_cast<unsigned>(time(NULL)) );
 
 	m_bSameNameError = false;
 
@@ -1006,7 +1006,7 @@ bool CCreateChaScene::_InitUI()
             LG( "xXx", "msgInit frmFound UI error\n" );
             return false;
         }
-        CTextButton* btnLeftHair = (CTextButton*)frmChaFound->Find("btnLeftHair");
+        CTextButton* btnLeftHair = static_cast<CTextButton*>(frmChaFound->Find("btnLeftHair"));
         if( !btnLeftHair ) 
         {
             Error(g_oLangRec.GetString(45), 
@@ -1014,7 +1014,7 @@ bool CCreateChaScene::_InitUI()
             return false;
         }
         btnLeftHair->evtMouseClick = __gui_event_left_hair;
-        CTextButton* btnRightHair = (CTextButton*)frmChaFound->Find("btnRightHair");
+        CTextButton* btnRightHair = static_cast<CTextButton*>(frmChaFound->Find("btnRightHair"));
         if( !btnRightHair ) 
         {
             Error(g_oLangRec.GetString(45), 
@@ -1022,7 +1022,7 @@ bool CCreateChaScene::_InitUI()
             return false;
         }
         btnRightHair->evtMouseClick = __gui_event_right_hair;
-        CTextButton* btnLeftFace = (CTextButton*)frmChaFound->Find("btnLeftFace");
+        CTextButton* btnLeftFace = static_cast<CTextButton*>(frmChaFound->Find("btnLeftFace"));
         if( !btnLeftFace ) 
         {
             Error(g_oLangRec.GetString(45), 
@@ -1030,7 +1030,7 @@ bool CCreateChaScene::_InitUI()
             return false;
         }
         btnLeftFace->evtMouseClick = __gui_event_left_face;
-        CTextButton* btnRightFace = (CTextButton*)frmChaFound->Find("btnRightFace");
+        CTextButton* btnRightFace = static_cast<CTextButton*>(frmChaFound->Find("btnRightFace"));
         if( !btnRightFace ) 
         {
             Error(g_oLangRec.GetString(45), 
@@ -1046,7 +1046,7 @@ bool CCreateChaScene::_InitUI()
 		btnRightFace->SetFlashCycle();
 
 
-        CTextButton* btnLeft3d = (CTextButton*)frmChaFound->Find("btnLeft3d");
+        CTextButton* btnLeft3d = static_cast<CTextButton*>(frmChaFound->Find("btnLeft3d"));
         if (!btnLeft3d)
         {
             Error(g_oLangRec.GetString(45), 
@@ -1056,7 +1056,7 @@ bool CCreateChaScene::_InitUI()
 		btnLeft3d->evtMouseClick = __gui_event_left_rotate;
         btnLeft3d->evtMouseDownContinue = __gui_event_left_continue_rotate;
 
-        CTextButton* btnRight3d = (CTextButton*)frmChaFound->Find("btnRight3d");
+        CTextButton* btnRight3d = static_cast<CTextButton*>(frmChaFound->Find("btnRight3d"));
         if (!btnRight3d)
         {
             Error(g_oLangRec.GetString(45), 
@@ -1066,7 +1066,7 @@ bool CCreateChaScene::_InitUI()
 		btnRight3d->evtMouseClick = __gui_event_right_rotate;
 		btnRight3d->evtMouseDownContinue = __gui_event_right_continue_rotate;
 
-        labHair = (CLabel*) frmChaFound->Find("labHairShow");
+        labHair = static_cast<CLabel*>(frmChaFound->Find("labHairShow"));
         if( !labHair ) 
         {
             Error(g_oLangRec.GetString(45), 
@@ -1074,7 +1074,7 @@ bool CCreateChaScene::_InitUI()
             return false;
         }
 
-        labFace = (CLabel*) frmChaFound->Find("labFaceShow");
+        labFace = static_cast<CLabel*>(frmChaFound->Find("labFaceShow"));
         if( !labFace ) 
         {
             Error(g_oLangRec.GetString(45), 
@@ -1082,7 +1082,7 @@ bool CCreateChaScene::_InitUI()
             return false;
         }
 
-        edtName = (CEdit*) frmChaFound->Find("edtName");
+        edtName = static_cast<CEdit*>(frmChaFound->Find("edtName"));
         if (!edtName)
         {
             Error(g_oLangRec.GetString(45), 
@@ -1091,13 +1091,13 @@ bool CCreateChaScene::_InitUI()
         }
         //edtName->evtChange = __gui_event_edit_change;
 
-        memChaDescribe = (CMemo*)frmChaFound->Find("memChaDescribe");
+        memChaDescribe = static_cast<CMemo*>(frmChaFound->Find("memChaDescribe"));
         if (!memChaDescribe)
         {
             return Error(g_oLangRec.GetString(45), 
 				frmChaFound->GetName(), "memChaDescribe");
         }
-        C3DCompent* ui3dCreateCha = (C3DCompent*)frmChaFound->Find( "ui3dCreateCha" );
+        C3DCompent* ui3dCreateCha = static_cast<C3DCompent*>(frmChaFound->Find("ui3dCreateCha"));
         if( ui3dCreateCha )
         {
             ui3dCreateCha->SetRenderEvent( __cha_render_event );
@@ -1126,7 +1126,7 @@ bool CCreateChaScene::_InitUI()
 			for (int j(0); j<CITY_PICTURE_NUM; ++j)
 			{
 				sprintf(szPicName, szPicNameBase, i, j);
-				imgCities[i][j] = (CImage*)frmChaCity->Find(szPicName);
+				imgCities[i][j] = static_cast<CImage*>(frmChaCity->Find(szPicName));
 				if (!imgCities[i][j])
 				{
 					return Error(g_oLangRec.GetString(46),
@@ -1146,7 +1146,7 @@ bool CCreateChaScene::_InitUI()
 		for (int i(0); i<MAX_CITY_NUM; ++i)
 		{
 			sprintf(szPicName, szCityBlockName, i+1);
-			imgCitiesBlock[i] = (CTextButton*)frmChaCity->Find(szPicName);
+			imgCitiesBlock[i] = static_cast<CTextButton*>(frmChaCity->Find(szPicName));
 			if (!imgCitiesBlock[i])
 			{
 				return Error(g_oLangRec.GetString(46),
@@ -1489,7 +1489,7 @@ void CCreateChaScene::ChangeFace(eDirectType enumDirect)
 
     // ѭ���ƶ�
     m_nCurFaceIndex -= nBeginIndex;
-    m_nCurFaceIndex += ((int)(enumDirect));
+    m_nCurFaceIndex += static_cast<int>(enumDirect);
     m_nCurFaceIndex = (m_nCurFaceIndex + nSelFaceNum[m_nSelChaIndex]) % nSelFaceNum[m_nSelChaIndex];
     m_nCurFaceIndex += nBeginIndex;
 
@@ -1521,7 +1521,7 @@ void CCreateChaScene::ChangeHair(eDirectType enumDirect)
 
     // ѭ���ƶ�
     m_nCurHairIndex -= nBeginIndex;
-    m_nCurHairIndex += ((int)(enumDirect));
+    m_nCurHairIndex += static_cast<int>(enumDirect);
     m_nCurHairIndex = (m_nCurHairIndex + nSelHairNum[m_nSelChaIndex]) % nSelHairNum[m_nSelChaIndex];
     m_nCurHairIndex += nBeginIndex;
 
@@ -1543,18 +1543,18 @@ void CCreateChaScene::ChangeHair(eDirectType enumDirect)
 }
 
 //-----------------------------------------------------------------------
-void CCreateChaScene::ChangeCity(eDirectType enumDirect)
+void CCreateChaScene::ChangeCity(eDirectType enumDirect) const
 {
     if (m_nSelChaIndex < 0 || m_nSelChaIndex > 3)
         return;
 
-    CLabelEx  *labCityShow = ( CLabelEx *) frmChaCity ->Find("labCityShow");
+    CLabelEx  *labCityShow = static_cast<CLabelEx*>(frmChaCity->Find("labCityShow"));
     if (!labCityShow)    return ;
 
     //�ж�Ŀǰ�����
 
 
-    m_nCurCityIndex += ((int)(enumDirect));
+    m_nCurCityIndex += static_cast<int>(enumDirect);
 
     // ѭ���ƶ�
     m_nCurCityIndex = (m_nCurCityIndex + MAX_CITY_NUM) % MAX_CITY_NUM;
@@ -1566,7 +1566,7 @@ void CCreateChaScene::ChangeCity(eDirectType enumDirect)
 
 
 //-----------------------------------------------------------------------
-void CCreateChaScene::RenderCha(int x, int y)
+void CCreateChaScene::RenderCha(int x, int y) const
 {
     if (m_nSelChaIndex < 0 || m_nSelChaIndex > 3)
         return;
@@ -1644,7 +1644,7 @@ void CCreateChaScene::RenderCha(int x, int y)
 void CCreateChaScene::RotateChar(eDirectType enumDirect)
 {
     m_nChaRotate += 180;
-    m_nChaRotate += -((int)(enumDirect)) * 15;
+    m_nChaRotate += -static_cast<int>(enumDirect) * 15;
     m_nChaRotate = (m_nChaRotate + 360) % 360;
     m_nChaRotate -= 180;
 }
@@ -1652,7 +1652,7 @@ void CCreateChaScene::RotateChar(eDirectType enumDirect)
 
 
 //-----------------------------------------------------------------------
-void CCreateChaScene::InitChaFoundFrm()
+void CCreateChaScene::InitChaFoundFrm() const
 {
     if (m_nSelChaIndex < 0 || m_nSelChaIndex > 3)
         return;
@@ -1660,9 +1660,9 @@ void CCreateChaScene::InitChaFoundFrm()
 	if (NULL == m_pChaForUI[m_nSelChaIndex]) return;
 
 
-    CTextButton* btnLeftHair = (CTextButton*)frmChaFound->Find("btnLeftHair");
+    CTextButton* btnLeftHair = static_cast<CTextButton*>(frmChaFound->Find("btnLeftHair"));
     if( !btnLeftHair ) return;
-    CTextButton* btnRightHair = (CTextButton*)frmChaFound->Find("btnRightHair");
+    CTextButton* btnRightHair = static_cast<CTextButton*>(frmChaFound->Find("btnRightHair"));
     if( !btnRightHair ) return;
 
     memChaDescribe->SetCaption(GetCharacterDescription(m_nSelChaIndex));
@@ -1758,7 +1758,7 @@ bool CCreateChaScene::IsValidCheckChaName(const char *name)
         return false;
     }
 
-    if( !::IsValidName( name, (unsigned short)strlen(name) ) )
+    if( !::IsValidName( name, static_cast<unsigned short>(strlen(name)) ) )
     {
         g_pGameApp->MsgBox( g_oLangRec.GetString(51));
         return false;
@@ -1766,7 +1766,7 @@ bool CCreateChaScene::IsValidCheckChaName(const char *name)
     //return true;
 
     const char* s = name ;
-    int len = (int)strlen(s) ;
+    int len = static_cast<int>(strlen(s)) ;
     bool bOk  = true;
 
     for ( int i = 0; i< len ; i++)
@@ -1815,7 +1815,7 @@ void CCreateChaScene::DarkScene(bool isDark)
 }
 
 //-----------------------------------------------------------------------
-void CCreateChaScene::SendChaToServ()
+void CCreateChaScene::SendChaToServ() const
 {
     if (m_nSelChaIndex < 0 || m_nSelChaIndex > 3)   return;
 
@@ -1837,9 +1837,9 @@ void CCreateChaScene::SendChaToServ()
 	//	g_pGameApp->MsgBox(g_oLangRec.GetString(54));
 
 
-	int sTypeID = (short)m_pChaForUI[m_nSelChaIndex]->getTypeID();
-	int sHairID = (short)m_pChaForUI[m_nSelChaIndex]->GetPartID(0);
-	int faceID = (short)m_pChaForUI[m_nSelChaIndex]->GetPartID(1);
+	int sTypeID = static_cast<short>(m_pChaForUI[m_nSelChaIndex]->getTypeID());
+	int sHairID = static_cast<short>(m_pChaForUI[m_nSelChaIndex]->GetPartID(0));
+	int faceID = static_cast<short>(m_pChaForUI[m_nSelChaIndex]->GetPartID(1));
 	CS_NewCha(edtName->GetCaption(), GetCityName(m_nCurCityIndex), sTypeID, sHairID, faceID);
 }
 
@@ -1861,9 +1861,9 @@ void CCreateChaScene::CreateNewCha()
 
     stNetChangeChaPart part;
     memset( &part, 0, sizeof(part) );
-    part.sTypeID = (short)m_pChaForUI[m_nSelChaIndex]->getTypeID();
-    part.sHairID = (short)m_pChaForUI[m_nSelChaIndex]->GetPartID(0);
-    part.SLink[enumEQUIP_FACE] = (short)m_pChaForUI[m_nSelChaIndex]->GetPartID(1);
+    part.sTypeID = static_cast<short>(m_pChaForUI[m_nSelChaIndex]->getTypeID());
+    part.sHairID = static_cast<short>(m_pChaForUI[m_nSelChaIndex]->GetPartID(0));
+    part.SLink[enumEQUIP_FACE] = static_cast<short>(m_pChaForUI[m_nSelChaIndex]->GetPartID(1));
     int nChaIndex = m_nSelChaIndex;
 
     //�л���ѡ�˳�������
@@ -1916,7 +1916,7 @@ void CCreateChaScene::NewChaError( int error_no, const char* error_info )
 }
 
 //-----------------------------------------------------------------------
-void CCreateChaScene::GotoSelChaScene()
+void CCreateChaScene::GotoSelChaScene() const
 {
     g_pGameApp->GotoScene(m_pkLastScene, true);
 }
@@ -1999,7 +1999,7 @@ void CCreateChaScene::ShowChaFoundForm()
 }
 
 
-void CCreateChaScene::ShowAllRoleInfo(int nRoleInfo)
+void CCreateChaScene::ShowAllRoleInfo(int nRoleInfo) const
 {
 	if(0 < nRoleInfo && nRoleInfo <= ROLE_ALL_INFO_COUNT)
 	{

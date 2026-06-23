@@ -46,21 +46,21 @@ void CProCirculateCS::BeginAction( CCharacter* pCha, DWORD type, void* param, CA
 #ifdef defPROTOCOL_HAVE_PACKETID
 		pk.WriteLong(pCNetIf->m_ulPacketCount++);
 #endif
-		pk.WriteChar((dbc::uChar)type);
+		pk.WriteChar(static_cast<dbc::uChar>(type));
 		switch (type)
 		{
 		case	enumACTION_MOVE:
 			{
 				
-				stNetMoveInfo *pMove = (stNetMoveInfo *)param;
-				pk.WriteSequence((cChar *)pMove->pos_buf ,uShort(sizeof(Point) * pMove->pos_num));
+				stNetMoveInfo *pMove = static_cast<stNetMoveInfo*>(param);
+				pk.WriteSequence(reinterpret_cast<cChar*>(pMove->pos_buf) ,static_cast<uShort>(sizeof(Point) * pMove->pos_num));
 				pCNetIf->SendPacketMessage(pk);
 
 
 				char buffer[64] = {0};
 				char buf[64] = {0};
 				CCharacter	*pCha = CGameScene::GetMainCha();
-				CGameScene	*pScene = g_pGameApp->GetCurScene();
+				CGameScene	*pScene = CGameApp::GetCurScene();
 				if(!pCha->IsBoat()) {
 				int nArea = pScene->_pTerrain->GetTile(pCha->GetCurX()/100, pCha->GetCurY()/100 )->getIsland();
 				CAreaInfo* pArea = GetAreaInfo( nArea );
@@ -68,7 +68,7 @@ void CProCirculateCS::BeginAction( CCharacter* pCha, DWORD type, void* param, CA
 
 				sprintf(buf, "In %s",pArea->szDataName);
 
-				sprintf(buffer, "%s Lv%d %s", pCha->getHumanName(), pCha->getLv(), g_GetJobName((short)pCha->getGameAttr()->get(ATTR_JOB)));
+				sprintf(buffer, "%s Lv%d %s", pCha->getHumanName(), pCha->getLv(), g_GetJobName(static_cast<short>(pCha->getGameAttr()->get(ATTR_JOB))));
 				if(pCha->GetTeamLeaderID() > 0) {
 				}else{
 
@@ -76,7 +76,7 @@ void CProCirculateCS::BeginAction( CCharacter* pCha, DWORD type, void* param, CA
 
 				}
 				}else {
-					sprintf(buffer, "%s Lv%d %s", pCha->getHumanName(), pCha->getLv(), g_GetJobName((short)pCha->getGameAttr()->get(ATTR_JOB)));
+					sprintf(buffer, "%s Lv%d %s", pCha->getHumanName(), pCha->getLv(), g_GetJobName(static_cast<short>(pCha->getGameAttr()->get(ATTR_JOB))));
 					sprintf(buf, "Sailing");
 					updateDiscordPresence(buffer, buf );
 				}
@@ -98,12 +98,12 @@ void CProCirculateCS::BeginAction( CCharacter* pCha, DWORD type, void* param, CA
 			}
 		case	enumACTION_SKILL:
 			{
-				stNetSkillInfo *pSkill = (stNetSkillInfo *)param;
+				stNetSkillInfo *pSkill = static_cast<stNetSkillInfo*>(param);
 				pk.WriteChar(pSkill->chMove);
 				pk.WriteChar(pSkill->byFightID);
 				if (pSkill->chMove == 2)
 				{
-					pk.WriteSequence((cChar *)pSkill->SMove.pos_buf, uShort(sizeof(POINT) * pSkill->SMove.pos_num));
+					pk.WriteSequence((cChar *)pSkill->SMove.pos_buf, static_cast<uShort>(sizeof(POINT) * pSkill->SMove.pos_num));
 				}
 				pk.WriteLong(pSkill->lSkillID);
 				pk.WriteLong(pSkill->lTarInfo1);
@@ -131,18 +131,18 @@ void CProCirculateCS::BeginAction( CCharacter* pCha, DWORD type, void* param, CA
 			}
 		case	enumACTION_STOP_STATE:
 			{
-				pk.WriteShort(*((short *)param));
+				pk.WriteShort(*static_cast<short*>(param));
 				pCNetIf->SendPacketMessage(pk);
 
 				// log
-				LG(szLogName, "###Send(Stop Skill State %d):\tTick:[%d]\n", *((short *)param), GetTickCount());
+				LG(szLogName, "###Send(Stop Skill State %d):\tTick:[%d]\n", *static_cast<short*>(param), GetTickCount());
 				LG(szLogName, "\n");
 				//
 				break;
 			}
 		case	enumACTION_LEAN: // �п�
 			{
-				stNetLeanInfo *pSLean = (stNetLeanInfo *)param;
+				stNetLeanInfo *pSLean = static_cast<stNetLeanInfo*>(param);
 				pk.WriteLong(pSLean->lPose);
 				pk.WriteLong(pSLean->lAngle);
 				pk.WriteLong(pSLean->lPosX);
@@ -158,7 +158,7 @@ void CProCirculateCS::BeginAction( CCharacter* pCha, DWORD type, void* param, CA
 			}
 		case	enumACTION_ITEM_PICK: // �����
 			{
-				stNetItemPick *pPick = (stNetItemPick *)param;
+				stNetItemPick *pPick = static_cast<stNetItemPick*>(param);
 				pk.WriteLong(pPick->lWorldID);
 				pk.WriteLong(pPick->lHandle);
 				pCNetIf->SendPacketMessage(pk);
@@ -169,9 +169,9 @@ void CProCirculateCS::BeginAction( CCharacter* pCha, DWORD type, void* param, CA
 			}
 		case	enumACTION_ITEM_THROW: // ������
 			{
-				stNetItemThrow *pThrow = (stNetItemThrow *)param;
+				stNetItemThrow *pThrow = static_cast<stNetItemThrow*>(param);
 				pk.WriteShort(pThrow->sGridID);
-				pk.WriteShort((short)pThrow->lNum);
+				pk.WriteShort(static_cast<short>(pThrow->lNum));
 				pk.WriteLong(pThrow->lPosX);
 				pk.WriteLong(pThrow->lPosY);
 				pCNetIf->SendPacketMessage(pk);
@@ -182,7 +182,7 @@ void CProCirculateCS::BeginAction( CCharacter* pCha, DWORD type, void* param, CA
 			}
 		case	enumACTION_ITEM_USE:
 			{
-				stNetUseItem *pUseItem = (stNetUseItem *)param;
+				stNetUseItem *pUseItem = static_cast<stNetUseItem*>(param);
 				pk.WriteShort(pUseItem->sGridID);
 				pk.WriteShort(pUseItem->sTarGridID);
 				pCNetIf->SendPacketMessage(pk);
@@ -194,7 +194,7 @@ void CProCirculateCS::BeginAction( CCharacter* pCha, DWORD type, void* param, CA
 			}
 		case	enumACTION_ITEM_UNFIX: // жװ����
 			{
-				stNetItemUnfix *pUnfix = (stNetItemUnfix *)param;
+				stNetItemUnfix *pUnfix = static_cast<stNetItemUnfix*>(param);
 				pk.WriteChar(pUnfix->chLinkID);
 				pk.WriteShort(pUnfix->sGridID);
 				if (pUnfix->sGridID < 0) // ��������
@@ -210,7 +210,7 @@ void CProCirculateCS::BeginAction( CCharacter* pCha, DWORD type, void* param, CA
 			}
 		case	enumACTION_ITEM_POS:
 			{
-				stNetItemPos *pChangePos = (stNetItemPos *)param;
+				stNetItemPos *pChangePos = static_cast<stNetItemPos*>(param);
 				pk.WriteShort(pChangePos->sSrcGridID);
 				pk.WriteShort(pChangePos->sSrcNum);
 				pk.WriteShort(pChangePos->sTarGridID);
@@ -222,7 +222,7 @@ void CProCirculateCS::BeginAction( CCharacter* pCha, DWORD type, void* param, CA
 			}
 		case	enumACTION_ITEM_DELETE:
 			{
-				stNetDelItem *pDelItem = (stNetDelItem *)param;
+				stNetDelItem *pDelItem = static_cast<stNetDelItem*>(param);
 				pk.WriteShort(pDelItem->sGridID);
 				pCNetIf->SendPacketMessage(pk);
 
@@ -233,7 +233,7 @@ void CProCirculateCS::BeginAction( CCharacter* pCha, DWORD type, void* param, CA
 			}
 		case	enumACTION_ITEM_INFO:
 			{
-				stNetItemInfo *pItemInfo = (stNetItemInfo *)param;
+				stNetItemInfo *pItemInfo = static_cast<stNetItemInfo*>(param);
 				pk.WriteChar(pItemInfo->chType);
 				pk.WriteShort(pItemInfo->sGridID);
 				pCNetIf->SendPacketMessage(pk);
@@ -246,7 +246,7 @@ void CProCirculateCS::BeginAction( CCharacter* pCha, DWORD type, void* param, CA
 			}
 		case	enumACTION_SHORTCUT: // ���¿����
 			{
-				stNetShortCutChange *pShortcutChange = (stNetShortCutChange *)param;
+				stNetShortCutChange *pShortcutChange = static_cast<stNetShortCutChange*>(param);
 				pk.WriteChar(pShortcutChange->chIndex);
 				pk.WriteChar(pShortcutChange->chType);
 				pk.WriteShort(pShortcutChange->shyGrid);
@@ -257,7 +257,7 @@ void CProCirculateCS::BeginAction( CCharacter* pCha, DWORD type, void* param, CA
 			}
 		case	enumACTION_LOOK: // ������ۣ��紬�Ļ�װ��
 			{
-				stNetChangeChaPart *pSChaPart = (stNetChangeChaPart *)param;
+				stNetChangeChaPart *pSChaPart = static_cast<stNetChangeChaPart*>(param);
 				pk.WriteShort(pSChaPart->sTypeID);
 				for (int i = 0; i < enumEQUIP_NUM; i++)
 				{
@@ -271,7 +271,7 @@ void CProCirculateCS::BeginAction( CCharacter* pCha, DWORD type, void* param, CA
 			}
 		case	enumACTION_TEMP: //��ʱ��װЭ��
 			{
-				stTempChangeChaPart *pSTempChaPart = (stTempChangeChaPart *)param;
+				stTempChangeChaPart *pSTempChaPart = static_cast<stTempChangeChaPart*>(param);
 				pk.WriteLong(pSTempChaPart->dwItemID);
 				pk.WriteLong(pSTempChaPart->dwPartID);
 				pCNetIf->SendPacketMessage(pk);
@@ -282,7 +282,7 @@ void CProCirculateCS::BeginAction( CCharacter* pCha, DWORD type, void* param, CA
 			}
 		case	enumACTION_EVENT: // �����¼�
 			{
-				stNetActivateEvent *pEvent = (stNetActivateEvent *)param;
+				stNetActivateEvent *pEvent = static_cast<stNetActivateEvent*>(param);
 				pk.WriteLong(pEvent->lTargetID);
 				pk.WriteLong(pEvent->lHandle);
 				pk.WriteShort(pEvent->sEventID);
@@ -296,7 +296,7 @@ void CProCirculateCS::BeginAction( CCharacter* pCha, DWORD type, void* param, CA
 			}
 		case	enumACTION_FACE:
 			{
-				stNetFace	*pNetFace = (stNetFace *)param;
+				stNetFace	*pNetFace = static_cast<stNetFace*>(param);
 				pk.WriteShort(pNetFace->sAngle);
 				pk.WriteShort(pNetFace->sPose);
 				pCNetIf->SendPacketMessage(pk);
@@ -307,7 +307,7 @@ void CProCirculateCS::BeginAction( CCharacter* pCha, DWORD type, void* param, CA
 			}
 		case	enumACTION_SKILL_POSE:
 			{
-				stNetFace	*pNetFace = (stNetFace *)param;
+				stNetFace	*pNetFace = static_cast<stNetFace*>(param);
 				pk.WriteShort(pNetFace->sAngle);
 				pk.WriteShort(pNetFace->sPose);
 				pCNetIf->SendPacketMessage(pk);
@@ -319,7 +319,7 @@ void CProCirculateCS::BeginAction( CCharacter* pCha, DWORD type, void* param, CA
 		case enumACTION_GUILDBANK:
 		case	enumACTION_BANK:
 			{
-				stNetBank	*pNetBank = (stNetBank *)param;
+				stNetBank	*pNetBank = static_cast<stNetBank*>(param);
 				pk.WriteChar(pNetBank->chSrcType);
 				pk.WriteShort(pNetBank->sSrcID);
 				pk.WriteShort(pNetBank->sSrcNum);
@@ -364,7 +364,7 @@ void CProCirculateCS::BeginAction( CCharacter* pCha, DWORD type, void* param, CA
 			}
 		case	enumACTION_KITBAGTMP_DRAG:	// �϶���ʱ����
 			{
-				stNetTempKitbag* pNetTempKitbag = (stNetTempKitbag*)param;
+				stNetTempKitbag* pNetTempKitbag = static_cast<stNetTempKitbag*>(param);
 
 				pk.WriteShort(pNetTempKitbag->sSrcGridID);
 				pk.WriteShort(pNetTempKitbag->sSrcNum);
@@ -519,7 +519,7 @@ void CProCirculate::Say(const char *content)
 {
 	WPacket pk	=pCNetIf->GetWPacket();
 	pk.WriteCmd(CMD_CM_SAY);			
-	pk.WriteSequence(content, uShort(strlen(content))+1);
+	pk.WriteSequence(content, static_cast<uShort>(strlen(content))+1);
 	pCNetIf->SendPacketMessage(pk);
 }
 
@@ -542,7 +542,7 @@ void CProCirculate::SynBaseAttribute(CChaAttr *pCAttr)
 		if (pCAttr->GetChangeBitFlag(i))
 		{
 			pk.WriteShort(i);
-			pk.WriteLong((uLong)pCAttr->GetAttr(i));
+			pk.WriteLong(static_cast<uLong>(pCAttr->GetAttr(i)));
 		}
 	}
 

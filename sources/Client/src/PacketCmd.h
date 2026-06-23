@@ -7,20 +7,19 @@
 #include <time.h>
 #include "discord_rpc.h"
 
-static const char* APPLICATION_ID = "1441442327930470523";
+static const char* APPLICATION_ID = "";//put your key here
 static int SendPresence = 1;
-static int64_t StartTime = time(0);
+static int64_t StartTime = time(nullptr);
 
 static void updateDiscordPresence(const char *details, const char *state)
 {
     if (SendPresence) {
-        DiscordRichPresence discordPresence;
-        memset(&discordPresence, 0, sizeof(discordPresence));
+        DiscordRichPresence discordPresence = {};
         discordPresence.state = state;
         discordPresence.details = details;
         discordPresence.startTimestamp = StartTime;
-        discordPresence.largeImageKey = "top";
-		discordPresence.largeImageText = "Tales of Pirates - The Frozen Relics";
+        discordPresence.largeImageKey = "top";//"https://i.imgur.com/YOUR_IMAGE.png"; directly 
+		discordPresence.largeImageText = "Tales of Pirates";
         discordPresence.instance = 0;
         Discord_UpdatePresence(&discordPresence);
     }
@@ -48,12 +47,11 @@ static void handleDiscordError(int errcode, const char* message)
 
 static void discordInit()
 {
-    DiscordEventHandlers handlers;
-    memset(&handlers, 0, sizeof(handlers));
+    DiscordEventHandlers handlers = {};
     handlers.ready = handleDiscordReady;
     handlers.disconnected = handleDiscordDisconnected;
     handlers.errored = handleDiscordError;
-    Discord_Initialize(APPLICATION_ID, &handlers, 1, NULL);
+    Discord_Initialize(APPLICATION_ID, &handlers, 1, nullptr);
 }
 
 
@@ -135,9 +133,9 @@ extern void	CS_NewCha(const char* chaname, const char* birth, int type, int hair
 extern void	CS_DelCha(uint8_t cha_index, const char szPassword2[]);
 
 // Э��C->S : �����ж���Ϣ
-extern void	CS_BeginAction( CCharacter* pCha, DWORD type, void* param, CActionState* pState=NULL );
+extern void	CS_BeginAction( CCharacter* pCha, DWORD type, void* param, CActionState* pState= nullptr);
 // Э��C->S : ����ֹͣ�ж���Ϣ
-extern void	CS_EndAction( CActionState* pState=NULL );
+extern void	CS_EndAction( CActionState* pState= nullptr);
 // Э��C->S : ���������س���Ϣ
 extern void	CS_DieReturn(char chReliveType);
 // Э��C->S	: Ping�����������غ�������
@@ -233,13 +231,13 @@ extern void CS_ItemRepairAsk(long lRepairmanID, long lRepairmanHandle, char chPo
 extern void	CS_ItemRepairAnswer(bool bAccess);
 
 // ���߾���
-extern void	CS_ItemForgeAsk(bool bSure, stNetItemForgeAsk *pSForge = NULL);
+extern void	CS_ItemForgeAsk(bool bSure, stNetItemForgeAsk *pSForge = nullptr);
 extern void CS_ItemForgeAsk(bool bSure, int nType, int arPacketPos[], int nPosCount);
 extern void CS_ItemForgeAnswer(bool bAccess);
 
 // Add by lark.li 20080514 begin
 extern void CS_ItemLotteryAnswer(bool bAccess);
-extern void CS_ItemLotteryAsk(bool bSure, stNetItemLotteryAsk *pSLottery = NULL);
+extern void CS_ItemLotteryAsk(bool bSure, stNetItemLotteryAsk *pSLottery = nullptr);
 // End
 
 extern void CS_ItemAmphitheaterAsk(bool bSure,int IDindex);//Add by sunny.sun 20080726
@@ -579,9 +577,9 @@ extern void	ReadChaKitbagPacket(LPRPACKET pk, stNetKitbag &SKitbag, const  char 
 extern void	ReadChaShortcutPacket(LPRPACKET pk, stNetShortCut &SShortcut, const char* szLogName);
 extern void	ReadChaLookEnergyPacket(LPRPACKET pk, stLookEnergy &SLookEnergy, const char *szLogName);
 extern void	ReadChaPKPacket(LPRPACKET pk, stNetPKCtrl &SNetPKCtrl, const char *szLogName);
-extern void	ReadEntEventPacket(LPRPACKET pk, stNetEvent &SNetEvent, const char *szLogName = 0);
+extern void	ReadEntEventPacket(LPRPACKET pk, stNetEvent &SNetEvent, const char *szLogName = nullptr);
 extern void	ReadChaSidePacket(LPRPACKET pk, stNetChaSideInfo &SNetSideInfo, const char *szLogName);
-extern void	ReadChaAppendLookPacket(LPRPACKET pk, stNetAppendLook &SNetAppendLook, const char *szLogName = 0);
+extern void	ReadChaAppendLookPacket(LPRPACKET pk, stNetAppendLook &SNetAppendLook, const char *szLogName = nullptr);
 
 
 
