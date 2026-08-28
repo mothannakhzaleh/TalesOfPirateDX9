@@ -20,7 +20,7 @@ While the core DX9 upgrade is functional, it originated from a separate developm
 
 -   Upgraded from DirectX 8 to DirectX 9
     
--   Client and Server built with VS 2022 (C++14)
+-   Client and Server built with VS 2026 (C++14)
     
 -   TopNet source integration
     
