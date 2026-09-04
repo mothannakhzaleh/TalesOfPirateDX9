@@ -1243,11 +1243,15 @@ void CFightAble::WriteLookEnergy(WPACKET &pk)
 	SItemGrid *pItem;
 	for (int i = 0; i < enumEQUIP_NUM; i++)
 	{
-		pItem = &IsCharacter()->m_SChaPart.SLink[i];
-		if (!g_IsRealItemID(pItem->sID))
+		pItem = IsCharacter()->HasLook() ? &IsCharacter()->Look().SLink[i] : nullptr;
+		if (!pItem || !g_IsRealItemID(pItem->sID))
+		{
 			WRITE_SHORT(pk, 0);
+		}
 		else
+		{
 			WRITE_SHORT(pk, pItem->sEnergy[0]);
+		}
 	}
 }
 
@@ -1307,7 +1311,7 @@ bool CFightAble::SkillExpend(Short sExecTime)
 			if (m_SFightInit.pCSkillRecord->sConchNeed[i][0] == cchSkillRecordKeyValue)
 				break;
 
-			pGrid = &pCMainCha->m_SChaPart.SLink[m_SFightInit.pCSkillRecord->sConchNeed[i][0]];
+			pGrid = &pCMainCha->Look().SLink[m_SFightInit.pCSkillRecord->sConchNeed[i][0]];
 			if (!g_IsRealItemID(pGrid->sID))
 				continue;
 			sNeedEnergy -= pGrid->sEnergy[0];
@@ -1327,7 +1331,7 @@ bool CFightAble::SkillExpend(Short sExecTime)
 			SItemGrid	*pGrid;
 			for (int i = 0; i < defSKILL_ITEM_NEED_NUM; i++)
 			{
-				pGrid = &pCMainCha->m_SChaPart.SLink[m_SFightInit.pCSkillRecord->sConchNeed[i][0]];
+				pGrid = &pCMainCha->Look().SLink[m_SFightInit.pCSkillRecord->sConchNeed[i][0]];
 				if (!g_IsRealItemID(pGrid->sID))
 					continue;
 				sNeedEnergy -= pGrid->sEnergy[0];

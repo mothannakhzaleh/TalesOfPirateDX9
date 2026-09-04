@@ -8,6 +8,9 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
+#include <cassert>
+#include <cstring>
+#include <memory>
 #include "MoveAble.h"
 #include "GameCommon.h"
 #include "Mission.h"
@@ -460,7 +463,11 @@ public:
 	BOOL	HasAllBoatInBerth( USHORT sBerthID );
 	BOOL	HasBoatInBerth( USHORT sBerthID );
 	BOOL	HasDeadBoatInBerth( USHORT sBerthID );
-	void	SetBoatLook( const stNetChangeChaPart& Info ) { memcpy( &m_SChaPart, &Info, sizeof(stNetChangeChaPart) ); }
+	void	SetBoatLook( const stNetChangeChaPart& Info )
+	{
+		EnsureLook();
+		std::memcpy( LookPtr(), &Info, sizeof(stNetChangeChaPart) );
+	}
 	BOOL	BoatPackBagList( USHORT sBerthID, BYTE byType, BYTE byLevel );
 	BOOL	BoatPackBag( BYTE byIndex );
 	BOOL	PackBag( CCharacter& boat, BYTE byType, BYTE byLevel );
@@ -769,7 +776,38 @@ public:
 	DWORD				ShowRankColD;	
 	int					m_nPetNum;
 	
-	stNetChangeChaPart	m_SChaPart;
+	// Look on heap: player/boat allocated; mob/NPC nullptr (appear writes zeros)
+	std::unique_ptr<stNetChangeChaPart> _pSChaPart;
+
+	stNetChangeChaPart* LookPtr() noexcept { return _pSChaPart.get(); }
+	const stNetChangeChaPart* LookPtr() const noexcept { return _pSChaPart.get(); }
+	bool HasLook() const noexcept { return static_cast<bool>(_pSChaPart); }
+
+	stNetChangeChaPart& Look()
+	{
+		assert(_pSChaPart);
+		return *_pSChaPart;
+	}
+	const stNetChangeChaPart& Look() const
+	{
+		assert(_pSChaPart);
+		return *_pSChaPart;
+	}
+
+	void EnsureLook()
+	{
+		if (!_pSChaPart)
+		{
+			_pSChaPart = std::make_unique<stNetChangeChaPart>();
+			std::memset(_pSChaPart.get(), 0, sizeof(stNetChangeChaPart));
+		}
+	}
+
+	void FreeLook()
+	{
+		_pSChaPart.reset();
+	}
+
 	bool				m_ActContrl[enumACTCONTROL_MAX];	// ��ɫ���ж�����
 	CTimer				m_timerScripts;						// ����HP��SP�ȵĻָ�
 

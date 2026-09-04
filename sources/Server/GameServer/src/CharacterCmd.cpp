@@ -169,13 +169,13 @@ bool CCharacter::Cmd_EnterMap(cChar* l_map, Long lMapCopyNO, uLong l_x, uLong l_
 
 			for (int i = 0; i < enumEQUIP_NUM; i++)
 			{
-				if (g_IsRealItemID(m_SChaPart.SLink[i].sID))
-					ChangeItem(true, &m_SChaPart.SLink[i], i);
+				if (HasLook() && g_IsRealItemID(Look().SLink[i].sID))
+					ChangeItem(true, &Look().SLink[i], i);
 
-				if (m_SChaPart.SLink[i].sID && (m_SChaPart.SLink[i].expiration - std::time(0)) <= 0 && m_SChaPart.SLink[i].expiration != 0) {
+				if (HasLook() && Look().SLink[i].sID && (Look().SLink[i].expiration - std::time(0)) <= 0 && Look().SLink[i].expiration != 0) {
 					Short	sUnfixNum = 0;
 					if (Cmd_UnfixItem(i, &sUnfixNum, 1, 0, -1, false, true, true) == enumITEMOPT_ERROR_KBFULL) {
-						m_SChaPart.SLink[i].sID = 0;
+						Look().SLink[i].sID = 0;
 					}
 				}
 
@@ -801,7 +801,7 @@ Short CCharacter::Cmd_UseEquipItem(Short sKbPage, Short sKbGrid, bool bRefresh, 
 	{
 		if (pCItemRec->szAbleLink[i] == cchItemRecordKeyValue)
 			break;
-		if (m_SChaPart.SLink[pCItemRec->szAbleLink[i]].sID == 0)
+		if (Look().SLink[pCItemRec->szAbleLink[i]].sID == 0)
 		{
 			chEquipPos = pCItemRec->szAbleLink[i];
 			break;
@@ -880,12 +880,12 @@ Short CCharacter::Cmd_UseEquipItem(Short sKbPage, Short sKbGrid, bool bRefresh, 
 				chNeedL = pCItemRec->szNeedLink[i];
 				if (chNeedL == cchItemRecordKeyValue)
 					break;
-				m_SChaPart.SLink[chNeedL].sID = sVal;
-				m_SChaPart.SLink[chNeedL].SetChange();
+				Look().SLink[chNeedL].sID = sVal;
+				Look().SLink[chNeedL].SetChange();
 			}
 		}
-		m_SChaPart.SLink[chEquipPos] = SGridCont;
-		m_SChaPart.SLink[chEquipPos].SetChange();
+		Look().SLink[chEquipPos] = SGridCont;
+		Look().SLink[chEquipPos].SetChange();
 		ChangeItem(true, &SGridCont, chEquipPos);
 	} else {
 		// Add item back if equip fails.
@@ -1090,21 +1090,21 @@ Short CCharacter::Cmd_UnfixItem(Char chLinkID, Short *psItemNum, Char chDir, Lon
 	if (chLinkID < 0 || chLinkID >= enumEQUIP_NUM)
 		return enumITEMOPT_ERROR_NONE;
 
-	if (m_SChaPart.SLink[chLinkID].sID == 0)
+	if (Look().SLink[chLinkID].sID == 0)
 		return enumITEMOPT_SUCCESS;
-	else if (m_SChaPart.SLink[chLinkID].sID == enumEQUIP_BOTH_HAND) // ˫�ֵ���
+	else if (Look().SLink[chLinkID].sID == enumEQUIP_BOTH_HAND) // ˫�ֵ���
 	{
 		if (chLinkID == enumEQUIP_LHAND) // ����������
 			chLinkID = enumEQUIP_RHAND;
 		else // ����������
 			chLinkID = enumEQUIP_LHAND;
 	}
-	else if (m_SChaPart.SLink[chLinkID].sID == enumEQUIP_TOTEM) // ͼ�ڵ���
+	else if (Look().SLink[chLinkID].sID == enumEQUIP_TOTEM) // ͼ�ڵ���
 	{
 		chLinkID = enumEQUIP_BODY;
 	}
 
-	Short	sItemID = m_SChaPart.SLink[chLinkID].sID;
+	Short	sItemID = Look().SLink[chLinkID].sID;
 	CItemRecord	*pCItemRec = GetItemRecordInfo(sItemID);
 	if (!pCItemRec)
 		return enumITEMOPT_ERROR_NONE;
@@ -1117,7 +1117,7 @@ Short CCharacter::Cmd_UnfixItem(Char chLinkID, Short *psItemNum, Char chDir, Lon
 			chAbleL = pCItemRec->szAbleLink[i];
 			if (chAbleL == cchItemRecordKeyValue)
 				break;
-			if (m_SChaPart.SLink[chAbleL].sID != 0)
+			if (Look().SLink[chAbleL].sID != 0)
 				chLinkID = chAbleL;
 		}
 	}
@@ -1133,9 +1133,9 @@ Short CCharacter::Cmd_UnfixItem(Char chLinkID, Short *psItemNum, Char chDir, Lon
 			m_CKitbag.SetChangeFlag(false, (Short)lParam1);
 	}
 
-	if (*psItemNum == 0 || (*psItemNum != 0 && *psItemNum > m_SChaPart.SLink[chLinkID].sNum))
-		*psItemNum = m_SChaPart.SLink[chLinkID].sNum;
-	SItemGrid	SUnfixCont = m_SChaPart.SLink[chLinkID];
+	if (*psItemNum == 0 || (*psItemNum != 0 && *psItemNum > Look().SLink[chLinkID].sNum))
+		*psItemNum = Look().SLink[chLinkID].sNum;
+	SItemGrid	SUnfixCont = Look().SLink[chLinkID];
 	SUnfixCont.sNum = *psItemNum;
 
 	CCharacter	*pCCtrlCha = GetPlyCtrlCha(), *pCMainCha = GetPlyMainCha();
@@ -1188,15 +1188,15 @@ Short CCharacter::Cmd_UnfixItem(Char chLinkID, Short *psItemNum, Char chDir, Lon
 	{
 	}
 
-	if (*psItemNum == m_SChaPart.SLink[chLinkID].sNum) // ȫ��ж��
+	if (*psItemNum == Look().SLink[chLinkID].sNum) // ȫ��ж��
 	{
-		ChangeItem(0, &m_SChaPart.SLink[chLinkID], chLinkID);
+		ChangeItem(0, &Look().SLink[chLinkID], chLinkID);
 
 		// ���øõ�����ռ��Link��
 		if (pCItemRec->szNeedLink[0] == -1)
 		{
-			m_SChaPart.SLink[chLinkID].sID = 0;
-			m_SChaPart.SLink[chLinkID].SetChange();
+			Look().SLink[chLinkID].sID = 0;
+			Look().SLink[chLinkID].SetChange();
 		}
 		else
 		{
@@ -1206,15 +1206,15 @@ Short CCharacter::Cmd_UnfixItem(Char chLinkID, Short *psItemNum, Char chDir, Lon
 				chNeedL = pCItemRec->szNeedLink[i];
 				if (chNeedL == cchItemRecordKeyValue)
 					break;
-				m_SChaPart.SLink[chNeedL].sID = 0;
-				m_SChaPart.SLink[chNeedL].SetChange();
+				Look().SLink[chNeedL].sID = 0;
+				Look().SLink[chNeedL].SetChange();
 			}
 		}
 	}
 	else
 	{
-		m_SChaPart.SLink[chLinkID].sNum -= *psItemNum;
-		m_SChaPart.SLink[chLinkID].SetChange();
+		Look().SLink[chLinkID].sNum -= *psItemNum;
+		Look().SLink[chLinkID].SetChange();
 	}
 
 	if (bRefresh)
@@ -2160,7 +2160,7 @@ Short CCharacter::Cmd_RemoveItem(Long lItemID, Long lItemNum, Char chFromType, S
 			Short	sOptNum;
 			for (Char i = enumEQUIP_HEAD; i < enumEQUIP_NUM; i++)
 			{
-				if (m_SChaPart.SLink[i].sID == (Short)lItemID)
+				if (Look().SLink[i].sID == (Short)lItemID)
 				{
 					sOptNum = (Short)lItemNum;
 					sOptRet = Cmd_UnfixItem(i, &sOptNum, chToType, lParam1, lParam2, true, false, bForcible);

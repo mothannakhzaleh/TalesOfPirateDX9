@@ -2442,9 +2442,9 @@ void CCharacter::BeginAction(RPACKET pk)
 		break;
 	case enumACTION_LOOK:
 		{
-			//m_SChaPart.sTypeID = READ_SHORT(pk);
+			//Look().sTypeID = READ_SHORT(pk);
 			//for (int i = 0; i < enumEQUIP_NUM; i++)
-			//	m_SChaPart.SLink[i].sID = READ_SHORT(pk);
+			//	Look().SLink[i].sID = READ_SHORT(pk);
 
 			//// 转发
 			//WPACKET WtPk	=GETWPACKET();
@@ -2452,9 +2452,9 @@ void CCharacter::BeginAction(RPACKET pk)
 			//WRITE_LONG(WtPk, m_ID);
 			//WRITE_LONG(WtPk, ulPacketId);
 			//WRITE_CHAR(WtPk, enumACTION_LOOK);
-			//WRITE_SHORT(WtPk, m_SChaPart.sTypeID);
+			//WRITE_SHORT(WtPk, Look().sTypeID);
 			//for (int i = 0; i < enumEQUIP_NUM; i++)
-			//	WRITE_SHORT(WtPk, m_SChaPart.sLink[i]);
+			//	WRITE_SHORT(WtPk, Look().sLink[i]);
 			//NotiChgToEyeshot(WtPk);//通告
 		}
 		break;
@@ -2690,7 +2690,7 @@ void CCharacter::Cmd_ChangeHair(RPACKET &pk)
 	{
 		int nRandFail = rand()%pHair->GetFailItemNum();
 		short sFailHair = (short)(pHair->dwFailItemID[nRandFail]);
-		m_SChaPart.sHairID = sFailHair;
+		Look().sHairID = sFailHair;
 		//SystemNotice("你的运气真糟糕, 发型搞砸了!");
 		SystemNotice(RES_STRING(GM_CHARACTERPRL_CPP_00048));
 		Prl_ChangeHairResult(sScriptID, "fail", true); 
@@ -2698,7 +2698,7 @@ void CCharacter::Cmd_ChangeHair(RPACKET &pk)
 	else
 	{
 		// 反馈给客户端, 发型更换成功
-		m_SChaPart.sHairID = (short)(pHair->dwItemID); // 正常发型
+		Look().sHairID = (short)(pHair->dwItemID); // 正常发型
 		Prl_ChangeHairResult(sScriptID, "ok", true);
 	}
 

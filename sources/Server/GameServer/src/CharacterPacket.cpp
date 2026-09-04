@@ -301,18 +301,40 @@ Short GetChaosEquip(Long type, Long job) {
 
 void CCharacter::WriteLookData(WPACKET &WtPk, Char chLookType, Char chSynType)
 {
+	stNetChangeChaPart* pLook = LookPtr();
+	if (!pLook)
+	{
+		WRITE_CHAR(WtPk, chSynType);
+		WRITE_SHORT(WtPk, 0);
+		WRITE_CHAR(WtPk, 0);
+		WRITE_SHORT(WtPk, 0);
+		for (int i = 0; i < enumEQUIP_NUM; i++)
+		{
+			if (chSynType == enumSYN_LOOK_CHANGE)
+			{
+				WRITE_SHORT(WtPk, 0);
+				continue;
+			}
+			WRITE_SHORT(WtPk, 0);
+			WRITE_LONG(WtPk, 0);
+			WRITE_SHORT(WtPk, 0);
+		}
+		return;
+	}
+
+
 	WRITE_CHAR(WtPk, chSynType);
-	WRITE_SHORT(WtPk, m_SChaPart.sTypeID);
+	WRITE_SHORT(WtPk, pLook->sTypeID);
 	if( m_CChaAttr.GetAttr(ATTR_CHATYPE) == enumCHACTRL_PLAYER && IsBoat() )
 	{
 		WRITE_CHAR( WtPk, 1); // ´¬µÄÍâ¹Û
-		WRITE_SHORT( WtPk, m_SChaPart.sPosID );
-		WRITE_SHORT( WtPk, m_SChaPart.sBoatID );
-		WRITE_SHORT( WtPk, m_SChaPart.sHeader );
-		WRITE_SHORT( WtPk, m_SChaPart.sBody );
-		WRITE_SHORT( WtPk, m_SChaPart.sEngine );
-		WRITE_SHORT( WtPk, m_SChaPart.sCannon );
-		WRITE_SHORT( WtPk, m_SChaPart.sEquipment );
+		WRITE_SHORT( WtPk, pLook->sPosID );
+		WRITE_SHORT( WtPk, pLook->sBoatID );
+		WRITE_SHORT( WtPk, pLook->sHeader );
+		WRITE_SHORT( WtPk, pLook->sBody );
+		WRITE_SHORT( WtPk, pLook->sEngine );
+		WRITE_SHORT( WtPk, pLook->sCannon );
+		WRITE_SHORT( WtPk, pLook->sEquipment );
 	}
 	else
 	{
@@ -328,7 +350,7 @@ void CCharacter::WriteLookData(WPACKET &WtPk, Char chLookType, Char chSynType)
 
 			for (int i = 0; i < nItemCnt; i++)
 			{
-				pItem = &m_SChaPart.SLink[i];
+				pItem = &pLook->SLink[i];
 				if (chSynType == enumSYN_LOOK_CHANGE)
 				{
 					if (!pItem->IsChange())
@@ -394,7 +416,7 @@ void CCharacter::WriteLookData(WPACKET &WtPk, Char chLookType, Char chSynType)
 		} // modification [ends]
 
 		WRITE_CHAR( WtPk, 0); // The appearance of human characters
-		WRITE_SHORT(WtPk, m_SChaPart.sHairID);
+		WRITE_SHORT(WtPk, pLook->sHairID);
 		SItemGrid *pItem;
 
 		int nItemCnt = enumEQUIP_NUM;
@@ -403,7 +425,7 @@ void CCharacter::WriteLookData(WPACKET &WtPk, Char chLookType, Char chSynType)
 
 		for (int i = 0; i < nItemCnt; i++)
 		{
-			pItem = &m_SChaPart.SLink[i];
+			pItem = &pLook->SLink[i];
 			if (chSynType == enumSYN_LOOK_CHANGE)
 			{
 				if (!pItem->IsChange())

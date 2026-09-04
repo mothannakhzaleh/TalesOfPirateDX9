@@ -1505,12 +1505,15 @@ inline int lua_EquipHasItem( lua_State* L )
 	USHORT sCount  = (USHORT)lua_tonumber( L, 3 );
 
 	short sItemCount = 0;
-	for(int i = 0; i < enumEQUIP_NUM; i++)
+		if (pChar->HasLook())
 	{
-		SItemGrid *pItem = &(pChar->m_SChaPart.SLink[i]);
-		if(pItem->sID == sItemID && pItem->sNum > 0)
+		for(int i = 0; i < enumEQUIP_NUM; i++)
 		{
-			sItemCount += pItem->sNum;
+			SItemGrid *pItem = &(pChar->Look().SLink[i]);
+			if(pItem->sID == sItemID && pItem->sNum > 0)
+			{
+				sItemCount += pItem->sNum;
+			}
 		}
 	}
 
@@ -1538,13 +1541,16 @@ inline int lua_IsEquip( lua_State* L )
 	}
 
 	BOOL bRet = false;
-	for(int i = 0; i < enumEQUIP_NUM; i++)
+		if (pChar->HasLook())
 	{
-		SItemGrid *pItem = &(pChar->m_SChaPart.SLink[i]);
-		if(pItem->sID > 0 && pItem->sNum > 0)
+		for(int i = 0; i < enumEQUIP_NUM; i++)
 		{
-			bRet = true;
-			break;
+			SItemGrid *pItem = &(pChar->Look().SLink[i]);
+			if(pItem->sID > 0 && pItem->sNum > 0)
+			{
+				bRet = true;
+				break;
+			}
 		}
 	}
 	lua_pushnumber( L, ( bRet ) ? LUA_TRUE : LUA_FALSE );
@@ -4997,7 +5003,7 @@ inline int lua_GetChaBody( lua_State* L )
 		return 0;
 	}
 
-	lua_pushnumber( L, pChar->m_SChaPart.sTypeID );
+	lua_pushnumber( L, pChar->HasLook() ? pChar->Look().sTypeID : pChar->GetCat() );
 	return 1;
 }
 
@@ -5959,7 +5965,8 @@ int lua_TransformCha(lua_State *L) { T_B
 	CCharacter *pAtt = (CCharacter*)lua_touserdata(L, 1);
 	short mID = (short)lua_tonumber(L, 2);
 	Square& chaPos = (Square&)pAtt->GetShape();
-	pAtt->m_SChaPart.sTypeID = mID;
+	pAtt->EnsureLook();
+	pAtt->Look().sTypeID = mID;
 	pAtt->m_cat = mID;
 	pAtt->GetPlayer()->GetMainCha()->Cmd_EnterMap(pAtt->GetBirthMap(), -1, chaPos.centre.x, chaPos.centre.y, 0);
 	return 1;

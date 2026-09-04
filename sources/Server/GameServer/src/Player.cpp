@@ -523,10 +523,10 @@ bool CPlayer::SetRepairPosInfo(dbc::Char chPosType, dbc::Char chPosID)
 	{
 		if (chPosID < enumEQUIP_HEAD || chPosID >= enumEQUIP_NUM)
 			return false;
-		if (!g_IsRealItemID(pCCha->m_SChaPart.SLink[chPosID].sID))
+		if (!g_IsRealItemID(pCCha->Look().SLink[chPosID].sID))
 			return false;
-		m_SRepairItem = pCCha->m_SChaPart.SLink[chPosID];
-		m_pSRepairItem = &pCCha->m_SChaPart.SLink[chPosID];
+		m_SRepairItem = pCCha->Look().SLink[chPosID];
+		m_pSRepairItem = &pCCha->Look().SLink[chPosID];
 	}
 	else if (chPosType == 2)
 	{
@@ -1132,12 +1132,15 @@ void CPlayer::CheckChaItemFinalData()
 	// Õ‚π€
 	cChar	*szScript = "check_item_final_data";
 	CCharacter	*pCMainCha = GetMainCha();
-	for (int i = 0; i < enumEQUIP_NUM; i++)
+		if (pCMainCha->HasLook())
 	{
-		if (g_IsRealItemID(pCMainCha->m_SChaPart.SLink[i].sID))
+	for (int i = 0; i < enumEQUIP_NUM; i++)
 		{
-			pCMainCha->m_SChaPart.SLink[i].InitAttr();
-			g_CParser.DoString(szScript, enumSCRIPT_RETURN_NONE, 0, enumSCRIPT_PARAM_LIGHTUSERDATA, 1, &pCMainCha->m_SChaPart.SLink[i], DOSTRING_PARAM_END);
+			if (g_IsRealItemID(pCMainCha->Look().SLink[i].sID))
+			{
+				pCMainCha->Look().SLink[i].InitAttr();
+				g_CParser.DoString(szScript, enumSCRIPT_RETURN_NONE, 0, enumSCRIPT_PARAM_LIGHTUSERDATA, 1, &pCMainCha->Look().SLink[i], DOSTRING_PARAM_END);
+			}
 		}
 	}
 

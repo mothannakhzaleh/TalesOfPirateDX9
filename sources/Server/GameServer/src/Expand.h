@@ -61,8 +61,9 @@ inline int lua_EquipItem(lua_State *pLS){
 	int chEquipPos = lua_tonumber(pLS, 2);
 	SItemGrid* equip = (SItemGrid*)lua_touserdata(pLS, 3);
 
-	pCha->m_SChaPart.SLink[chEquipPos] = *equip;
-	pCha->m_SChaPart.SLink[chEquipPos].SetChange();
+	pCha->EnsureLook();
+	pCha->Look().SLink[chEquipPos] = *equip;
+	pCha->Look().SLink[chEquipPos].SetChange();
 	pCha->ChangeItem(true, equip, chEquipPos);
 
 	pCha->SynSkillStateToEyeshot();
@@ -106,8 +107,9 @@ inline int lua_EquipStringItem(lua_State *pLS){
 	else
 		SGridCont.SetInstAttrInvalid();
 
-	memcpy(pCha->m_SChaPart.SLink + chEquipPos, &SGridCont, sizeof(SItemGrid));
-	pCha->m_SChaPart.SLink[chEquipPos].SetChange();
+	pCha->EnsureLook();
+	memcpy(&pCha->Look().SLink[chEquipPos], &SGridCont, sizeof(SItemGrid));
+	pCha->Look().SLink[chEquipPos].SetChange();
 	pCha->ChangeItem(true, &SGridCont, chEquipPos);
 
 	pCha->SynSkillStateToEyeshot();
@@ -3090,7 +3092,12 @@ inline int lua_AddEquipEnergy(lua_State *pLS)
 			short	sItemType = (short)lua_tonumber(pLS, 3);
 			short	sVal = (short)lua_tonumber(pLS, 4);
 
-			SItemGrid* pEquip = &pCCha->m_SChaPart.SLink[chPos];
+			if (!pCCha->HasLook())
+			{
+				bSuccess = false;
+				goto End;
+			}
+			SItemGrid* pEquip = &pCCha->Look().SLink[chPos];
 			if (pEquip->sID > 0)
 			{
 				if (GetItemRecordInfo(pEquip->sID)->sType == sItemType)
