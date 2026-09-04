@@ -2,13 +2,15 @@
 // FileName: Kitbag.h
 // Creater: ZhangXuedong
 // Date: 2004.12.17
-// Comment: Kitbag
+// Comment: Kitbag — слоты в vector по capacity (не фиксированный массив)
 //=============================================================================
 
-#ifndef KITBAG_H
-#define KITBAG_H
+#pragma once
 
-#include <memory.h>
+#include <cstdint>
+#include <cstring>
+#include <vector>
+
 #include "ItemRecord.h"
 #include "CompCommand.h"
 //#include "KitbagEnCode.h"
@@ -23,29 +25,29 @@ extern int Encrypt(char* buf, int len, const char* pwd, int plen);
 
 enum EKitbagItemType
 {
-	enumKBITEM_TYPE_ORD,	// ��ͨ��Ʒ
+	enumKBITEM_TYPE_ORD,	// обычные предметы
 
-	enumKBITEM_TYPE_NUM		// ��Ʒ������
+	enumKBITEM_TYPE_NUM		// число типов
 };
 
 enum ITEM_STATE 
 {	
-	ITEM_DISENABLE			= 1<<0,	 // ����Ʒ��λ��Ʒ����ֹ�
+	ITEM_DISENABLE			= 1<<0,	 // слот/предмет запрещён для операций
 };
 
 enum EKbActRet
 {
-	enumKBACT_SUCCESS				= 0,	// ���������ɹ�
-	// �����Ǳ�������ʧ��ֵ
-	enumKBACT_ERROR_LOCK			= -1,	// ����������״̬
-	enumKBACT_ERROR_RANGE			= -2,	// ����Խ��
-	enumKBACT_ERROR_PUSHITEMID		= -3,	// ѹ��Ƿ��ĵ��߱��
-	enumKBACT_ERROR_FULL			= -4,	// ��������
-	enumKBACT_ERROR_NULLGRID		= -5,	// ����λ
-	enumKBACT_ERROR_POPNUM			= -6,	// ��������Ŀ�Ƿ�
+	enumKBACT_SUCCESS				= 0,	// успех
+	// коды ошибок операций с инвентарём
+	enumKBACT_ERROR_LOCK			= -1,	// инвентарь заблокирован
+	enumKBACT_ERROR_RANGE			= -2,	// выход за границы
+	enumKBACT_ERROR_PUSHITEMID		= -3,	// некорректный id предмета
+	enumKBACT_ERROR_FULL			= -4,	// нет места
+	enumKBACT_ERROR_NULLGRID		= -5,	// пустой слот
+	enumKBACT_ERROR_POPNUM			= -6,	// некорректное количество
 };
 
-#define defKITBAG_DEFPUSH_POS	-1 // ������ȱʡѹ��λ�ã��Զ�Ѱ��λ�ã�
+#define defKITBAG_DEFPUSH_POS	-1 // автопоиск свободного слота при push
 
 class CKitbag
 {
@@ -54,11 +56,11 @@ public:
 
 	struct SItemUnit
 	{
-		BYTE		byState;	// ��Ʒ���Ƿ񱻽�
+		BYTE		byState;	// состояние слота (ITEM_DISENABLE и т.п.)
 		SItemGrid	SContent;
 
-		short		sPosID;		// ������λ�ñ��
-		short		sReverseID;	// ���ڷ�����
+		short		sPosID;		// индекс слота
+		short		sReverseID;	// индекс в упорядоченном списке m_pSItem
 	};
 
 	void		Init(short sCapacity = defMAX_KBITEM_NUM_PER_TYPE);
@@ -68,7 +70,6 @@ public:
 	bool		AddCapacity(short sAddVal);
 	short		GetUseGridNum(short sType = 0);
 	
-	// ����2��������ı䴫��Ĳ���1����Ʒ����ֵ(ע��:by knight.gong)
 	short		CanPush(SItemGrid *pGrid, short &sPosID, short sType = 0);
 	short		CanPop(SItemGrid *pGrid, short sPosID, short sType = 0);
 
@@ -102,18 +103,16 @@ public:
 	bool		IsChange(short sType = 0);
 	short		GetChangeNum(short sType = 0);
 
-	// ��ȫ��(���֮�佻��ʱ���������ı�������
 	void		Lock();
 	void		UnLock();
 
-    //������
-    void		PwdLock();
-    void		PwdUnlock();
-    BOOL		IsPwdLocked();
-    BOOL        IsPwdAutoLocked();
-    void        PwdAutoLock(char cAuto);
-    int         GetPwdLockState();
-    void        SetPwdLockState(int nLock);
+	void		PwdLock();
+	void		PwdUnlock();
+	BOOL		IsPwdLocked();
+	BOOL		IsPwdAutoLocked();
+	void		PwdAutoLock(char cAuto);
+	int			GetPwdLockState();
+	void		SetPwdLockState(int nLock);
 
 	void		SetVer(short sVers);
 	short		GetVer(void);
@@ -124,19 +123,24 @@ protected:
 	bool		CheckValid(void); // for test
 
 private:
-	short		sVer;
-	BOOL		m_bLock;
+	void		RebuildPointers(short sType);
+	void		ResizeStorage(short sCapacity);
 
-    //��������״̬
-    int         m_bPwdLocked;
+	short		sVer = 0;
+	BOOL		m_bLock = FALSE;
 
-	SItemUnit	*m_pSItem[enumKBITEM_TYPE_NUM][defMAX_KBITEM_NUM_PER_TYPE];
-	short		m_sCapacity;	// ÿҳ������
-	short		m_sUseNum[enumKBITEM_TYPE_NUM];	// ҳ�Ѿ�ʹ�õĸ�����
-	SItemUnit	m_SItem[enumKBITEM_TYPE_NUM][defMAX_KBITEM_NUM_PER_TYPE];
+	// Битовые флаги пароля инвентаря
+	int			m_bPwdLocked = 0;
 
-	short		m_sChangeNum[enumKBITEM_TYPE_NUM];
-	bool		m_bChangeFlag[enumKBITEM_TYPE_NUM][defMAX_KBITEM_NUM_PER_TYPE];
+	// Упорядоченный список указателей на слоты (занятые в начале)
+	std::vector<SItemUnit*> m_pSItem[enumKBITEM_TYPE_NUM];
+	short		m_sCapacity = 0;
+	short		m_sUseNum[enumKBITEM_TYPE_NUM] = {};
+	// Владение слотами; размер == capacity
+	std::vector<SItemUnit> m_SItem[enumKBITEM_TYPE_NUM];
+
+	short		m_sChangeNum[enumKBITEM_TYPE_NUM] = {};
+	std::vector<std::uint8_t> m_bChangeFlag[enumKBITEM_TYPE_NUM];
 
 };
 
@@ -147,27 +151,13 @@ bool String2KitbagData(CKitbag *pKitbag, std::string &strData);
 
 //	2008-7-28	yangyinyu	add	begin!
 
-//	�ѵ���ת�����ַ�����
 bool	SItemGrid2String(	
-					std::string&	r,			//	���صĴ���
-					long&			lnCheckSum,	//	���صļ���͡�
-					SItemGrid*		pGridCont,	//	դ��
-					int				iOrder		//	դ�����
-					);;
+					std::string&	r,
+					long&			lnCheckSum,
+					SItemGrid*		pGridCont,
+					int				iOrder
+					);
 
-//	���ַ���ת���ɵ��ߡ�
-bool String2SItemGrid(	SItemGrid*	pGridCont,	long&	lnCheckSum,	const	std::string&	sData,	int	iVer,	bool	bIsOldVer	);;
+bool String2SItemGrid(	SItemGrid*	pGridCont,	long&	lnCheckSum,	const	std::string&	sData,	int	iVer,	bool	bIsOldVer	);
 
 //	2008-7-28	yangyinyu	add	end!
-
-#endif // KITBAG_H
-
-
-
-
-
-
-
-
-
-

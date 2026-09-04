@@ -818,7 +818,7 @@ short CKitbag::Push(SItemGrid* pGrid, short& sPosID, short sType, bool bCommit, 
 
 			{
 				short	sSearchPos = 0;
-				while (sLeftNum > 0) // ???????�????�????????????
+				while (sLeftNum > 0) // ???????�????�????????????
 				{
 					if (sSearchPos >= m_sCapacity)
 					{
@@ -882,20 +882,18 @@ Error:
 
 bool CKitbag::AddCapacity(short sAddVal)
 {
-	if (sAddVal < 0)
+	if (sAddVal < 0) {
 		return false;
-
-	short	sStartP = m_sCapacity;
-	if (sAddVal > defMAX_KBITEM_NUM_PER_TYPE - m_sCapacity)
-		m_sCapacity = defMAX_KBITEM_NUM_PER_TYPE;
-	else
-		m_sCapacity += sAddVal;
-	for (short i = 0; i < enumKBITEM_TYPE_NUM; i++)
-	{
-		for (short j = sStartP; j < m_sCapacity; j++)
-			m_bChangeFlag[i][j] = false;
 	}
 
+	short sNewCap = m_sCapacity;
+	if (sAddVal > defMAX_KBITEM_NUM_PER_TYPE - m_sCapacity) {
+		sNewCap = defMAX_KBITEM_NUM_PER_TYPE;
+	} else {
+		sNewCap = static_cast<short>(m_sCapacity + sAddVal);
+	}
+
+	SetCapacity(sNewCap);
 	return true;
 }
 
@@ -1524,11 +1522,16 @@ CKitbag& CKitbag::operator=(CKitbag& bag)
 	m_bLock = bag.m_bLock;
 	m_bPwdLocked = bag.m_bPwdLocked;
 	m_sCapacity = bag.m_sCapacity;
-	memcpy(m_pSItem, bag.m_pSItem, sizeof(SItemUnit*) * enumKBITEM_TYPE_NUM * defMAX_KBITEM_NUM_PER_TYPE);
-	memcpy(m_sUseNum, bag.m_sUseNum, sizeof(short) * enumKBITEM_TYPE_NUM);
-	memcpy(m_SItem, bag.m_SItem, sizeof(SItemUnit) * enumKBITEM_TYPE_NUM * defMAX_KBITEM_NUM_PER_TYPE);
-	memcpy(m_sChangeNum, bag.m_sChangeNum, sizeof(short) * enumKBITEM_TYPE_NUM);
-	memcpy(m_bChangeFlag, bag.m_bChangeFlag, sizeof(bool) * enumKBITEM_TYPE_NUM * defMAX_KBITEM_NUM_PER_TYPE);
+
+	for (short i = 0; i < enumKBITEM_TYPE_NUM; i++)
+	{
+		m_sUseNum[i] = bag.m_sUseNum[i];
+		m_sChangeNum[i] = bag.m_sChangeNum[i];
+		m_SItem[i] = bag.m_SItem[i];
+		m_bChangeFlag[i] = bag.m_bChangeFlag[i];
+		m_pSItem[i].resize(static_cast<std::size_t>(m_sCapacity));
+		RebuildPointers(i);
+	}
 
 	return *this;
 }
@@ -1540,26 +1543,103 @@ void CKitbag::Reset(void)
 	for (short i = 0; i < enumKBITEM_TYPE_NUM; i++)
 	{
 		m_sUseNum[i] = 0;
-		for (short j = 0; j < defMAX_KBITEM_NUM_PER_TYPE; j++)
+		for (short j = 0; j < m_sCapacity; j++)
 		{
-			m_pSItem[i][j] = m_SItem[i] + j;
-			m_SItem[i][j].sPosID = j;
-			m_SItem[i][j].sReverseID = j;
-			m_SItem[i][j].SContent.sID = 0;
+			m_SItem[i][static_cast<std::size_t>(j)].sPosID = j;
+			m_SItem[i][static_cast<std::size_t>(j)].sReverseID = j;
+			m_SItem[i][static_cast<std::size_t>(j)].SContent.sID = 0;
+			m_pSItem[i][static_cast<std::size_t>(j)] = &m_SItem[i][static_cast<std::size_t>(j)];
 			Enable(j, i);
 		}
 	}
 	SetChangeFlag(false, -1);
 }
 
+void CKitbag::RebuildPointers(short sType)
+{
+	for (short j = 0; j < m_sCapacity; j++)
+	{
+		short rev = m_SItem[sType][static_cast<std::size_t>(j)].sReverseID;
+		if (rev < 0 || rev >= m_sCapacity)
+		{
+			rev = j;
+			m_SItem[sType][static_cast<std::size_t>(j)].sReverseID = j;
+		}
+		m_pSItem[sType][static_cast<std::size_t>(rev)] = &m_SItem[sType][static_cast<std::size_t>(j)];
+	}
+}
+
+void CKitbag::ResizeStorage(short sCapacity)
+{
+	for (short i = 0; i < enumKBITEM_TYPE_NUM; i++)
+	{
+		const short oldSize = static_cast<short>(m_SItem[i].size());
+		m_SItem[i].resize(static_cast<std::size_t>(sCapacity));
+		m_pSItem[i].resize(static_cast<std::size_t>(sCapacity));
+		m_bChangeFlag[i].resize(static_cast<std::size_t>(sCapacity), 0);
+
+		for (short j = oldSize; j < sCapacity; j++)
+		{
+			m_SItem[i][static_cast<std::size_t>(j)].byState = 0;
+			m_SItem[i][static_cast<std::size_t>(j)].sPosID = j;
+			m_SItem[i][static_cast<std::size_t>(j)].sReverseID = j;
+			m_SItem[i][static_cast<std::size_t>(j)].SContent.sID = 0;
+			m_bChangeFlag[i][static_cast<std::size_t>(j)] = 0;
+		}
+
+		if (sCapacity < oldSize)
+		{
+			// Усечение: пересобрать порядок занятых слотов
+			m_sUseNum[i] = 0;
+			for (short j = 0; j < sCapacity; j++)
+			{
+				m_SItem[i][static_cast<std::size_t>(j)].sPosID = j;
+			}
+			for (short j = 0; j < sCapacity; j++)
+			{
+				if (m_SItem[i][static_cast<std::size_t>(j)].SContent.sID > 0)
+				{
+					const short useIdx = m_sUseNum[i];
+					m_SItem[i][static_cast<std::size_t>(j)].sReverseID = useIdx;
+					m_pSItem[i][static_cast<std::size_t>(useIdx)] = &m_SItem[i][static_cast<std::size_t>(j)];
+					m_sUseNum[i]++;
+				}
+			}
+			short freeIdx = m_sUseNum[i];
+			for (short j = 0; j < sCapacity; j++)
+			{
+				if (m_SItem[i][static_cast<std::size_t>(j)].SContent.sID <= 0)
+				{
+					m_SItem[i][static_cast<std::size_t>(j)].sReverseID = freeIdx;
+					m_pSItem[i][static_cast<std::size_t>(freeIdx)] = &m_SItem[i][static_cast<std::size_t>(j)];
+					freeIdx++;
+				}
+			}
+		}
+		else
+		{
+			RebuildPointers(i);
+		}
+	}
+}
+
 void CKitbag::SetCapacity(short sCapacity)
 {
-	if (sCapacity < 0)
+	if (sCapacity < 0) {
 		sCapacity = 0;
-	if (sCapacity > defMAX_KBITEM_NUM_PER_TYPE)
+	}
+	if (sCapacity > defMAX_KBITEM_NUM_PER_TYPE) {
 		sCapacity = defMAX_KBITEM_NUM_PER_TYPE;
+	}
+
+	if (sCapacity == m_sCapacity
+		&& static_cast<short>(m_SItem[0].size()) == sCapacity)
+	{
+		return;
+	}
 
 	m_sCapacity = sCapacity;
+	ResizeStorage(sCapacity);
 }
 
 short CKitbag::GetCapacity()
@@ -1590,7 +1670,8 @@ bool CKitbag::CheckValid(void)
 
 CKitbag::CKitbag()
 {
-	Init(24); m_bPwdLocked = 0;
+	Init(0);
+	m_bPwdLocked = 0;
 }
 
 void CKitbag::Init(short sCapacity)
@@ -1602,12 +1683,12 @@ void CKitbag::Init(short sCapacity)
 	for (short i = 0; i < enumKBITEM_TYPE_NUM; i++)
 	{
 		m_sUseNum[i] = 0;
-		for (short j = 0; j < defMAX_KBITEM_NUM_PER_TYPE; j++)
+		for (short j = 0; j < m_sCapacity; j++)
 		{
-			m_pSItem[i][j] = m_SItem[i] + j;
-			m_SItem[i][j].sPosID = j;
-			m_SItem[i][j].sReverseID = j;
-			m_SItem[i][j].SContent.sID = 0;
+			m_SItem[i][static_cast<std::size_t>(j)].sPosID = j;
+			m_SItem[i][static_cast<std::size_t>(j)].sReverseID = j;
+			m_SItem[i][static_cast<std::size_t>(j)].SContent.sID = 0;
+			m_pSItem[i][static_cast<std::size_t>(j)] = &m_SItem[i][static_cast<std::size_t>(j)];
 			Enable(j, i);
 		}
 	}

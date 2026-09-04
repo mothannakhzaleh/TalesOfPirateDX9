@@ -102,7 +102,8 @@ void CCharacter::Initially()
 	m_sChaseRange = 0;
 	m_btPatrolState = 0;
 	m_sPoseState = enumPoseStand;
-	m_CKitbag.Init(defDEF_KBITEM_NUM_PER_TYPE);
+	// Mob: capacity 0 (no slot alloc); player/boat set capacity via DB / NewChaInit / SetCapacity
+	m_CKitbag.Init(0);
 	memset(&m_CShortcut, 0, sizeof(m_CShortcut));
 	memset(&m_SChaPart, 0, sizeof(m_SChaPart));
 	for (int i = 0; i < enumACTCONTROL_MAX; i++)
@@ -5358,7 +5359,8 @@ void CCharacter::ResetBirthInfo(void)
 void CCharacter::NewChaInit(void)
 {T_B
 	m_CChaAttr.Init(GetCat());
-	m_CKitbag.Init(m_CKitbag.GetCapacity());
+	// Initially uses Init(0); new player needs default capacity
+	m_CKitbag.Init(defDEF_KBITEM_NUM_PER_TYPE);
 	ChaInitEquip();
 	EnrichSkillBag();
 T_E}
