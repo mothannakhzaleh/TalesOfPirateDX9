@@ -64,7 +64,7 @@ public:
 	}
 
 	long			GetChaNum(void) {return m_lChaNum;}
-	long			GetStateNum(void) {return m_CSkillState.m_uchStateNum;}
+	long			GetStateNum(void) { return m_CSkillState.GetStateNum(); }
 
 	CChaListNode*	AddCharacter(CCharacter *pCCha, bool bIn);
 	void			DelCharacter(CChaListNode *pCEntNode);
