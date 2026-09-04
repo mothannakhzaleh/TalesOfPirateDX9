@@ -2,44 +2,50 @@
 // FileName: SkillBag.h
 // Creater: ZhangXuedong
 // Date: 2005.02.17
-// Comment: Skill Bag
+// Comment: Skill Bag — компактное хранение (deque/map вместо массивов)
 //=============================================================================
 
-#ifndef SKILLBAG_H
-#define SKILLBAG_H
+#pragma once
 
 #include "CompCommand.h"
+
+#include <cstdint>
+#include <cstring>
+#include <deque>
+#include <format>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
 
 #define defMAX_SKILL_NO		500
 #define defMAX_SKILL_LV		20
 
-// ���¼���ʱ,���Ͳο�CompCommand.h - ESynSkillBagType
-// ����ȫ������ʱ,Ĭ�ϼ���Ϊ��һ��,����Ϊ���Ӽ���
-// ����Ĭ�ϼ���ʱ,��ֻ��һ��
+// Тип синхронизации скилл-бэга — см. CompCommand.h, ESynSkillBagType
 
 #define defSKILL_RANGE_PARAM_NUM	4
 
 struct SSkillGrid
 {
-	char	chState;	// ����״̬���μ�CompCommand.h��ESkillUseState
-	char	chLv;		// ���ܵȼ�
-	short	sID;		// ���ܱ��
+	char	chState;	// состояние использования — CompCommand.h, ESkillUseState
+	char	chLv;		// уровень навыка
+	short	sID;		// id навыка
 
-	uint32_t	lColdDownT;	// ���ܿ�ʼ�ָ���ʱ��
+	uint32_t	lColdDownT;	// момент начала восстановления
 
-	short	sReverseID;	// ���ڷ�����
+	short	sReverseID;	// индекс в упорядоченном списке активных навыков
 };
 
-struct SSkillGridEx // ������ͻ���ͬ������
+struct SSkillGridEx // расширенная сетка для клиента / UI
 {
-	char	chState;	// ����״̬���μ�CompCommand.h��ESkillUseState
-	char	chLv;		// ���ܵȼ�
-	short	sID;		// ���ܱ��
-	short	sUseSP;		// SP����ֵ
-	short	sUseEndure;	// ���;öȡ�����ֵ
-	short	sUseEnergy;	// ������������ֵ
-	long	lResumeTime;// ���ͷ���Ҫ��ʱ�䣨���룩
-	short	sRange[defSKILL_RANGE_PARAM_NUM]; // ��������������+������
+	char	chState;	// состояние использования — CompCommand.h, ESkillUseState
+	char	chLv;		// уровень навыка
+	short	sID;		// id навыка
+	short	sUseSP;		// расход SP
+	short	sUseEndure;	// расход выносливости
+	short	sUseEnergy;	// расход энергии
+	long	lResumeTime;// время восстановления
+	short	sRange[defSKILL_RANGE_PARAM_NUM]; // параметры радиуса
 };
 
 class CSkillBag
@@ -47,16 +53,14 @@ class CSkillBag
 public:
 	CSkillBag()
 	{
-		m_sSkillNum = 0;
-		for (short i = 0; i <= defMAX_SKILL_NO; i++)
-		{
-			m_SBag[i].sID = i;
-			m_SBag[i].chLv = 0;
-			m_SBag[i].chState = enumSUSTATE_INACTIVE;
-			m_SBag[i].lColdDownT = 0;
-		}
-		SetChangeFlag(false);
+		Init();
 	}
+
+	CSkillBag(const CSkillBag&) = delete;
+	CSkillBag& operator=(const CSkillBag&) = delete;
+	CSkillBag(CSkillBag&&) = delete;
+	CSkillBag& operator=(CSkillBag&&) = delete;
+
 	void		Init(void);
 	bool		Add(SSkillGrid *pGridCont);
 	bool		Del(short sSkillID);
@@ -71,180 +75,192 @@ public:
 	short		GetChangeSkillNum();
 	SSkillGrid*	GetChangeSkill(short sChangeID);
 
-	SSkillGrid	*m_pSBag[defMAX_SKILL_NO + 1];
-	short		m_sSkillNum;
-
-protected:
-
 private:
-	SSkillGrid	m_SBag[defMAX_SKILL_NO + 1];
+	void		MarkChanged(SSkillGrid* pGrid);
 
-	short		m_sChangeNum;
-	short		m_sChangeSkill[defMAX_SKILL_NO + 1];
-	char		m_szSkillIsChanged[defMAX_SKILL_NO + 1];
+	// Владение гридами; указатели стабильны при push_back (не erase из середины)
+	std::deque<SSkillGrid> _skills;
+	// O(1) lookup по skill id (включая tombstone с chLv==0 после Del)
+	std::unordered_map<short, SSkillGrid*> _byId;
+	// Порядок для GetSkillContByNum / sync / DB-строки
+	std::vector<SSkillGrid*> _ordered;
+	// Change-tracking для SynSkillBag
+	std::vector<SSkillGrid*> _changed;
+	std::unordered_set<short> _changedIds;
 };
+
+inline void CSkillBag::MarkChanged(SSkillGrid* pGrid)
+{
+	if (!pGrid) {
+		return;
+	}
+	if (_changedIds.insert(pGrid->sID).second) {
+		_changed.push_back(pGrid);
+	}
+}
 
 inline void CSkillBag::Init(void)
 {
-	m_sSkillNum = 0;
-	for (short i = 0; i <= defMAX_SKILL_NO; i++)
-	{
-		m_SBag[i].sID = i;
-		m_SBag[i].chLv = 0;
-		m_SBag[i].lColdDownT = 0;
-		m_SBag[i].chState = enumSUSTATE_INACTIVE;
-	}
+	_skills.clear();
+	_byId.clear();
+	_ordered.clear();
 	SetChangeFlag(false);
 }
 
 inline void CSkillBag::SetChangeFlag(bool bChange)
 {
-	memset(m_szSkillIsChanged, 0, sizeof(char) * (defMAX_SKILL_NO + 1));
-	if (bChange)
-	{
-		m_sChangeNum = m_sSkillNum;
-
-		for (short i = 0; i < m_sChangeNum; i++)
-		{
-			m_sChangeSkill[i] = i;
-			m_szSkillIsChanged[m_pSBag[i]->sID] = 1;
+	_changed.clear();
+	_changedIds.clear();
+	if (bChange) {
+		for (SSkillGrid* pGrid : _ordered) {
+			MarkChanged(pGrid);
 		}
 	}
-	else
-		m_sChangeNum = 0;
 }
 
 inline bool CSkillBag::Add(SSkillGrid *pGridCont)
 {
-	if (pGridCont->sID < 0 || pGridCont->sID > defMAX_SKILL_NO)
+	if (!pGridCont) {
 		return false;
-
-	if (pGridCont->chLv == 0)
+	}
+	if (pGridCont->sID < 0 || pGridCont->sID > defMAX_SKILL_NO) {
 		return false;
+	}
 
-	if ((unsigned char)pGridCont->chLv > defMAX_SKILL_LV)
+	if (pGridCont->chLv == 0) {
+		return false;
+	}
+
+	if (static_cast<std::uint8_t>(pGridCont->chLv) > defMAX_SKILL_LV) {
 		pGridCont->chLv = defMAX_SKILL_LV;
-
-	if (m_SBag[pGridCont->sID].chLv == 0)
-	{
-		m_pSBag[m_sSkillNum] = m_SBag + pGridCont->sID;
-		m_SBag[pGridCont->sID].sReverseID = m_sSkillNum;
-		m_sSkillNum++;
 	}
 
-	if (m_SBag[pGridCont->sID].chState != pGridCont->chState || m_SBag[pGridCont->sID].chLv != pGridCont->chLv)
-	{
-		if (m_szSkillIsChanged[pGridCont->sID] == 0)
-		{
-			m_szSkillIsChanged[pGridCont->sID] = 1;
-			m_sChangeSkill[m_sChangeNum] = m_SBag[pGridCont->sID].sReverseID;
-			m_sChangeNum++;
-		}
+	SSkillGrid* pExisting = nullptr;
+	const auto it = _byId.find(pGridCont->sID);
+	if (it != _byId.end()) {
+		pExisting = it->second;
 	}
 
-	m_SBag[pGridCont->sID].chState = pGridCont->chState;
-	m_SBag[pGridCont->sID].chLv = pGridCont->chLv;
-	m_SBag[pGridCont->sID].lColdDownT = 0;
+	if (!pExisting) {
+		SSkillGrid grid{};
+		grid.sID = pGridCont->sID;
+		grid.chLv = 0;
+		grid.chState = enumSUSTATE_INACTIVE;
+		grid.lColdDownT = 0;
+		grid.sReverseID = 0;
+		_skills.push_back(grid);
+		pExisting = &_skills.back();
+		_byId[pGridCont->sID] = pExisting;
+	}
+
+	if (pExisting->chLv == 0) {
+		pExisting->sReverseID = static_cast<short>(_ordered.size());
+		_ordered.push_back(pExisting);
+	}
+
+	if (pExisting->chState != pGridCont->chState || pExisting->chLv != pGridCont->chLv) {
+		MarkChanged(pExisting);
+	}
+
+	pExisting->chState = pGridCont->chState;
+	pExisting->chLv = pGridCont->chLv;
+	pExisting->lColdDownT = 0;
 
 	return true;
 }
 
 inline bool CSkillBag::Del(short sSkillID)
 {
-	if (sSkillID < 0 || sSkillID > defMAX_SKILL_NO)
+	if (sSkillID < 0 || sSkillID > defMAX_SKILL_NO) {
 		return false;
-
-	if (m_SBag[sSkillID].chLv != 0)
-	{
-		m_sSkillNum--;
-		m_SBag[sSkillID].chLv = 0;
-		m_pSBag[m_SBag[sSkillID].sReverseID] = m_pSBag[m_sSkillNum];
-		m_pSBag[m_sSkillNum]->sReverseID = m_SBag[sSkillID].sReverseID;
-		m_pSBag[m_sSkillNum] = &m_SBag[sSkillID];
-		m_SBag[sSkillID].sReverseID = m_sSkillNum;
-
-		if (m_szSkillIsChanged[sSkillID] == 0)
-		{
-			m_szSkillIsChanged[sSkillID] = 1;
-			m_sChangeSkill[m_sChangeNum] = m_sSkillNum;
-			m_sChangeNum++;
-		}
 	}
+
+	const auto it = _byId.find(sSkillID);
+	if (it == _byId.end() || it->second->chLv == 0) {
+		return true;
+	}
+
+	SSkillGrid* pGrid = it->second;
+	const short revId = pGrid->sReverseID;
+	const short last = static_cast<short>(_ordered.size() - 1);
+
+	if (revId >= 0 && revId <= last) {
+		if (revId != last) {
+			_ordered[static_cast<std::size_t>(revId)] = _ordered[static_cast<std::size_t>(last)];
+			_ordered[static_cast<std::size_t>(revId)]->sReverseID = revId;
+		}
+		_ordered.pop_back();
+	}
+
+	pGrid->chLv = 0;
+	pGrid->sReverseID = static_cast<short>(_ordered.size());
+	MarkChanged(pGrid);
 
 	return true;
 }
 
 inline SSkillGrid* CSkillBag::GetSkillContByID(short sSkillID)
 {
-	if (sSkillID < 0 || sSkillID > defMAX_SKILL_NO)
-		return 0;
+	if (sSkillID < 0 || sSkillID > defMAX_SKILL_NO) {
+		return nullptr;
+	}
 
-	if (m_SBag[sSkillID].chLv == 0)
-		return 0;
-	else
-		return m_SBag + sSkillID;
+	const auto it = _byId.find(sSkillID);
+	if (it == _byId.end() || it->second->chLv == 0) {
+		return nullptr;
+	}
+	return it->second;
 }
 
 inline SSkillGrid* CSkillBag::GetSkillContByNum(short sNum)
 {
-	if (sNum < 0 || sNum >= m_sSkillNum)
+	if (sNum < 0 || sNum >= static_cast<short>(_ordered.size())) {
 		return nullptr;
+	}
 
-	if (m_pSBag[sNum]->chLv == 0)
+	SSkillGrid* pGrid = _ordered[static_cast<std::size_t>(sNum)];
+	if (!pGrid || pGrid->chLv == 0) {
 		return nullptr;
-	else
-		return m_pSBag[sNum];
+	}
+	return pGrid;
 }
 
 inline short CSkillBag::GetSkillNum()
 {
-	return m_sSkillNum;
+	return static_cast<short>(_ordered.size());
 }
 
 inline bool CSkillBag::HasSkill(short sSkillID)
 {
-	if (sSkillID < 0 || sSkillID > defMAX_SKILL_NO)
-		return false;
-
-	if (m_SBag[sSkillID].chLv > 0)
-		return true;
-
-	return false;
+	return GetSkillContByID(sSkillID) != nullptr;
 }
 
 inline bool CSkillBag::SetState(short sID, char chState)
 {
-	if (sID < 0) // �������еļ���
-	{
-		for (short i = 0; i < m_sSkillNum; i++)
-		{
-			if (m_pSBag[i]->chState == chState)
+	if (sID < 0) {
+		// Применить состояние ко всем активным навыкам
+		for (SSkillGrid* pGrid : _ordered) {
+			if (!pGrid || pGrid->chState == chState) {
 				continue;
-			m_pSBag[i]->chState = chState;
-			if (m_szSkillIsChanged[m_pSBag[i]->sID] == 0)
-			{
-				m_szSkillIsChanged[m_pSBag[i]->sID] = 1;
-				m_sChangeSkill[i] = i;
-				m_sChangeNum++;
 			}
+			pGrid->chState = chState;
+			MarkChanged(pGrid);
 		}
 	}
-	else
-	{
-		if (sID > defMAX_SKILL_NO)
+	else {
+		if (sID > defMAX_SKILL_NO) {
 			return false;
-		else
-		{
-			if (m_SBag[sID].chState != chState)
-			{
-				m_SBag[sID].chState = chState;
-				if (m_szSkillIsChanged[sID] == 0)
-				{
-					m_szSkillIsChanged[sID] = 1;
-					m_sChangeSkill[m_sChangeNum] = m_SBag[sID].sReverseID;
-					m_sChangeNum++;
-				}
-			}
+		}
+
+		const auto it = _byId.find(sID);
+		if (it == _byId.end() || it->second->chLv == 0) {
+			return true;
+		}
+
+		SSkillGrid* pGrid = it->second;
+		if (pGrid->chState != chState) {
+			pGrid->chState = chState;
+			MarkChanged(pGrid);
 		}
 	}
 
@@ -253,54 +269,60 @@ inline bool CSkillBag::SetState(short sID, char chState)
 
 inline char CSkillBag::GetState(short sID)
 {
-	if (sID < 0 || sID > defMAX_SKILL_NO)
+	SSkillGrid* pGrid = GetSkillContByID(sID);
+	if (!pGrid) {
 		return enumSUSTATE_INACTIVE;
-
-	if (m_SBag[sID].chLv == 0)
-		return enumSUSTATE_INACTIVE;
-
-	return m_SBag[sID].chState;
+	}
+	return pGrid->chState;
 }
 
 inline short CSkillBag::GetChangeSkillNum()
 {
-	return m_sChangeNum;
+	return static_cast<short>(_changed.size());
 }
 
 inline SSkillGrid* CSkillBag::GetChangeSkill(short sChangeID)
 {
-	if (sChangeID < 0 || sChangeID >= m_sChangeNum)
-		return 0;
-
-	if (m_sChangeSkill[sChangeID] < 0 || m_sChangeSkill[sChangeID] > defMAX_SKILL_NO)
-		return 0;
-
-	return m_pSBag[m_sChangeSkill[sChangeID]];
+	if (sChangeID < 0 || sChangeID >= static_cast<short>(_changed.size())) {
+		return nullptr;
+	}
+	return _changed[static_cast<std::size_t>(sChangeID)];
 }
 
 //=============================================================================
 inline char* SkillBagData2String(CSkillBag *pSkillBag, char *szStrBuf, int nLen)
 {
-	if (!pSkillBag || !szStrBuf) return NULL;
+	if (!pSkillBag || !szStrBuf) {
+		return nullptr;
+	}
 
-	char	szData[512];
-	int		nBufLen = 0, nDataLen;
 	szStrBuf[0] = '\0';
+	int nBufLen = 0;
 
-	SSkillGrid *pGridCont;
-	sprintf(szData, "%d;", pSkillBag->m_sSkillNum);
-	nDataLen = (int)strlen(szData);
-	if (nBufLen + nDataLen >= nLen) return NULL;
-	strcat(szStrBuf, szData);
-	nBufLen += nDataLen;
-	for (int j = 0; j < pSkillBag->m_sSkillNum; j++)
-	{
-		pGridCont = pSkillBag->m_pSBag[j];
-		sprintf(szData, "%d,%d;", pGridCont->sID, pGridCont->chLv);
-		nDataLen = (int)strlen(szData);
-		if (nBufLen + nDataLen >= nLen) return NULL;
-		strcat(szStrBuf, szData);
-		nBufLen += nDataLen;
+	const auto append = [&](const std::string& chunk) -> bool {
+		if (nBufLen + static_cast<int>(chunk.size()) >= nLen) {
+			return false;
+		}
+		std::memcpy(szStrBuf + nBufLen, chunk.data(), chunk.size());
+		nBufLen += static_cast<int>(chunk.size());
+		szStrBuf[nBufLen] = '\0';
+		return true;
+	};
+
+	const short sSkillNum = pSkillBag->GetSkillNum();
+	if (!append(std::format("{};", sSkillNum))) {
+		return nullptr;
+	}
+
+	for (short j = 0; j < sSkillNum; j++) {
+		SSkillGrid* pGridCont = pSkillBag->GetSkillContByNum(j);
+		if (!pGridCont) {
+			return nullptr;
+		}
+		// Формат DB: "id,lv;"
+		if (!append(std::format("{},{};", pGridCont->sID, static_cast<int>(pGridCont->chLv)))) {
+			return nullptr;
+		}
 	}
 
 	return szStrBuf;
@@ -308,8 +330,9 @@ inline char* SkillBagData2String(CSkillBag *pSkillBag, char *szStrBuf, int nLen)
 
 inline bool String2SkillBagData(CSkillBag *pSkillBag, std::string &strData)
 {
-	if (!pSkillBag)
+	if (!pSkillBag) {
 		return false;
+	}
 
 	pSkillBag->Init();
 
@@ -319,11 +342,10 @@ inline bool String2SkillBagData(CSkillBag *pSkillBag, std::string &strData)
 	Util_ResolveTextLine(strData.c_str(), strList, defMAX_SKILL_NO + 1, ';');
 	const auto sSkillNum = Str2Int(strList[nCount++]);
 	SSkillGrid SGridCont;
-	for (int j = 0; j < sSkillNum; j++)
-	{
+	for (int j = 0; j < sSkillNum; j++) {
 		Util_ResolveTextLine(strList[nCount++].c_str(), strSubList, 3, ',');
 		SGridCont.sID = Str2Int(strSubList[0]);
-		SGridCont.chLv = Str2Int(strSubList[1]);
+		SGridCont.chLv = static_cast<char>(Str2Int(strSubList[1]));
 
 		SGridCont.chState = enumSUSTATE_INACTIVE;
 		pSkillBag->Add(&SGridCont);
@@ -331,5 +353,3 @@ inline bool String2SkillBagData(CSkillBag *pSkillBag, std::string &strData)
 
 	return true;
 }
-
-#endif // SKILLBAG_H

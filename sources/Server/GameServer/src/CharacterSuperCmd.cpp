@@ -1159,52 +1159,52 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 		}
 		myfile << "EQUIPMENTS: \n";
 		for (int i = 0; i < 34; i++) {
-			if (player->m_SChaPart.SLink[i].sID) {
-				sprintf(buf3, "Item ID: %d; SLink (position) ID: %d\n;", player->m_SChaPart.SLink[i].sID, i);
+			if (player->Look().SLink[i].sID) {
+				sprintf(buf3, "Item ID: %d; SLink (position) ID: %d\n;", player->Look().SLink[i].sID, i);
 				myfile << buf3;
-				sprintf(buf4, "STR (raw): %d. STR (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(26), player->m_SChaPart.SLink[i].GetInstAttr(1));
+				sprintf(buf4, "STR (raw): %d. STR (%%): %2.2f\n", player->Look().SLink[i].GetInstAttr(26), player->Look().SLink[i].GetInstAttr(1));
 				myfile << buf4;
-				sprintf(buf4, "AGI (raw): %d. AGI (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(27), player->m_SChaPart.SLink[i].GetInstAttr(2));
+				sprintf(buf4, "AGI (raw): %d. AGI (%%): %2.2f\n", player->Look().SLink[i].GetInstAttr(27), player->Look().SLink[i].GetInstAttr(2));
 				myfile << buf4;
-				sprintf(buf4, "DEX (raw): %d. DEX (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(28), player->m_SChaPart.SLink[i].GetInstAttr(3));
+				sprintf(buf4, "DEX (raw): %d. DEX (%%): %2.2f\n", player->Look().SLink[i].GetInstAttr(28), player->Look().SLink[i].GetInstAttr(3));
 				myfile << buf4;
-				sprintf(buf4, "CON (raw): %d. CON (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(29), player->m_SChaPart.SLink[i].GetInstAttr(4));
+				sprintf(buf4, "CON (raw): %d. CON (%%): %2.2f\n", player->Look().SLink[i].GetInstAttr(29), player->Look().SLink[i].GetInstAttr(4));
 				myfile << buf4;
-				sprintf(buf4, "STA (raw): %d. STA (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(30), player->m_SChaPart.SLink[i].GetInstAttr(5));
+				sprintf(buf4, "STA (raw): %d. STA (%%): %2.2f\n", player->Look().SLink[i].GetInstAttr(30), player->Look().SLink[i].GetInstAttr(5));
 				myfile << buf4;
-				sprintf(buf4, "LUCK (raw): %d. LUCK (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(31), player->m_SChaPart.SLink[i].GetInstAttr(6));
+				sprintf(buf4, "LUCK (raw): %d. LUCK (%%): %2.2f\n", player->Look().SLink[i].GetInstAttr(31), player->Look().SLink[i].GetInstAttr(6));
 				myfile << buf4;
-				sprintf(buf4, "ASPD (raw): %d. ASPD(%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(32), player->m_SChaPart.SLink[i].GetInstAttr(7));
+				sprintf(buf4, "ASPD (raw): %d. ASPD(%%): %2.2f\n", player->Look().SLink[i].GetInstAttr(32), player->Look().SLink[i].GetInstAttr(7));
 				myfile << buf4;
-				sprintf(buf4, "ADIS (raw): %d. ADIS (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(33), player->m_SChaPart.SLink[i].GetInstAttr(8));
+				sprintf(buf4, "ADIS (raw): %d. ADIS (%%): %2.2f\n", player->Look().SLink[i].GetInstAttr(33), player->Look().SLink[i].GetInstAttr(8));
 				myfile << buf4;
-				sprintf(buf4, "MNATK (raw): %d. MNATK (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(34), player->m_SChaPart.SLink[i].GetInstAttr(9));
+				sprintf(buf4, "MNATK (raw): %d. MNATK (%%): %2.2f\n", player->Look().SLink[i].GetInstAttr(34), player->Look().SLink[i].GetInstAttr(9));
 				myfile << buf4;
-				sprintf(buf4, "MXATK (raw): %d. MXATK (%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(35), player->m_SChaPart.SLink[i].GetInstAttr(10));
+				sprintf(buf4, "MXATK (raw): %d. MXATK (%%): %2.2f\n", player->Look().SLink[i].GetInstAttr(35), player->Look().SLink[i].GetInstAttr(10));
 				myfile << buf4;
-				sprintf(buf4, "DEF (raw): %d. DEF(%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(36), player->m_SChaPart.SLink[i].GetInstAttr(11));
+				sprintf(buf4, "DEF (raw): %d. DEF(%%): %2.2f\n", player->Look().SLink[i].GetInstAttr(36), player->Look().SLink[i].GetInstAttr(11));
 				myfile << buf4;
-				sprintf(buf4, "MXHP (raw): %d. MXHP(%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(37), player->m_SChaPart.SLink[i].GetInstAttr(12));
+				sprintf(buf4, "MXHP (raw): %d. MXHP(%%): %2.2f\n", player->Look().SLink[i].GetInstAttr(37), player->Look().SLink[i].GetInstAttr(12));
 				myfile << buf4;
-				sprintf(buf4, "MXSP (raw): %d. MXSP(%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(38), player->m_SChaPart.SLink[i].GetInstAttr(13));
+				sprintf(buf4, "MXSP (raw): %d. MXSP(%%): %2.2f\n", player->Look().SLink[i].GetInstAttr(38), player->Look().SLink[i].GetInstAttr(13));
 				myfile << buf4;
-				sprintf(buf4, "FLEE (raw): %d. FLEE(%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(39), player->m_SChaPart.SLink[i].GetInstAttr(14));
+				sprintf(buf4, "FLEE (raw): %d. FLEE(%%): %2.2f\n", player->Look().SLink[i].GetInstAttr(39), player->Look().SLink[i].GetInstAttr(14));
 				myfile << buf4;
-				sprintf(buf4, "HIT (raw): %d. HIT(%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(40), player->m_SChaPart.SLink[i].GetInstAttr(15));
+				sprintf(buf4, "HIT (raw): %d. HIT(%%): %2.2f\n", player->Look().SLink[i].GetInstAttr(40), player->Look().SLink[i].GetInstAttr(15));
 				myfile << buf4;
-				sprintf(buf4, "CRT (raw): %d. CRT(%%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(41), player->m_SChaPart.SLink[i].GetInstAttr(16));
+				sprintf(buf4, "CRT (raw): %d. CRT(%%): %2.2f\n", player->Look().SLink[i].GetInstAttr(41), player->Look().SLink[i].GetInstAttr(16));
 				myfile << buf4;
-				sprintf(buf4, "MF (raw): %d. MF(%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(42), player->m_SChaPart.SLink[i].GetInstAttr(17));
+				sprintf(buf4, "MF (raw): %d. MF(%): %2.2f\n", player->Look().SLink[i].GetInstAttr(42), player->Look().SLink[i].GetInstAttr(17));
 				myfile << buf4;
-				sprintf(buf4, "HREC (raw): %d. HREC(%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(43), player->m_SChaPart.SLink[i].GetInstAttr(18));
+				sprintf(buf4, "HREC (raw): %d. HREC(%): %2.2f\n", player->Look().SLink[i].GetInstAttr(43), player->Look().SLink[i].GetInstAttr(18));
 				myfile << buf4;
-				sprintf(buf4, "SREC (raw): %d. SREC(%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(44), player->m_SChaPart.SLink[i].GetInstAttr(19));
+				sprintf(buf4, "SREC (raw): %d. SREC(%): %2.2f\n", player->Look().SLink[i].GetInstAttr(44), player->Look().SLink[i].GetInstAttr(19));
 				myfile << buf4;
-				sprintf(buf4, "MSPD (raw): %d. MSPD(%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(45), player->m_SChaPart.SLink[i].GetInstAttr(20));
+				sprintf(buf4, "MSPD (raw): %d. MSPD(%): %2.2f\n", player->Look().SLink[i].GetInstAttr(45), player->Look().SLink[i].GetInstAttr(20));
 				myfile << buf4;
-				sprintf(buf4, "COL (raw): %d. COL(%): %2.2f\n", player->m_SChaPart.SLink[i].GetInstAttr(46), player->m_SChaPart.SLink[i].GetInstAttr(21));
+				sprintf(buf4, "COL (raw): %d. COL(%): %2.2f\n", player->Look().SLink[i].GetInstAttr(46), player->Look().SLink[i].GetInstAttr(21));
 				myfile << buf4;
-				sprintf(buf4, "PDEF (raw): %d. PDEF(%): %2.2f\n\n", player->m_SChaPart.SLink[i].GetInstAttr(47), player->m_SChaPart.SLink[i].GetInstAttr(22));
+				sprintf(buf4, "PDEF (raw): %d. PDEF(%): %2.2f\n\n", player->Look().SLink[i].GetInstAttr(47), player->Look().SLink[i].GetInstAttr(22));
 				myfile << buf4;
 			}
 	
@@ -1229,7 +1229,7 @@ BOOL CCharacter::DoGMCommand(const char *pszCmd, const char *pszParam)
 			p = player->m_CKitbag.GetGridContByID(positionID)->SetInstAttr(ATTR_TYPE, ATTR_VALUE);
 		}
 		else if (TYPE == 2) {
-		 p = player->m_SChaPart.SLink[positionID].SetInstAttr(ATTR_TYPE, ATTR_VALUE);
+		 p = player->Look().SLink[positionID].SetInstAttr(ATTR_TYPE, ATTR_VALUE);
 		}
 		else if (TYPE == 3) {
 			p = player->GetPlayer()->GetBank()->GetGridContByID(positionID)->SetInstAttr(ATTR_TYPE, ATTR_VALUE);

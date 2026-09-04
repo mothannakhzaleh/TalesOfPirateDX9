@@ -2353,7 +2353,7 @@ namespace mission
 			{
 				// Modify by lark.li 20080919 begin
 				//if(pCha->GetPlayer()->GetVipType() == 0 || )
-				if(pCha->GetPlayer()->GetVipType() == 0 || pCha->m_SChaPart.sTypeID == 1 || pCha->m_SChaPart.sTypeID == 2  )
+				if(pCha->GetPlayer()->GetVipType() == 0 || pCha->Look().sTypeID == 1 || pCha->Look().sTypeID == 2  )
 				// End
 				{
 					//pCha->SystemNotice("只有白金会员才能买这个商品!");

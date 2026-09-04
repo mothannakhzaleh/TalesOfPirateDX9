@@ -66,7 +66,7 @@ requestType(0)
 {T_B
     m_sPoseState = enumPoseStand;
 
-	memset(&m_SChaPart, 0, sizeof(m_SChaPart));
+	// Look allocated only for player/boat (EnsureLook)
 	memset(&m_STempChaPart, 0, sizeof(m_STempChaPart));
 	for (int i = 0; i < enumACTCONTROL_MAX; i++)
 		SetActControl(i);
@@ -102,9 +102,10 @@ void CCharacter::Initially()
 	m_sChaseRange = 0;
 	m_btPatrolState = 0;
 	m_sPoseState = enumPoseStand;
-	m_CKitbag.Init(defDEF_KBITEM_NUM_PER_TYPE);
+	// Mob: capacity 0 (no slot alloc); player/boat set capacity via DB / NewChaInit / SetCapacity
+	m_CKitbag.Init(0);
 	memset(&m_CShortcut, 0, sizeof(m_CShortcut));
-	memset(&m_SChaPart, 0, sizeof(m_SChaPart));
+	FreeLook();
 	for (int i = 0; i < enumACTCONTROL_MAX; i++)
 		SetActControl(i);
 	m_pHate->ClearHarmRec();
@@ -203,6 +204,8 @@ void CCharacter::Finally()
 			delete m_pCKitbagTmp;
 			m_pCKitbagTmp = 0;
 		}
+
+		FreeLook();
 
 		SetPetNum(0);
 
@@ -323,7 +326,9 @@ T_E}
 
 void CCharacter::WriteCharPartInfo(WPACKET& packet)
 {T_B
-	WRITE_SEQ(packet, (cChar*)&this->m_SChaPart, sizeof(this->m_SChaPart));
+	stNetChangeChaPart emptyLook{};
+	const stNetChangeChaPart* pLook = HasLook() ? LookPtr() : &emptyLook;
+	WRITE_SEQ(packet, (cChar*)pLook, sizeof(stNetChangeChaPart));
 	WRITE_LONG(packet, m_pCChaRecord->lID );
 T_E}
 
@@ -675,17 +680,17 @@ void CCharacter::SetRelive(Char chType, Char chLv, const Char *szInfo)
 
 SItemGrid* CCharacter::GetEquipItem(dbc::Char chPart)
 {
-	if (chPart >= enumEQUIP_NUM || chPart < 0)
+	if (!_pSChaPart || chPart >= enumEQUIP_NUM || chPart < 0)
 	{
 		return nullptr;
 	}
 
-	if (!g_IsRealItemID(m_SChaPart.SLink[chPart].sID))
+	if (!g_IsRealItemID(_pSChaPart->SLink[chPart].sID))
 	{
 		return nullptr;
 	}
 
-	return &m_SChaPart.SLink[chPart];
+	return &_pSChaPart->SLink[chPart];
 }
 
 DWORD CCharacter::GetTeamID()
@@ -720,11 +725,15 @@ SItemGrid* CCharacter::GetItem(Char chPosType, Long lItemID)
 
 	if (chPosType == 1)
 	{
+		if (!HasLook())
+		{
+			return nullptr;
+		}
 		for (Char i = enumEQUIP_HEAD; i < enumEQUIP_NUM; i++)
 		{
-			if (m_SChaPart.SLink[i].sID == (Short)lItemID)
+			if (Look().SLink[i].sID == (Short)lItemID)
 			{
-				pSItemCont = &m_SChaPart.SLink[i];
+				pSItemCont = &Look().SLink[i];
 				break;
 			}
 		}
@@ -765,11 +774,11 @@ SItemGrid* CCharacter::GetItem2(Char chPosType, Long lPosID)
 // 设置装备的有效性，涉及到道具自身的数值加成，已经到距对技能的影响
 bool CCharacter::SetEquipValid(dbc::Char chEquipPos, bool bValid, bool bSyn)
 {
-	if (!GetPlayer() || IsBoat())
+	if (!GetPlayer() || IsBoat() || !HasLook())
 		return false;
 	if (chEquipPos < 0 || chEquipPos >= enumEQUIP_NUM)
 		return false;
-	SItemGrid	*pSEquipIt = &m_SChaPart.SLink[ chEquipPos];
+	SItemGrid	*pSEquipIt = &Look().SLink[chEquipPos];
 	if (!g_IsRealItemID(pSEquipIt->sID))
 		return false;
 
@@ -877,8 +886,14 @@ bool CCharacter::ItemIsAppendLook(SItemGrid* pSItem)
 
 void CCharacter::SetLookChangeFlag(bool bChange)
 {
+	if (!HasLook())
+	{
+		return;
+	}
 	for (Char i = enumEQUIP_HEAD; i < enumEQUIP_NUM; i++)
-		m_SChaPart.SLink[i].SetChange(bChange);
+	{
+		Look().SLink[i].SetChange(bChange);
+	}
 }
 
 void CCharacter::SetEspeItemChangeFlag(bool bChange)
@@ -895,10 +910,18 @@ void CCharacter::SetEspeItemChangeFlag(bool bChange)
 
 Char CCharacter::GetLookChangeNum(void)
 {
+	if (!HasLook())
+	{
+		return 0;
+	}
 	Char	chNum = 0;
 	for (Char i = enumEQUIP_HEAD; i < enumEQUIP_NUM; i++)
-		if (m_SChaPart.SLink[i].IsChange())
+	{
+		if (Look().SLink[i].IsChange())
+		{
 			chNum++;
+		}
+	}
 
 	return chNum;
 }
@@ -1212,13 +1235,20 @@ void CCharacter::CheckBagItemValid(CKitbag* pCBag)
 
 void CCharacter::CheckLookItemValid(void)
 {
+	if (!HasLook())
+	{
+		return;
+	}
 	for (int i = 0; i < enumEQUIP_NUM; i++)
-		CheckItemValid(&m_SChaPart.SLink[ i]);
+	{
+		CheckItemValid(&Look().SLink[i]);
+	}
 }
 
 bool CCharacter::String2LookDate(std::string &strData)
 {
-	if (::Strin2LookData(&m_SChaPart, strData))
+	EnsureLook();
+	if (::Strin2LookData(LookPtr(), strData))
 	{
 		CheckLookItemValid();
 		return true;
@@ -4230,7 +4260,7 @@ bool CCharacter::LearnSkill(Short sSkillID, Char chLv, bool bSetLv, bool bUsePoi
 		return false;
 	}
 
-	ChangeItem(false, &m_SChaPart.SLink[enumEQUIP_LHAND], enumEQUIP_LHAND);
+	ChangeItem(false, &Look().SLink[enumEQUIP_LHAND], enumEQUIP_LHAND);
 	if (bIsNewSkill)
 	{
 		GetPlyCtrlCha()->SkillRefresh();
@@ -4246,7 +4276,7 @@ bool CCharacter::LearnSkill(Short sSkillID, Char chLv, bool bSetLv, bool bUsePoi
 		GetPlyMainCha()->SynSkillBag(enumSYN_SKILLBAG_MODI);
 	}
 
-	ChangeItem(true,&m_SChaPart.SLink[ enumEQUIP_LHAND], enumEQUIP_LHAND);
+	ChangeItem(true, &Look().SLink[enumEQUIP_LHAND], enumEQUIP_LHAND);
 
 	g_CParser.DoString("AttrRecheck", enumSCRIPT_RETURN_NONE, 0, enumSCRIPT_PARAM_LIGHTUSERDATA, 1, this, DOSTRING_PARAM_END);
 	if (GetPlayer())
@@ -5042,14 +5072,14 @@ void CCharacter::ChangeItem(bool bEquip, SItemGrid *pItemCont, Char chLinkID)
 
 	if (chLinkID >= enumEQUIP_HEADAPP && chLinkID <= enumEQUIP_SHIELDAPP){
 		Char linkid = GetEquipSlot(chLinkID);// GetApparelSlot(chLinkID, pItemCont);
-		short eqid = m_SChaPart.SLink[linkid].sID;
+		short eqid = Look().SLink[linkid].sID;
 		if (RequiresApparel(eqid)){
 			if (!bEquip && appCheck[linkid]){
 				//remove stats if app removed.
-				ChangeItem(false, &m_SChaPart.SLink[linkid], linkid);
+				ChangeItem(false, &Look().SLink[linkid], linkid);
 			}else if (bEquip && !appCheck[linkid]){
 				//add stats if app added.
-				ChangeItem(true,&m_SChaPart.SLink[linkid], linkid);
+				ChangeItem(true,&Look().SLink[linkid], linkid);
 			}
 		}
 		return;
@@ -5058,7 +5088,7 @@ void CCharacter::ChangeItem(bool bEquip, SItemGrid *pItemCont, Char chLinkID)
 	if (chLinkID >= enumEQUIP_HEAD && chLinkID < enumEQUIP_HEADAPP){
 		short id = pItemCont->sID;
 		Char appSlot = GetApparelSlot(chLinkID, pItemCont);
-		short eqid = m_SChaPart.SLink[appSlot].sID;
+		short eqid = Look().SLink[appSlot].sID;
 		if (RequiresApparel(id) && eqid == 0){
 			if (!appCheck[chLinkID]){
 				return;
@@ -5146,7 +5176,11 @@ void CCharacter::SkillRefresh()
 	bool		bIsBoat = pCCtrlCha->IsBoat();
 
 	CSkillBag	*pCSkillBag = &pCMainCha->m_CSkillBag;
-	stNetChangeChaPart	*pCLook = &pCMainCha->m_SChaPart;
+	stNetChangeChaPart	*pCLook = pCMainCha->LookPtr();
+	if (!pCLook)
+	{
+		return;
+	}
 
 	pCMainCha->m_sDefSkillNo = 0;
 	SSkillGrid		*pSkillGrid;
@@ -5358,7 +5392,13 @@ void CCharacter::ResetBirthInfo(void)
 void CCharacter::NewChaInit(void)
 {T_B
 	m_CChaAttr.Init(GetCat());
-	m_CKitbag.Init(m_CKitbag.GetCapacity());
+	// Initially uses Init(0); new player needs default capacity
+	m_CKitbag.Init(defDEF_KBITEM_NUM_PER_TYPE);
+	EnsureLook();
+	if (Look().sTypeID == 0)
+	{
+		Look().sTypeID = GetCat();
+	}
 	ChaInitEquip();
 	EnrichSkillBag();
 T_E}

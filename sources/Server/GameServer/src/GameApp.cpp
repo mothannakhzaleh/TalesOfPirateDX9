@@ -987,9 +987,9 @@ CPlayer* CGameApp::CreateGamePlayer(const char szPassword[], uLong ulChaDBId, uL
     AddPlayerIdx(ulChaDBId, l_player);
     g_pGameApp->m_dwPlayerCnt++;
 
-    //LG("enter_map", "cha type = %d\n", pCMainCha->m_SChaPart.sTypeID); 
+    //LG("enter_map", "cha type = %d\n", pCMainCha->Look().sTypeID); 
     //for(int i = 0; i < enumEQUIP_NUM; i++)
-    //LG("enter_map", "olhe [%d] = %d\n", i, pCMainCha->m_SChaPart.SLink[i].sID);
+    //LG("enter_map", "olhe [%d] = %d\n", i, pCMainCha->Look().SLink[i].sID);
 
     return l_player;
 

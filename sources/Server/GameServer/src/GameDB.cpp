@@ -361,7 +361,7 @@ bool CTableCha::ReadAllData(CPlayer *pPlayer, DWORD atorID)
 				LG("Check sum error", "the character (dbid %u��name %s��resid %u)'s change appearance data check sum error.\n", atorID, pCha->GetLogName(), pCha->GetKitbagRecDBID());
 				return false;
 			}
-			pCha->SetCat(pCha->m_SChaPart.sTypeID);
+			pCha->SetCat(pCha->Look().sTypeID);
 			//LG("enter_map", "���ý�ɫ��۳ɹ�.\n");
 		}
 		catch (...)
@@ -578,7 +578,7 @@ bool CTableCha::SaveAllData(CPlayer *pPlayer, char chSaveType)
 	//LG("enter_map", "���ý�ɫ�������ݳɹ�.\n");
 
 	g_look[0] = 0;
-	if(!LookData2String(&pCha->m_SChaPart, g_look, defLOOK_DATA_STRING_LEN, false))
+	if(!pCha->HasLook() || !LookData2String(pCha->LookPtr(), g_look, defLOOK_DATA_STRING_LEN, false))
 	{
 		//LG("enter_map", "��ɫ%s\t�������ݣ���ۣ�ʱ����!\n", pCha->GetLogName());
 		LG("enter_map", "character %s\tsave data (surface) error!\n", pCha->GetLogName());
@@ -3955,7 +3955,7 @@ bool CGameDB::ReadPlayer(CPlayer *pPlayer, DWORD atorID)
 	sprintf(g_equip, RES_STRING(GM_GAMEDB_CPP_00024), enumEQUIP_NUM);
 	for (short i = 0; i < enumEQUIP_NUM; i++)
 	{
-		pGridCont = &pCMainC->m_SChaPart.SLink[i];
+		pGridCont = &pCMainC->Look().SLink[i];
 		if (!pGridCont)
 			continue;
 		pCItem = GetItemRecordInfo(pGridCont->sID);
@@ -4083,7 +4083,7 @@ bool CGameDB::SavePlayer(CPlayer *pPlayer, char chSaveType)
 		sprintf(g_equip, RES_STRING(GM_GAMEDB_CPP_00024), enumEQUIP_NUM);
 		for (short i = 0; i < enumEQUIP_NUM; i++)
 		{
-			pGridCont = &pCMainC->m_SChaPart.SLink[i];
+			pGridCont = &pCMainC->Look().SLink[i];
 			if (!pGridCont)
 				continue;
 			pCItem = GetItemRecordInfo(pGridCont->sID);
