@@ -193,7 +193,13 @@ static void computesizes  (int nums[], int ntotal, int *narray, int *nhash) {
   }
   lua_assert(na <= *narray && *narray <= ntotal);
   *nhash = ntotal - na;
-  *narray = (n == -1) ? 0 : twoto(n);
+  /* MSVC 19.51 x86 /Ox drops this test and compiles twoto(n) as `shl`
+     with count -1 (masked to 31), so an empty array part becomes
+     0x80000000 and resize() reads a null array. Shift only when n >= 0. */
+  if (n < 0)
+    *narray = 0;
+  else
+    *narray = (int)(1u << (unsigned)n);
   lua_assert(na <= *narray && na >= *narray/2);
 }
 
