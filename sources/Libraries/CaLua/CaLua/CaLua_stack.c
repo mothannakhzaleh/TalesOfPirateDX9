@@ -55,7 +55,8 @@ void* PopRegTable(int regStruct)
 		case CLU_INT :
 			{
 				dPointers[i] = CLU_Calloc(sizeof(int));
-				*(int*)dPointers[i] = (int)lua_tonumber(virtualMachine, -1);
+				/* ARGB colors are Lua doubles above INT_MAX; unsigned keeps the low 32 bits. */
+				*(int*)dPointers[i] = (int)(unsigned int)lua_tonumber(virtualMachine, -1);
 			}break;
 		case CLU_FLOAT :
 			{
@@ -174,7 +175,8 @@ void* PopValuesBySig(char* desc)
 		case CLU_INT :
 			{
 				dPointers[nMembers-1] = CLU_Calloc(sizeof(int));
-				*(int*)dPointers[nMembers-1] = (int)lua_tonumber(virtualMachine, -1);
+				/* ARGB colors are Lua doubles above INT_MAX; unsigned keeps the low 32 bits. */
+				*(int*)dPointers[nMembers-1] = (int)(unsigned int)lua_tonumber(virtualMachine, -1);
 			}break;
 		case CLU_FLOAT :
 			{
@@ -407,7 +409,8 @@ void* ConvertLuaStackData(int pos, int cType, int* size)
 			{
 				case LUA_TNUMBER :						//Makes perfect sense
 				{
-					*(int*)ret = (int)lua_tonumber(virtualMachine, pos);
+					/* ARGB colors are Lua doubles above INT_MAX; unsigned keeps the low 32 bits. */
+					*(int*)ret = (int)(unsigned int)lua_tonumber(virtualMachine, pos);
 				}
 				break;
 				case LUA_TBOOLEAN :						//Just a 1 or a zero
