@@ -19,6 +19,7 @@
 #include "Character.h"
 #include "StringLib.h"
 #include "SceneItem.h"
+#include "UIRender.h"
 
 #include <time.h>
 #include <shellapi.h>
@@ -1798,24 +1799,68 @@ namespace GUI
 		m_nChaRotate -= 180;
 	}
 
-	// �����Դ� 3D ��ɫ
+	// Form background is already in the color buffer. The depth buffer still holds the
+	// scene, so the character fails the depth test and only the background remains.
 	void CStoreMgr::RenderChaTryon(int x,int y)
 	{
-		if( !m_pCurrMainCha ) return;
+		if( !m_pCurrMainCha || !ui3dplayer ) return;
+
+		IDirect3DDeviceX* dev = g_Render.GetDevice();
+		const float scaleX = GetRender().DrawConvertX(1.0f);
+		const float scaleY = GetRender().DrawConvertY(1.0f);
+
+		D3DVIEWPORTX viewport;
+		dev->GetViewport(&viewport);
+
+		D3DRECT clearRect;
+		clearRect.x1 = (LONG)((float)ui3dplayer->GetX() * scaleX);
+		clearRect.y1 = (LONG)((float)ui3dplayer->GetY() * scaleY);
+		clearRect.x2 = (LONG)((float)(ui3dplayer->GetX() + ui3dplayer->GetWidth()) * scaleX);
+		clearRect.y2 = (LONG)((float)(ui3dplayer->GetY() + ui3dplayer->GetHeight()) * scaleY);
+		if (clearRect.x1 < (LONG)viewport.X) clearRect.x1 = (LONG)viewport.X;
+		if (clearRect.y1 < (LONG)viewport.Y) clearRect.y1 = (LONG)viewport.Y;
+		if (clearRect.x2 > (LONG)(viewport.X + viewport.Width)) clearRect.x2 = (LONG)(viewport.X + viewport.Width);
+		if (clearRect.y2 > (LONG)(viewport.Y + viewport.Height)) clearRect.y2 = (LONG)(viewport.Y + viewport.Height);
+		clearRect.x1 -= (LONG)viewport.X;
+		clearRect.y1 -= (LONG)viewport.Y;
+		clearRect.x2 -= (LONG)viewport.X;
+		clearRect.y2 -= (LONG)viewport.Y;
+
+		DWORD oldZEnable = 0;
+		DWORD oldZWriteEnable = 0;
+		DWORD oldZFunc = 0;
+		DWORD oldFogEnable = 0;
+		g_Render.GetRenderState(D3DRS_ZENABLE, &oldZEnable);
+		g_Render.GetRenderState(D3DRS_ZWRITEENABLE, &oldZWriteEnable);
+		g_Render.GetRenderState(D3DRS_ZFUNC, &oldZFunc);
+		g_Render.GetRenderState(D3DRS_FOGENABLE, &oldFogEnable);
+
+		if (clearRect.x2 > clearRect.x1 && clearRect.y2 > clearRect.y1)
+			dev->Clear(1, &clearRect, D3DCLEAR_ZBUFFER, 0, 1.0f, 0);
+
+		g_Render.SetRenderStateForced(D3DRS_ZENABLE, D3DZB_TRUE);
+		g_Render.SetRenderStateForced(D3DRS_ZWRITEENABLE, TRUE);
+		g_Render.SetRenderStateForced(D3DRS_ZFUNC, D3DCMP_LESSEQUAL);
+		g_Render.SetRenderStateForced(D3DRS_FOGENABLE, FALSE);
 
 		g_Render.LookAt( D3DXVECTOR3( 11.0f, 36.0f, 10.0f ), D3DXVECTOR3( 8.70f, 12.0f, 8.0f ), MPRender::VIEW_3DUI );
 		y += 100;
 
-		MPMatrix44 matCha = *m_pCurrMainCha->GetMatrix();	// �����ɫ����
+		MPMatrix44 matCha = *m_pCurrMainCha->GetMatrix();
 
 		m_pCurrMainCha->SetScale( D3DXVECTOR3( 0.8f, 0.8f, 0.8f ) );
 		m_pCurrMainCha->SetUIYaw(180 + m_nChaRotate);
 		m_pCurrMainCha->SetUIScaleDis(9.0f * g_Render.GetScrWidth()/SMALL_RES_X );
 		m_pCurrMainCha->RenderForUI(x, y, true);
 
-		m_pCurrMainCha->SetMatrix(& matCha);	// �ָ���ɫ����
+		m_pCurrMainCha->SetMatrix(& matCha);
 
 		g_Render.SetTransformView(&g_Render.GetWorldViewMatrix());
+
+		g_Render.SetRenderStateForced(D3DRS_ZENABLE, oldZEnable);
+		g_Render.SetRenderStateForced(D3DRS_ZWRITEENABLE, oldZWriteEnable);
+		g_Render.SetRenderStateForced(D3DRS_ZFUNC, oldZFunc);
+		g_Render.SetRenderStateForced(D3DRS_FOGENABLE, oldFogEnable);
 	}
 
 
